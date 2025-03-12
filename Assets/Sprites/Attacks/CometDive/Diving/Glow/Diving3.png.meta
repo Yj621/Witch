@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Diving3_0: 3943892161374116023
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Eletricity6_0: -3897624623174437906
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

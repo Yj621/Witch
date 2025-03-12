@@ -197,7 +197,10 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      FireDash12_0: -4076910448408238082
+      FireDash12_1: -8733490543429019841
+      FireDash12_2: -5738767987562707380
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

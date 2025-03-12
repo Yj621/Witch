@@ -172,7 +172,9 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      CastThunderTwins2_0: -8075909462958993290
+      CastThunderTwins2_1: -1423407898282753462
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

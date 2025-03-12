@@ -397,7 +397,18 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Infierno(NoGlow)18_0: 2719493100603564263
+      Infierno(NoGlow)18_1: -3525423700073800635
+      Infierno(NoGlow)18_10: -3983328522000938451
+      Infierno(NoGlow)18_2: 2309835917115822507
+      Infierno(NoGlow)18_3: -882854541463404152
+      Infierno(NoGlow)18_4: 4971423419021865771
+      Infierno(NoGlow)18_5: -5222090340608531122
+      Infierno(NoGlow)18_6: 7287972492867068891
+      Infierno(NoGlow)18_7: -7955267278099096564
+      Infierno(NoGlow)18_8: -7091537453801463879
+      Infierno(NoGlow)18_9: -8536529430193600568
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

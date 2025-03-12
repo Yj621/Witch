@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Infierno(NoGlow)7_0: -8382986455284585089
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

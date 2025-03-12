@@ -697,7 +697,30 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      ThunderStrikeYeallow(NoGlow)11_0: 8301315838093269013
+      ThunderStrikeYeallow(NoGlow)11_1: 7531806515158569569
+      ThunderStrikeYeallow(NoGlow)11_10: -4678636464926405647
+      ThunderStrikeYeallow(NoGlow)11_11: -4833015331398251929
+      ThunderStrikeYeallow(NoGlow)11_12: -4011021374964063641
+      ThunderStrikeYeallow(NoGlow)11_13: -1089733638860997887
+      ThunderStrikeYeallow(NoGlow)11_14: -9000252064557844807
+      ThunderStrikeYeallow(NoGlow)11_15: -5270754386040788180
+      ThunderStrikeYeallow(NoGlow)11_16: -5972403053113995022
+      ThunderStrikeYeallow(NoGlow)11_17: 307516859612345536
+      ThunderStrikeYeallow(NoGlow)11_18: 6222844218136496344
+      ThunderStrikeYeallow(NoGlow)11_19: -4613029503195217660
+      ThunderStrikeYeallow(NoGlow)11_2: 7344223047344128388
+      ThunderStrikeYeallow(NoGlow)11_20: -4963708602416967588
+      ThunderStrikeYeallow(NoGlow)11_21: 3798119229691235065
+      ThunderStrikeYeallow(NoGlow)11_22: 5493734116420181442
+      ThunderStrikeYeallow(NoGlow)11_3: -5290354826804437299
+      ThunderStrikeYeallow(NoGlow)11_4: 277191324863756455
+      ThunderStrikeYeallow(NoGlow)11_5: -6313429717876257189
+      ThunderStrikeYeallow(NoGlow)11_6: -8996590138526233405
+      ThunderStrikeYeallow(NoGlow)11_7: -9125930770713198487
+      ThunderStrikeYeallow(NoGlow)11_8: 7628793738515164655
+      ThunderStrikeYeallow(NoGlow)11_9: 8833511700935250934
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

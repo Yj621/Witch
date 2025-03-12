@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      ThunderTwinsHit2_0: 7798369331623488117
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

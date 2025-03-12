@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      ThunderStrikeYeallow(NoGlowOut)6_0: -8359534272711588599
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

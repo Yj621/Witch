@@ -522,7 +522,23 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      MagicShieldBreak4_0: 7384509258781493958
+      MagicShieldBreak4_1: 6313890837672230626
+      MagicShieldBreak4_10: 586597682333100636
+      MagicShieldBreak4_11: 25022918865381417
+      MagicShieldBreak4_12: -8097637325513886713
+      MagicShieldBreak4_13: 7141145852649925826
+      MagicShieldBreak4_14: -5421194343648620187
+      MagicShieldBreak4_15: 5296462319600098098
+      MagicShieldBreak4_2: 1739826449314399209
+      MagicShieldBreak4_3: 4755129026179758424
+      MagicShieldBreak4_4: 1618507523602788806
+      MagicShieldBreak4_5: -2864131179646465096
+      MagicShieldBreak4_6: -6568275140082565222
+      MagicShieldBreak4_7: 7261849249421237864
+      MagicShieldBreak4_8: 89280447370275846
+      MagicShieldBreak4_9: 5100924466140790466
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

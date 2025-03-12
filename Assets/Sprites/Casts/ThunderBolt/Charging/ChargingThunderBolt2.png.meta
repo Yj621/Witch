@@ -172,7 +172,9 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      ChargingThunderBolt2_0: -3128751086676344647
+      ChargingThunderBolt2_1: -8034048117675035716
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

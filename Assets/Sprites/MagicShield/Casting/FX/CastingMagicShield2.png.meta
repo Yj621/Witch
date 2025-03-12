@@ -172,7 +172,9 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      CastingMagicShield2_0: -388326167307174656
+      CastingMagicShield2_1: -427647997198496074
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

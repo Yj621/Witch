@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      HeavyCastFull28_0: 6208490582043083412
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

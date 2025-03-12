@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      ThunderTwinsDissipate2_0: 2710758292249134159
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

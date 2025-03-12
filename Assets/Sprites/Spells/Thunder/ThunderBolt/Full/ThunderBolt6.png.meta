@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      ThunderBolt6_0: 4711174798828780748
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

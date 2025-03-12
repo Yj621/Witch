@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Voltage(NoGlow)6_0: -1419633995761259376
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

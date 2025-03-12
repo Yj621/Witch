@@ -172,7 +172,9 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      CastMagicShield(NoFX)1_0: 1851523633190245588
+      CastMagicShield(NoFX)1_1: -1769069352038062458
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

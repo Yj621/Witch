@@ -172,7 +172,9 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      CometDive(NoFX)19_0: 8400683725561670180
+      CometDive(NoFX)19_1: -7489853205421262178
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

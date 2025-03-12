@@ -197,7 +197,10 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      FireDashLooped1_0: 6943961391085723608
+      FireDashLooped1_1: 2062325220749183327
+      FireDashLooped1_2: -7417050754947251255
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

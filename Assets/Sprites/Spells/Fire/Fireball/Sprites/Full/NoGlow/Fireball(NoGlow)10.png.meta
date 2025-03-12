@@ -347,7 +347,16 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Fireball(NoGlow)10_0: 454502227632598
+      Fireball(NoGlow)10_1: 478827019816659247
+      Fireball(NoGlow)10_2: 3681634691043230719
+      Fireball(NoGlow)10_3: -8120450486018952812
+      Fireball(NoGlow)10_4: 1166063426859897048
+      Fireball(NoGlow)10_5: -7704223376596107027
+      Fireball(NoGlow)10_6: -7442075298884820364
+      Fireball(NoGlow)10_7: -287809540179655192
+      Fireball(NoGlow)10_8: -9142390214167324013
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

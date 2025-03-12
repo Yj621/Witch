@@ -397,7 +397,18 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      ThunderStrikeYeallow(NoGlow)10_0: 2734625025249449224
+      ThunderStrikeYeallow(NoGlow)10_1: 5584734318788512809
+      ThunderStrikeYeallow(NoGlow)10_10: -4711591421246459935
+      ThunderStrikeYeallow(NoGlow)10_2: -3851207459375366625
+      ThunderStrikeYeallow(NoGlow)10_3: -5110725855215181480
+      ThunderStrikeYeallow(NoGlow)10_4: -9111753319927147402
+      ThunderStrikeYeallow(NoGlow)10_5: -65080343038252248
+      ThunderStrikeYeallow(NoGlow)10_6: 8696672947989677467
+      ThunderStrikeYeallow(NoGlow)10_7: 2295067301354659744
+      ThunderStrikeYeallow(NoGlow)10_8: -1120920684824338892
+      ThunderStrikeYeallow(NoGlow)10_9: -4369992100413372806
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

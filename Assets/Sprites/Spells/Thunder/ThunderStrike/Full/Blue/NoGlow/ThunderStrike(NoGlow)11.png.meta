@@ -697,7 +697,30 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      ThunderStrike(NoGlow)11_0: -4030051465273383684
+      ThunderStrike(NoGlow)11_1: 8713688690960020171
+      ThunderStrike(NoGlow)11_10: 645480050549533979
+      ThunderStrike(NoGlow)11_11: 2055091265518381018
+      ThunderStrike(NoGlow)11_12: 1206227446025194355
+      ThunderStrike(NoGlow)11_13: -6660794788361691373
+      ThunderStrike(NoGlow)11_14: -8920858916366763629
+      ThunderStrike(NoGlow)11_15: 8765836594292281002
+      ThunderStrike(NoGlow)11_16: -3216193269841095629
+      ThunderStrike(NoGlow)11_17: 8923456482394748997
+      ThunderStrike(NoGlow)11_18: -7657155593432306801
+      ThunderStrike(NoGlow)11_19: -8475263173811307140
+      ThunderStrike(NoGlow)11_2: -3217941553391143964
+      ThunderStrike(NoGlow)11_20: 4065550596195125624
+      ThunderStrike(NoGlow)11_21: -3669019140357780934
+      ThunderStrike(NoGlow)11_22: -6357937625552586595
+      ThunderStrike(NoGlow)11_3: 6833992739509984421
+      ThunderStrike(NoGlow)11_4: -3067180108356857235
+      ThunderStrike(NoGlow)11_5: 2202530983668099788
+      ThunderStrike(NoGlow)11_6: -5394332495694402217
+      ThunderStrike(NoGlow)11_7: -2975601656963963229
+      ThunderStrike(NoGlow)11_8: 2244401144705713718
+      ThunderStrike(NoGlow)11_9: 1287615022351740948
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

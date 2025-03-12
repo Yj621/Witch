@@ -222,7 +222,11 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      IcePillarCast(NoGlow)7_0: 8743771998552463153
+      IcePillarCast(NoGlow)7_1: 1134141919613530707
+      IcePillarCast(NoGlow)7_2: -3004991404051469425
+      IcePillarCast(NoGlow)7_3: -6629174011510153029
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

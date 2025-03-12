@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Dashing(HandsShowing)1_0: -1428946075360250638
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

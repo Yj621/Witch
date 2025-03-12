@@ -172,7 +172,9 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Diving(NoGlow)1_0: -8732969693404470526
+      Diving(NoGlow)1_1: -7659609915604385399
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

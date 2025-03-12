@@ -172,7 +172,9 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      IcePillarBreak(NoGlow)7_0: -3284671029162645586
+      IcePillarBreak(NoGlow)7_1: -3300151750912794438
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

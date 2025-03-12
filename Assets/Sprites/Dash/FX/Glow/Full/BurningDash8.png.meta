@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      BurningDash8_0: 742380374136878209
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

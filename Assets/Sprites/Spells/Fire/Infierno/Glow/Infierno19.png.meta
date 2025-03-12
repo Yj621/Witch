@@ -172,7 +172,9 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Infierno19_0: 7637598092606305421
+      Infierno19_1: 3888665184619069471
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

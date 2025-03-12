@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      FireSlashs(Glow)3_0: 5715857925249047326
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

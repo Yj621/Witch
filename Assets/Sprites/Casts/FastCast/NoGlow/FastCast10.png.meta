@@ -222,7 +222,11 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      FastCast10_0: -1076668626474953492
+      FastCast10_1: 842318601683886199
+      FastCast10_2: -6545064828596224626
+      FastCast10_3: 8026862216244758580
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

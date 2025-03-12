@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      MagicShieldHited3_0: -2402037177400963
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

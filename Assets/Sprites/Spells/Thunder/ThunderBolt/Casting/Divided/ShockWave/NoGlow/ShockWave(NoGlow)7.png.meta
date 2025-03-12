@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      ShockWave(NoGlow)7_0: -598323466382730779
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -197,7 +197,10 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      BackHole23_0: 933465002811796109
+      BackHole23_1: -7434904529936301301
+      BackHole23_2: 6517228953582612703
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

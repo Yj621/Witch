@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      IcePillar24_0: -7869041986545370816
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

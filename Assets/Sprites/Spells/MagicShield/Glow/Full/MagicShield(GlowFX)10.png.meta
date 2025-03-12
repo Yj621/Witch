@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      MagicShield(GlowFX)10_0: 2345031635221812535
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

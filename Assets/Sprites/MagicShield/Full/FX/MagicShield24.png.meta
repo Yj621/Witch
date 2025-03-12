@@ -197,7 +197,10 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      MagicShield24_0: 8623555181563538462
+      MagicShield24_1: -3207433078802096185
+      MagicShield24_2: -5535423254609714967
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

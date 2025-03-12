@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Eletricity(NoGlow)2_0: -7027813513156317514
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 09ec13ef3e504ec43b7d4e707bbbfc0a
+guid: deb90b72c7d514f4f969a2df7a35c39d
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -5518231030051904955
-    second: Moving8_0
+      213: 8669291412442963039
+    second: SkillIdle_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -37,7 +37,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 0
+    filterMode: 1
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -96,30 +96,17 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 4
-    buildTarget: Android
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Moving8_0
+      name: SkillIdle_0
       rect:
         serializedVersion: 2
-        x: 8
-        y: 5
-        width: 44
-        height: 56
+        x: 0
+        y: 0
+        width: 700
+        height: 700
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 542e7317d1e4b63b0800000000000000
-      internalID: -5518231030051904955
+      spriteID: f5cd1059b928f4870800000000000000
+      internalID: 8669291412442963039
       vertices: []
       indices: 
       edges: []
@@ -147,8 +134,7 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable:
-      Moving8_0: -5518231030051904955
+    nameFileIdTable: {}
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

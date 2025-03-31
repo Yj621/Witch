@@ -8,6 +8,7 @@ public class StateMachine
     public SpinState spinState;
     public HurtState hurtState;
     public DashState dashState;
+    public SkillFireBallState skillFireBallState;
 
 
 
@@ -20,6 +21,7 @@ public class StateMachine
         dieState = new DieState(player);
         spinState = new SpinState(player);
         dashState = new DashState(player);
+        skillFireBallState = new SkillFireBallState(player);
     }
 
     //따라서 최초 state를 받아 이를 CurrentState에 넣고 Enter

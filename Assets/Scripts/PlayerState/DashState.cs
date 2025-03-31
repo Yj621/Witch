@@ -19,5 +19,8 @@ public class DashState : IState
     {
 
     }
-
+    public string GetTrigger()
+    {
+        return "Dash";
+    }
 }

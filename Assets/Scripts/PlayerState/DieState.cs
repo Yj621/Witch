@@ -20,4 +20,8 @@ public class DieState : IState
 
     }
 
+    public string GetTrigger()
+    {
+        return "Die";
+    }
 }

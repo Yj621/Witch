@@ -19,5 +19,8 @@ public class SkillFireBallState  : IState
     {
 
     }
-
+    public string GetTrigger()
+    {
+        return "FireBall"; // 해당 상태에서 사용할 트리거 값 반환
+    }
 }

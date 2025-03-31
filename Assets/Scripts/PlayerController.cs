@@ -7,6 +7,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private bool isHurt;
     Player player;
     public StateMachine stateMachine { get; private set; }
+    private PlayerSkill playerSkill;
+
     private void Awake()
     {
         stateMachine = new StateMachine(this);
@@ -15,7 +17,7 @@ public class PlayerController : MonoBehaviour
 
     private void Start()
     {
-        Debug.Log($"maxExp : {player.maxExp}");
+        playerSkill = GetComponentInChildren<PlayerSkill>();
     }
 
     private void Update()
@@ -31,6 +33,7 @@ public class PlayerController : MonoBehaviour
         {
             player.Hurt(damage);
             stateMachine.TransitionTo(stateMachine.hurtState);
+            playerSkill.SyncSkillAnimation();
             Debug.Log($"player.hp : {player.hp}");
         }
     }
@@ -49,5 +52,13 @@ public class PlayerController : MonoBehaviour
             player.GetExperience(10);
             Debug.Log("경험치 획득!");
         }
+    }
+
+
+    // 애니메이션이 끝나면 자동으로 Idle 상태로 전환
+    public void GoIdle()
+    {
+        stateMachine.TransitionTo(stateMachine.idleState);
+        playerSkill.SyncSkillAnimation();
     }
 }

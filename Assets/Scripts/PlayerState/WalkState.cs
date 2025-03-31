@@ -20,4 +20,8 @@ public class WalkState : IState
 
     }
 
+    public string GetTrigger()
+    {
+        return "Walk";
+    }
 }

@@ -33,10 +33,6 @@ public class PlayerInput : MonoBehaviour
         // PlayerSkill 가져오기
         playerSkill = GetComponentInChildren<PlayerSkill>();
 
-        if (playerSkill == null)
-        {
-            Debug.LogError("PlayerSkill 스크립트를 찾을 수 없습니다!");
-        }
     }
 
     private void Update()
@@ -83,12 +79,12 @@ public class PlayerInput : MonoBehaviour
         {
             // 이동 입력이 있는 경우 Walk 상태로 전환
             stateMachine.TransitionTo(stateMachine.walkState);
-            playerSkill.PlayAnimation("Idle");
+            playerSkill.SyncSkillAnimation();
         }
         else
         {
             stateMachine.TransitionTo(stateMachine.idleState);
-            playerSkill.PlayAnimation("Idle");
+            playerSkill.SyncSkillAnimation();
         }
 
     }
@@ -100,6 +96,7 @@ public class PlayerInput : MonoBehaviour
         {
             StartCoroutine(Dash());
             stateMachine.TransitionTo(stateMachine.dashState);
+            playerSkill.SyncSkillAnimation();
         }
     }
 
@@ -113,23 +110,28 @@ public class PlayerInput : MonoBehaviour
         isDash = false;
         dashCooldownTimer = dashCoolTime;
         stateMachine.TransitionTo(stateMachine.idleState);
+        playerSkill.SyncSkillAnimation();
     }
-
+   
     public void OnFirstSkill(InputValue value)
     {
-        if (playerSkill != null)
-        {
-            playerSkill.PlayAnimation("FireBall");
-            stateMachine.TransitionTo(stateMachine.skillFireBallState);
-        }
-        else
-        {
-            Debug.LogError("PlayerSkill이 할당되지 않았습니다!");
-        }
+        stateMachine.TransitionTo(stateMachine.skillFireBallState);
+        playerSkill.SyncSkillAnimation();
     }
     public void OnSecondSkill(InputValue value)
     {
 
     }
 
+    // Trigger 파라미터 리턴 함수
+    public string GetCurrentTriggerName()
+    {
+        if (stateMachine.CurrentState is IState stateWithTrigger)
+        {
+            string triggerName = stateWithTrigger.GetTrigger();
+            return triggerName;
+        }
+
+        return string.Empty;
+    }
 }

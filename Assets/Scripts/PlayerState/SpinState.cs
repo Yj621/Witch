@@ -20,4 +20,8 @@ public class SpinState : IState
 
     }
 
+    public string GetTrigger()
+    {
+        return "Spin"; // 해당 상태에서 사용할 트리거 값 반환
+    }
 }

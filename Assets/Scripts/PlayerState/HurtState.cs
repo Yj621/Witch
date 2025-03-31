@@ -20,4 +20,8 @@ public class HurtState : IState
 
     }
 
+    public string GetTrigger()
+    {
+        return "Hurt";
+    }
 }

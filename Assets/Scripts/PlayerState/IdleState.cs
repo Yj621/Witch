@@ -20,4 +20,8 @@ public class IdleState : IState
 
     }
 
+    public string GetTrigger()
+    {
+        return "Idle";
+    }
 }

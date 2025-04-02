@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class SkillFireBallState  : IState
+public class SkillFireBallState : IState
 {
     PlayerController player;
     public SkillFireBallState(PlayerController player)

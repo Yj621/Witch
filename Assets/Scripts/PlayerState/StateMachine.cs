@@ -9,7 +9,9 @@ public class StateMachine
     public HurtState hurtState;
     public DashState dashState;
     public SkillFireBallState skillFireBallState;
-
+    public SkillIcePillarState skillIcePillarState;
+    public SkillThunderState skillThunderState;
+    public SkillBlackHoleState skillBlackHoleState;
 
 
     public StateMachine(PlayerController player)
@@ -22,6 +24,9 @@ public class StateMachine
         spinState = new SpinState(player);
         dashState = new DashState(player);
         skillFireBallState = new SkillFireBallState(player);
+        skillIcePillarState = new SkillIcePillarState(player);
+        skillThunderState = new SkillThunderState(player);
+        skillBlackHoleState = new SkillBlackHoleState(player);
     }
 
     //따라서 최초 state를 받아 이를 CurrentState에 넣고 Enter

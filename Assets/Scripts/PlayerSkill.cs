@@ -21,7 +21,6 @@ public class PlayerSkill : MonoBehaviour
 
         string currentState = playerInput.GetCurrentTriggerName();
 
-        Debug.Log($"currentState : {currentState}");
         // 스킬 애니메이터의 상태도 변경
         skillAnimator.SetTrigger(currentState);
     }

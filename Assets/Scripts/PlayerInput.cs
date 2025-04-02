@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using System.Collections;
+using System;
 public class PlayerInput : MonoBehaviour
 {
     [SerializeField] private float playerSpeed;
@@ -17,6 +18,7 @@ public class PlayerInput : MonoBehaviour
     private Player player;
     private PlayerController playerController;
     private PlayerSkill playerSkill;  
+    private SkillManager skillManager;
 
     private void Awake()
     {
@@ -28,6 +30,7 @@ public class PlayerInput : MonoBehaviour
     void Start()
     {
         playerController = GetComponent<PlayerController>();
+        skillManager = GetComponentInChildren<SkillManager>();
         stateMachine = playerController.stateMachine;
         stateMachine.Initialize(stateMachine.idleState); 
         // PlayerSkill 가져오기
@@ -67,11 +70,11 @@ public class PlayerInput : MonoBehaviour
         // 스프라이트 방향 설정
         if (moveInput.x < 0)
         {
-            GetComponent<SpriteRenderer>().flipX = true;
+            gameObject.transform.localScale = new Vector3(-1.5f, 1.5f, 1.5f);
         }
         else if (moveInput.x > 0)
         {
-            GetComponent<SpriteRenderer>().flipX = false;
+            gameObject.transform.localScale = new Vector3(1.5f, 1.5f, 1.5f);
         }
 
         // 움직임 여부를 체크하고 상태 전환
@@ -113,14 +116,43 @@ public class PlayerInput : MonoBehaviour
         playerSkill.SyncSkillAnimation();
     }
    
+    // Q 스킬
     public void OnFirstSkill(InputValue value)
+    {
+        Action skill = skillManager.GetSkill(KeyCode.Q);
+        skill?.Invoke();
+    }
+
+    //E 스킬
+    public void OnSecondSkill(InputValue value)
+    {
+        Action skill = skillManager.GetSkill(KeyCode.E);
+        skill?.Invoke();
+    }
+
+    // 스킬 실행 함수
+    public void UseFireBall()
     {
         stateMachine.TransitionTo(stateMachine.skillFireBallState);
         playerSkill.SyncSkillAnimation();
     }
-    public void OnSecondSkill(InputValue value)
-    {
 
+    public void UseIcePillar()
+    {
+        stateMachine.TransitionTo(stateMachine.skillIcePillarState);
+        playerSkill.SyncSkillAnimation();
+    }
+
+    public void UseThunder()
+    {
+        stateMachine.TransitionTo(stateMachine.skillThunderState);
+        playerSkill.SyncSkillAnimation();
+    }
+
+    public void UseBlackHole()
+    {
+        stateMachine.TransitionTo(stateMachine.skillBlackHoleState);
+        playerSkill.SyncSkillAnimation();
     }
 
     // Trigger 파라미터 리턴 함수

@@ -1,3 +1,4 @@
+using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
 using static MonsterPool;
@@ -11,8 +12,9 @@ public class EnemyMove : MonoBehaviour
     private float CurrentHp = 20f;
     Animator ani;
     public MonsterType type;
-
     private bool isDie = false;
+    public int Exp = 50;
+    public GameObject ExpCandyPrefab;
 
     public void Init(Transform player, MonsterType type)
     {
@@ -41,5 +43,13 @@ public class EnemyMove : MonoBehaviour
         ani.SetTrigger("Die");
         isDie = true;
         MonsterPool.Instance.Return(type, this.gameObject);
+        StartCoroutine(DropExpCandies());
+    }
+
+    private IEnumerator DropExpCandies()
+    {
+        yield return new WaitForSeconds(0.2f);
+        GameObject candy = Instantiate(ExpCandyPrefab, transform.position, Quaternion.identity);
+        candy.GetComponent<ExpCandy>();
     }
 }

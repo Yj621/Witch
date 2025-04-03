@@ -5,6 +5,7 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance { get; private set; }
 
     public Player player;
+    public SkillObjectPool skillObjectPool;
     void Awake()
     {
         if(Instance != null && Instance != this)

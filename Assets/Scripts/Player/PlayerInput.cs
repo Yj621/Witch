@@ -17,7 +17,7 @@ public class PlayerInput : MonoBehaviour
     private StateMachine stateMachine;
     private Player player;
     private PlayerController playerController;
-    private PlayerSkill playerSkill;  
+    private PlayerSkill playerSkill;
     private SkillManager skillManager;
 
     private void Awake()
@@ -32,7 +32,7 @@ public class PlayerInput : MonoBehaviour
         playerController = GetComponent<PlayerController>();
         skillManager = GetComponentInChildren<SkillManager>();
         stateMachine = playerController.stateMachine;
-        stateMachine.Initialize(stateMachine.idleState); 
+        stateMachine.Initialize(stateMachine.idleState);
         // PlayerSkill 가져오기
         playerSkill = GetComponentInChildren<PlayerSkill>();
 
@@ -115,10 +115,11 @@ public class PlayerInput : MonoBehaviour
         stateMachine.TransitionTo(stateMachine.idleState);
         playerSkill.SyncSkillAnimation();
     }
-   
+
     // Q 스킬
     public void OnFirstSkill(InputValue value)
     {
+        Debug.Log("Q");
         Action skill = skillManager.GetSkill(KeyCode.Q);
         skill?.Invoke();
     }
@@ -130,10 +131,10 @@ public class PlayerInput : MonoBehaviour
         skill?.Invoke();
     }
 
-    // 스킬 실행 함수
-    public void UseFireBall()
+       // 스킬 실행 함수
+    public void UseFireSlahs()
     {
-        stateMachine.TransitionTo(stateMachine.skillFireBallState);
+        stateMachine.TransitionTo(stateMachine.skillFireSlahsState);
         playerSkill.SyncSkillAnimation();
     }
 

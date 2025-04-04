@@ -155,6 +155,12 @@ public class PlayerInput : MonoBehaviour
         playerSkill.SyncSkillAnimation();
     }
 
+    public void UseInfierno()
+    {
+        stateMachine.TransitionTo(stateMachine.skillInfiernoState);
+        playerSkill.SyncSkillAnimation();
+    }
+
     // Trigger 파라미터 리턴 함수
     public string GetCurrentTriggerName()
     {

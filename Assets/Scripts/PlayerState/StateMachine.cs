@@ -12,6 +12,7 @@ public class StateMachine
     public SkillIcePillarState skillIcePillarState;
     public SkillThunderState skillThunderState;
     public SkillBlackHoleState skillBlackHoleState;
+    public SkillInfiernoState skillInfiernoState;
 
 
     public StateMachine(PlayerController player)
@@ -27,6 +28,7 @@ public class StateMachine
         skillIcePillarState = new SkillIcePillarState(player);
         skillThunderState = new SkillThunderState(player);
         skillBlackHoleState = new SkillBlackHoleState(player);
+        skillInfiernoState = new SkillInfiernoState(player);
     }
 
     //따라서 최초 state를 받아 이를 CurrentState에 넣고 Enter

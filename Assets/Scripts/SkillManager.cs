@@ -78,7 +78,8 @@ public class SkillManager : MonoBehaviour
                 return playerInput.UseThunder;
             case "BlackHole":
                 return playerInput.UseBlackHole;
-
+            case "Infierno":
+                return playerInput.UseInfierno;
             default:
                 Debug.LogWarning($"알 수 없는 스킬 : {skillName}");
                 return null;
@@ -125,7 +126,7 @@ public class SkillManager : MonoBehaviour
             case "FireSlashs": return player.skill.fireSlashsDamage;
             case "IcePillar": return player.skill.icePillarDamage;
             case "Thunder": return player.skill.thunderDamage;
-            case "BlackHole": return player.skill.infiernoDamage;
+            case "Infierno": return player.skill.infiernoDamage;
             default:
                 Debug.LogWarning($"알 수 없는 스킬 데미지 요청: {skillName}");
                 return 0f;

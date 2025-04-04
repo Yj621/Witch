@@ -2,7 +2,8 @@ using UnityEngine;
 
 public class DefaultSkill : MonoBehaviour
 {
-    public Vector2 velocity = new Vector2(1, 0);
+    // 실제 velocity는 SkillManager에서 bullet.GetComponent<DefaultSkill>().velocity 로 동적 할당중
+    public Vector2 velocity = new Vector2(5f, 0);
     public float defaultDamage = 2;
     void Start()
     {
@@ -19,10 +20,15 @@ public class DefaultSkill : MonoBehaviour
 
         if (viewportPos.x < -0.1f || viewportPos.x > 1.1f || viewportPos.y < -0.1f || viewportPos.y > 1.1f)
         {
-            gameObject.SetActive(false);
+            DisableGameObj();
         }
     }
 
+    // 스킬이 없어지게(애니메이션이 끝나면, 카메라 밖으로 벗어나면,)
+    public void DisableGameObj()
+    {
+        gameObject.SetActive(false);
+    }
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.gameObject.tag == "Ground")
@@ -33,7 +39,6 @@ public class DefaultSkill : MonoBehaviour
         {
             other.GetComponent<EnemyMove>().EnemyHurt(defaultDamage);
             Debug.Log($"{other.gameObject}에게 {defaultDamage}만큼 데미지 입히기");
-            gameObject.SetActive(false);
         }
     }
 }

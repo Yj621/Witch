@@ -11,6 +11,8 @@ public class SkillManager : MonoBehaviour
     private List<Action> skillList = new List<Action>();
     private PlayerInput playerInput;
     [SerializeField] private float defaultSkillCooldown;
+    [SerializeField] private Transform skillSpawnPoint; 
+
 
     // 등록 가능한 슬롯 리스트 
     private readonly KeyCode[] slotKeys = { KeyCode.Q, KeyCode.E };
@@ -100,19 +102,20 @@ public class SkillManager : MonoBehaviour
     //기본 스킬 
     public void DefaultSkill()
     {
-        Vector2 bulletV = new Vector2(3, 0);
         float direction = Mathf.Sign(transform.parent.localScale.x); // 캐릭터 방향 (왼쪽:-1, 오른쪽:1)
 
+        Vector2 spawnPosition = skillSpawnPoint.position;
+
         // 총알 생성 및 위치 설정
-        GameObject bullet = GameManager.Instance.skillObjectPool.GetObject();
-        Vector2 spawnPosition = transform.position + new Vector3(0.5f * direction, 0, 0);
-        bullet.transform.position = spawnPosition;
+        GameObject skill = GameManager.Instance.skillObjectPool.GetObject();
+        skill.transform.position = spawnPosition;
+        skill.transform.rotation = Quaternion.identity;
 
         // 총알 속도 및 방향 설정
-        bullet.GetComponent<DefaultSkill>().velocity = new Vector2(10f * direction, 0);
-        bullet.transform.localScale = new Vector3(direction * Mathf.Abs(bullet.transform.localScale.x),
-                                          bullet.transform.localScale.y,
-                                          bullet.transform.localScale.z);
+        skill.GetComponent<DefaultSkill>().velocity = new Vector2(4f * direction, 0);
+        skill.transform.localScale = new Vector3(direction * Mathf.Abs(skill.transform.localScale.x),
+                                          skill.transform.localScale.y,
+                                          skill.transform.localScale.z);
     }
 
     public float GetSkillDamage(string skillName)

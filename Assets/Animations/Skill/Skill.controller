@@ -190,7 +190,7 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 1
-    m_ConditionEvent: FireSlahs
+    m_ConditionEvent: FireSlashs
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 7393491308168337230}
@@ -270,7 +270,7 @@ AnimatorController:
     m_DefaultInt: 0
     m_DefaultBool: 0
     m_Controller: {fileID: 9100000}
-  - m_Name: FireSlahs
+  - m_Name: FireSlashs
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
@@ -345,7 +345,7 @@ AnimatorStateMachine:
     m_Position: {x: 40, y: 110, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -5296242681473164644}
-    m_Position: {x: -210, y: 0, z: 0}
+    m_Position: {x: -230, y: -50, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 7484034867318609447}
     m_Position: {x: -200, y: 60, z: 0}
@@ -354,10 +354,10 @@ AnimatorStateMachine:
     m_Position: {x: -170, y: 120, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 3745334147448812984}
-    m_Position: {x: -150, y: -50, z: 0}
+    m_Position: {x: -200, y: -110, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -8672428140783520305}
-    m_Position: {x: -115, y: 15, z: 0}
+    m_Position: {x: -180, y: -200, z: 0}
   m_ChildStateMachines: []
   m_AnyStateTransitions:
   - {fileID: 5945761003696194279}

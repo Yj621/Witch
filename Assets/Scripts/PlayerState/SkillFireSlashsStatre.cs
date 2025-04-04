@@ -9,7 +9,7 @@ public class SkillFireSlashState : IState
     }
     public void Enter()
     {
-        player.GetComponent<Animator>().SetTrigger("FireSlahs");
+        player.GetComponent<Animator>().SetTrigger("FireSlashs");
     }
     public void Exit()
     {
@@ -21,6 +21,6 @@ public class SkillFireSlashState : IState
     }
     public string GetTrigger()
     {
-        return "FireSlahs"; // 해당 상태에서 사용할 트리거 값 반환
+        return "FireSlashs"; // 해당 상태에서 사용할 트리거 값 반환
     }
 }

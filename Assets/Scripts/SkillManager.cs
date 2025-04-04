@@ -70,7 +70,7 @@ public class SkillManager : MonoBehaviour
     {
         switch (skillName)
         {
-            case "FireSlash":
+            case "FireSlashs":
                 return playerInput.UseFireSlash;
             case "IcePillar":
                 return playerInput.UseIcePillar;
@@ -120,10 +120,9 @@ public class SkillManager : MonoBehaviour
 
     public float GetSkillDamage(string skillName)
     {
-        Debug.Log($"player : {player}");
         switch (skillName)
         {
-            case "FireSlahs": return player.skill.fireSlashsDamage;
+            case "FireSlashs": return player.skill.fireSlashsDamage;
             case "IcePillar": return player.skill.icePillarDamage;
             case "Thunder": return player.skill.thunderDamage;
             case "BlackHole": return player.skill.infiernoDamage;

@@ -38,6 +38,24 @@ public class EnemyMove : MonoBehaviour
             spriteRenderer.flipX = true;  // 왼쪽
     }
 
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("Skill"))
+        {
+            //EnemyHurt();
+            if(CurrentHp < 0)
+            {
+                Die();
+            }
+        }
+    }
+
+    void EnemyHurt(float Damage)
+    {
+        ani.SetTrigger("Hurt");
+        CurrentHp -= Damage;
+    }
+
     void Die()
     {
         ani.SetTrigger("Die");

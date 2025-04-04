@@ -8,23 +8,20 @@ public class GameManager : MonoBehaviour
     public SkillObjectPool skillObjectPool;
     void Awake()
     {
-        if(Instance != null && Instance != this)
+        if (Instance != null && Instance != this)
         {
             Destroy(gameObject);
             return;
         }
         Instance = this;
-
-        player = new Player(1, 100, 0);
-
-    }
-    private void Start()
-    {
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
         
+        player = new Player(
+            level: 1,
+            hp: 100,
+            exp: 0,
+            playerSpeed: 5f,
+            dashSpeed: 8f
+        );
+
     }
 }

@@ -3,6 +3,7 @@ using UnityEngine;
 public class DefaultSkill : MonoBehaviour
 {
     public Vector2 velocity = new Vector2(1, 0);
+    public float defaultDamage = 2;
     void Start()
     {
 
@@ -31,7 +32,7 @@ public class DefaultSkill : MonoBehaviour
         else if (other.gameObject.tag == "Enemy")
         {
             gameObject.SetActive(false);
-            //other.GetComponent<EnemyController>().Hit(1);
+            //other.GetComponent<EnemyMove>().Hit(defaultDamage);
         }
     }
 }

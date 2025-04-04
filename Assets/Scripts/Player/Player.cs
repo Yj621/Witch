@@ -3,12 +3,19 @@ using UnityEngine;
 public class Player
 {
     public int level;
+    public int hp;
+    public int exp;
+    public int maxExp;
+
+    public float playerSpeed; 
+    public float dashSpeed;
+    public Skill skill;
     public int Level
     {
         get { return level; }
         set { level = value; }
     }
-    public int hp;
+
     public int Hp
     {
         get { return hp; }
@@ -21,20 +28,22 @@ public class Player
             }
         }
     }
-    public int exp;
     public int Exp
     {
         get { return exp; }
         set { exp = value; }
     }
 
-    public int maxExp;
-    public Player(int level, int hp, int exp)
+    public Player(int level, int hp, int exp, float playerSpeed, float dashSpeed)
     {
+        skill = new Skill();
         Level = level;
         Hp = hp;
         Exp = exp;
         maxExp = NextLevelExp(Level);
+
+        this.playerSpeed = playerSpeed;
+        this.dashSpeed = dashSpeed;
     }
 
     public void Hurt(int damage)

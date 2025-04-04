@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Collections;
+using UnityEditor.Experimental.GraphView;
 
 public class SkillManager : MonoBehaviour
 {
@@ -13,6 +14,12 @@ public class SkillManager : MonoBehaviour
 
     // 등록 가능한 슬롯 리스트 
     private readonly KeyCode[] slotKeys = { KeyCode.Q, KeyCode.E };
+
+    Player player;
+    void Awake()
+    {
+        player = GameManager.Instance.player;
+    }
     void Start()
     {
         playerInput = GetComponentInParent<PlayerInput>();
@@ -65,10 +72,8 @@ public class SkillManager : MonoBehaviour
         {
             case "FireSlahs":
                 return playerInput.UseFireSlahs;
-
             case "IcePillar":
                 return playerInput.UseIcePillar;
-
             case "Thunder":
                 return playerInput.UseThunder;
             case "BlackHole":
@@ -93,7 +98,7 @@ public class SkillManager : MonoBehaviour
             DefaultSkill();
         }
     }
-    
+
     //기본 스킬 
     public void DefaultSkill()
     {
@@ -110,6 +115,31 @@ public class SkillManager : MonoBehaviour
         bullet.transform.localScale = new Vector3(direction * Mathf.Abs(bullet.transform.localScale.x),
                                           bullet.transform.localScale.y,
                                           bullet.transform.localScale.z);
+    }
+
+    public void ApplySkillDamage()
+    {
+        //현재 실행중인 애니메이션 이름
+        string currentSkill = playerInput.GetCurrentTriggerName();
+
+        float damage = GetSkillDamage(currentSkill);
+        if (damage > 0)
+        {
+            //other.GetComponent<EnemyMove>().Hit(damage);
+        }
+    }
+    public float GetSkillDamage(string skillName)
+    {
+        switch (skillName)
+        {
+            case "FireSlahs": return player.skill.fireSlashsDamage;
+            case "IcePillar": return player.skill.icePillarDamage;
+            case "Thunder": return player.skill.thunderDamage;
+            case "BlackHole": return player.skill.infiernoDamage;
+            default:
+                Debug.LogWarning($"알 수 없는 스킬 데미지 요청: {skillName}");
+                return 0f;
+        }
     }
 
 }

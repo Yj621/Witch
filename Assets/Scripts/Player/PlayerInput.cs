@@ -22,12 +22,12 @@ public class PlayerInput : MonoBehaviour
     private void Awake()
     {
         rigid = GetComponent<Rigidbody2D>();
-        player = GameManager.Instance.player;
     }
 
 
     void Start()
     {
+        player = GameManager.Instance.player;
         playerController = GetComponent<PlayerController>();
         skillManager = GetComponentInChildren<SkillManager>();
         stateMachine = playerController.stateMachine;
@@ -131,36 +131,28 @@ public class PlayerInput : MonoBehaviour
     }
 
        // 스킬 실행 함수
-    public void UseFireSlahs()
+    public void UseFireSlash()
     {
-        stateMachine.TransitionTo(stateMachine.skillFireSlahsState);
+        stateMachine.TransitionTo(stateMachine.skillFireSlashState);
         playerSkill.SyncSkillAnimation();
-        SkillDamage();
     }
 
     public void UseIcePillar()
     {
         stateMachine.TransitionTo(stateMachine.skillIcePillarState);
         playerSkill.SyncSkillAnimation();
-        SkillDamage();
     }
 
     public void UseThunder()
     {
         stateMachine.TransitionTo(stateMachine.skillThunderState);
         playerSkill.SyncSkillAnimation();
-        SkillDamage();
     }
 
     public void UseBlackHole()
     {
         stateMachine.TransitionTo(stateMachine.skillBlackHoleState);
         playerSkill.SyncSkillAnimation();
-        SkillDamage();
-    }
-    private void SkillDamage()
-    {
-        skillManager.ApplySkillDamage();
     }
 
     // Trigger 파라미터 리턴 함수

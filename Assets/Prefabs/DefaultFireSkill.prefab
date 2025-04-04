@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 339489906334517705}
   - component: {fileID: 7884280136060379848}
   - component: {fileID: 3518882670561440910}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: DefaultFireSkill
   m_TagString: Skill
   m_Icon: {fileID: 0}
@@ -199,3 +199,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   velocity: {x: 1, y: 0}
+  defaultDamage: 2

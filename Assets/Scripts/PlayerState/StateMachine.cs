@@ -8,7 +8,7 @@ public class StateMachine
     public SpinState spinState;
     public HurtState hurtState;
     public DashState dashState;
-    public SkillFireSlahsState skillFireSlahsState;
+    public SkillFireSlashState skillFireSlashState;
     public SkillIcePillarState skillIcePillarState;
     public SkillThunderState skillThunderState;
     public SkillBlackHoleState skillBlackHoleState;
@@ -23,7 +23,7 @@ public class StateMachine
         dieState = new DieState(player);
         spinState = new SpinState(player);
         dashState = new DashState(player);
-        skillFireSlahsState = new SkillFireSlahsState(player);
+        skillFireSlashState = new SkillFireSlashState(player);
         skillIcePillarState = new SkillIcePillarState(player);
         skillThunderState = new SkillThunderState(player);
         skillBlackHoleState = new SkillBlackHoleState(player);

@@ -31,8 +31,9 @@ public class DefaultSkill : MonoBehaviour
         }
         else if (other.gameObject.tag == "Enemy")
         {
+            other.GetComponent<EnemyMove>().EnemyHurt(defaultDamage);
+            Debug.Log($"{other.gameObject}에게 {defaultDamage}만큼 데미지 입히기");
             gameObject.SetActive(false);
-            //other.GetComponent<EnemyMove>().Hit(defaultDamage);
         }
     }
 }

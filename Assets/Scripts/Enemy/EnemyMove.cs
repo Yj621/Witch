@@ -50,7 +50,7 @@ public class EnemyMove : MonoBehaviour
         }
     }
 
-    void EnemyHurt(float Damage)
+    public void EnemyHurt(float Damage)
     {
         ani.SetTrigger("Hurt");
         CurrentHp -= Damage;

@@ -6,6 +6,8 @@ public class PlayerSkill : MonoBehaviour
     private PlayerInput playerInput;
     private SkillManager skillManager;
 
+    private float currentDamage;
+
     private void Awake()
     {
         skillAnimator = GetComponent<Animator>(); 
@@ -22,6 +24,15 @@ public class PlayerSkill : MonoBehaviour
         if (playerInput == null || skillAnimator == null) return;
 
         string currentState = playerInput.GetCurrentTriggerName();
+        // 애니메이션 상태 중 스킬과 관련 없는 것들은 필터링
+        if (currentState == "Idle" || currentState == "Walk" || currentState == "Dash" || currentState == "Die")
+        {
+            Debug.Log($"스킬이 아닌 상태 ({currentState})에서는 데미지를 계산하지 않음");
+            return; // 스킬 데미지 요청 안 함
+        }
+
+        float damage = skillManager.GetSkillDamage(currentState);
+        Debug.Log($"currentState는 {currentState}, 데미지는 {damage}");
 
         // 스킬 애니메이터의 상태도 변경
         skillAnimator.SetTrigger(currentState);
@@ -36,8 +47,8 @@ public class PlayerSkill : MonoBehaviour
         }
         else if (other.gameObject.tag == "Enemy")
         {
-            gameObject.SetActive(false);
-            //other.GetComponent<EnemyMove>().Hit(damage);
+            Debug.Log($"{other.gameObject}에게 {currentDamage}만큼 데미지 입히기");
+            other.GetComponent<EnemyMove>().EnemyHurt(currentDamage);
         }
     }
 }

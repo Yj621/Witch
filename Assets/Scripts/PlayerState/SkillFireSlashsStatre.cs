@@ -1,9 +1,9 @@
 using UnityEngine;
 
-public class SkillFireSlahsState : IState
+public class SkillFireSlashState : IState
 {
     PlayerController player;
-    public SkillFireSlahsState(PlayerController player)
+    public SkillFireSlashState(PlayerController player)
     {
         this.player = player;
     }

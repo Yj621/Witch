@@ -16,12 +16,10 @@ public class SkillManager : MonoBehaviour
     private readonly KeyCode[] slotKeys = { KeyCode.Q, KeyCode.E };
 
     Player player;
-    void Awake()
-    {
-        player = GameManager.Instance.player;
-    }
+    
     void Start()
     {
+        player = GameManager.Instance.player;
         playerInput = GetComponentInParent<PlayerInput>();
         foreach (var key in slotKeys)
         {
@@ -70,8 +68,8 @@ public class SkillManager : MonoBehaviour
     {
         switch (skillName)
         {
-            case "FireSlahs":
-                return playerInput.UseFireSlahs;
+            case "FireSlash":
+                return playerInput.UseFireSlash;
             case "IcePillar":
                 return playerInput.UseIcePillar;
             case "Thunder":
@@ -117,19 +115,9 @@ public class SkillManager : MonoBehaviour
                                           bullet.transform.localScale.z);
     }
 
-    public void ApplySkillDamage()
-    {
-        //현재 실행중인 애니메이션 이름
-        string currentSkill = playerInput.GetCurrentTriggerName();
-
-        float damage = GetSkillDamage(currentSkill);
-        if (damage > 0)
-        {
-            //other.GetComponent<EnemyMove>().Hit(damage);
-        }
-    }
     public float GetSkillDamage(string skillName)
     {
+        Debug.Log($"player : {player}");
         switch (skillName)
         {
             case "FireSlahs": return player.skill.fireSlashsDamage;

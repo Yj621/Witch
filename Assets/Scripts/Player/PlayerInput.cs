@@ -2,10 +2,9 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using System.Collections;
 using System;
+using static UnityEngine.EventSystems.EventTrigger;
 public class PlayerInput : MonoBehaviour
 {
-    [SerializeField] private float playerSpeed;
-    [SerializeField] private float dashSpeed;
     [SerializeField] private float dashCoolTime;
     [SerializeField] private float dashDuration = 0.5f; //대쉬 지속시간
     private float dashCooldownTimer; //대쉬 쿨타임을 계산하기 위한 변수
@@ -54,7 +53,7 @@ public class PlayerInput : MonoBehaviour
         {
             // 입력 벡터를 정규화(normalized)하여 방향만 유지하고, 대각선 입력 시에도 속도가 일정하게 유지되도록 함
             Vector2 moveVec = moveInput.normalized;
-            rigid.linearVelocity = moveVec * playerSpeed;
+            rigid.linearVelocity = moveVec * player.playerSpeed;
         }
     }
 
@@ -107,7 +106,7 @@ public class PlayerInput : MonoBehaviour
     {
         isDash = true;
         //대쉬 방향 설정
-        Vector2 dashForce = new Vector2(moveInput.x * dashSpeed, 0);
+        Vector2 dashForce = new Vector2(moveInput.x * player.dashSpeed, 0);
         rigid.AddForce(dashForce, ForceMode2D.Impulse);
         yield return new WaitForSeconds(dashDuration);
         isDash = false;
@@ -136,24 +135,32 @@ public class PlayerInput : MonoBehaviour
     {
         stateMachine.TransitionTo(stateMachine.skillFireSlahsState);
         playerSkill.SyncSkillAnimation();
+        SkillDamage();
     }
 
     public void UseIcePillar()
     {
         stateMachine.TransitionTo(stateMachine.skillIcePillarState);
         playerSkill.SyncSkillAnimation();
+        SkillDamage();
     }
 
     public void UseThunder()
     {
         stateMachine.TransitionTo(stateMachine.skillThunderState);
         playerSkill.SyncSkillAnimation();
+        SkillDamage();
     }
 
     public void UseBlackHole()
     {
         stateMachine.TransitionTo(stateMachine.skillBlackHoleState);
         playerSkill.SyncSkillAnimation();
+        SkillDamage();
+    }
+    private void SkillDamage()
+    {
+        skillManager.ApplySkillDamage();
     }
 
     // Trigger 파라미터 리턴 함수

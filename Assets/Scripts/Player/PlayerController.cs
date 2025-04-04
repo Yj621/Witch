@@ -50,6 +50,7 @@ public class PlayerController : MonoBehaviour
         if (other.CompareTag("Exp"))
         {
             player.GetExperience(10);
+            Destroy(other.gameObject);
             Debug.Log("경험치 획득!");
         }
     }

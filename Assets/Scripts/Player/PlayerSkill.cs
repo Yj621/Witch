@@ -25,10 +25,10 @@ public class PlayerSkill : MonoBehaviour
         if (playerInput == null || skillAnimator == null) return;
 
         string currentState = playerInput.GetCurrentTriggerName();
+
         // 애니메이션 상태 중 스킬과 관련 없는 것들은 필터링
         if (currentState == "Idle" || currentState == "Walk" || currentState == "Dash" || currentState == "Die")
         {
-            Debug.Log($"스킬이 아닌 상태 ({currentState})에서는 데미지를 계산하지 않음");
             return; // 스킬 데미지 요청 안 함
         }
 
@@ -39,6 +39,7 @@ public class PlayerSkill : MonoBehaviour
         skillAnimator.SetTrigger(currentState);
     }
 
+    // 스킬 데미지
     private void OnTriggerEnter2D(Collider2D other)
     {
         float damage = skillManager.GetSkillDamage(playerInput.GetCurrentTriggerName());
@@ -48,7 +49,6 @@ public class PlayerSkill : MonoBehaviour
         }
         else if (other.gameObject.tag == "Enemy")
         {
-            Debug.Log($"{other.gameObject}에게 {currentDamage}만큼 데미지 입히기");
             other.GetComponent<EnemyMove>().EnemyHurt(currentDamage);
         }
     }

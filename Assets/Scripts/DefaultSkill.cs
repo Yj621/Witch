@@ -29,6 +29,8 @@ public class DefaultSkill : MonoBehaviour
     {
         gameObject.SetActive(false);
     }
+    
+    // 기본 공격 데미지
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.gameObject.tag == "Ground")

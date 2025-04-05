@@ -119,6 +119,7 @@ public class SkillManager : MonoBehaviour
                                           skill.transform.localScale.z);
     }
 
+    // 스킬 데미지 할당
     public float GetSkillDamage(string skillName)
     {
         switch (skillName)

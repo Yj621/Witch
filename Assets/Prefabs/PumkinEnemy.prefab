@@ -264,7 +264,7 @@ MonoBehaviour:
   MaxHp: 20
   type: 0
   Exp: 50
-  ExpCandyPrefab: {fileID: 0}
+  ExpCandyPrefab: {fileID: 7043946626270088607, guid: 6e1dc3b5b369144cdb9dd968de9dd8aa, type: 3}
 --- !u!50 &5975163616394702969
 Rigidbody2D:
   serializedVersion: 5

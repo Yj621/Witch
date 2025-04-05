@@ -25,6 +25,8 @@ public class MonsterPool : MonoBehaviour
 
     private Dictionary<MonsterType, Queue<GameObject>> pools = new();
 
+    public Transform monsterContainer;
+
     public static MonsterPool Instance;
 
     void Awake()
@@ -36,7 +38,7 @@ public class MonsterPool : MonoBehaviour
             Queue<GameObject> queue = new Queue<GameObject>();
             for (int i = 0; i < entry.initialSize; i++)
             {
-                GameObject obj = Instantiate(entry.prefab);
+                GameObject obj = Instantiate(entry.prefab, monsterContainer);
                 obj.SetActive(false);
                 queue.Enqueue(obj);
             }
@@ -54,17 +56,26 @@ public class MonsterPool : MonoBehaviour
         }
 
         var pool = pools[type];
+        GameObject obj;
+
         if (pool.Count > 0)
         {
-            GameObject obj = pool.Dequeue();
+            obj = pool.Dequeue();
             obj.SetActive(true);
-            return obj;
         }
         else
         {
-            var prefab = entries.First(e => e.type == type).prefab;
-            return Instantiate(prefab);
+            //var prefab = entries.First(e => e.type == type).prefab;
+            //obj = Instantiate(prefab);
+            return null;
         }
+
+        if (monsterContainer != null)
+        {
+            obj.transform.SetParent(monsterContainer);
+        }
+        return obj;
+
     }
 
     public void Return(MonsterType type, GameObject obj)

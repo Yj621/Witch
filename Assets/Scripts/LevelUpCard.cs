@@ -5,9 +5,11 @@ public class LevelUpCard : MonoBehaviour, ISelectHandler, IDeselectHandler
 {
     public GameObject LevelUpPanel;
     Animator ani;
+    Player player;
 
     void Start()
     {
+        player = GameManager.Instance.player;
         ani = GetComponent<Animator>();
         LevelUpPanel.SetActive(false);
     }
@@ -32,4 +34,10 @@ public class LevelUpCard : MonoBehaviour, ISelectHandler, IDeselectHandler
     {
         ani.SetTrigger("Idle");
     }
+
+    public void OnLevelUp()
+    {
+        player.LevelUp();
+    }
+
 }

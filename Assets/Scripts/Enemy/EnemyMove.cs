@@ -18,8 +18,10 @@ public class EnemyMove : MonoBehaviour
 
     public void Init(Transform player, MonsterType type)
     {
+        isDie = false;
         target = player;
         this.type = type;
+        CurrentHp = MaxHp;
     }
 
     void Start()
@@ -29,6 +31,8 @@ public class EnemyMove : MonoBehaviour
     }
     void Update()
     {
+        if (isDie) return;
+
         Vector2 direction = (target.position - transform.position).normalized;
 
         transform.position += (Vector3)(direction * moveSpeed * Time.deltaTime);
@@ -38,36 +42,34 @@ public class EnemyMove : MonoBehaviour
             spriteRenderer.flipX = true;  // 왼쪽
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
+    public void EnemyHurt(float Damage)
     {
-        if (other.CompareTag("Skill"))
+        CurrentHp -= Damage;
+
+        if (CurrentHp <= 0)
         {
-            //EnemyHurt();
-            if(CurrentHp < 0)
-            {
-                Die();
-            }
+            Die();
+        }
+        else
+        {
+            ani.SetTrigger("Hurt");
         }
     }
 
-    public void EnemyHurt(float Damage)
-    {
-        ani.SetTrigger("Hurt");
-        CurrentHp -= Damage;
-    }
 
     void Die()
     {
-        ani.SetTrigger("Die");
         isDie = true;
-        MonsterPool.Instance.Return(type, this.gameObject);
+        ani.SetTrigger("Die");
         StartCoroutine(DropExpCandies());
     }
 
     private IEnumerator DropExpCandies()
     {
-        yield return new WaitForSeconds(0.2f);
+        yield return new WaitForSeconds(0.5f);
         GameObject candy = Instantiate(ExpCandyPrefab, transform.position, Quaternion.identity);
         candy.GetComponent<ExpCandy>();
+        yield return new WaitForSeconds(0.5f);
+        MonsterPool.Instance.Return(type, this.gameObject);
     }
 }

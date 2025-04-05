@@ -261,7 +261,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 0}
   moveSpeed: 0.5
-  MaxHp: 20
+  MaxHp: 5
   type: 0
   Exp: 50
   ExpCandyPrefab: {fileID: 7043946626270088607, guid: 6e1dc3b5b369144cdb9dd968de9dd8aa, type: 3}

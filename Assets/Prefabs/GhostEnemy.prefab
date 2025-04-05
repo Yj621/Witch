@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 7873797416279426495}
   m_Layer: 7
   m_Name: GhostEnemy
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -128,7 +128,7 @@ MonoBehaviour:
   target: {fileID: 0}
   moveSpeed: 0.3
   MaxHp: 20
-  type: 0
+  type: 1
   Exp: 50
   ExpCandyPrefab: {fileID: 7043946626270088607, guid: 6e1dc3b5b369144cdb9dd968de9dd8aa, type: 3}
 --- !u!61 &8533487392993278531

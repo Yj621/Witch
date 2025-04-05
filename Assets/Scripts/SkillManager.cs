@@ -18,7 +18,19 @@ public class SkillManager : MonoBehaviour
     private readonly KeyCode[] slotKeys = { KeyCode.Q, KeyCode.E };
 
     Player player;
-    
+
+    public static SkillManager Instance { get; private set; }
+
+    void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        Instance = this;
+    }
+
     void Start()
     {
         player = GameManager.Instance.player;
@@ -49,6 +61,7 @@ public class SkillManager : MonoBehaviour
     public void LearnNewSkill(string skillName)
     {
         Action skillAction = GetSkillAction(skillName);
+        Debug.Log("스킬 아이콘 업데이트");
         if (skillAction == null)
         {
             Debug.LogWarning($"알 수 없는 스킬 : {skillName}");
@@ -61,10 +74,13 @@ public class SkillManager : MonoBehaviour
             {
                 skillSlots[key] = skillAction;
                 Debug.Log($"{key}에 {skillName}스킬이 등록됨");
-                return;
+                break;
             }
         }
+        //스킬 아이콘 업데이트
+        UIManager.Instance.UpdateSkillIcons();
     }
+
     // 스킬 이름에 따라 PlayerInput의 메서드 반환
     public Action GetSkillAction(string skillName)
     {
@@ -86,6 +102,7 @@ public class SkillManager : MonoBehaviour
         }
     }
 
+    // 키에 맞는 스킬 가져오기
     public Action GetSkill(KeyCode key)
     {
         return skillSlots.ContainsKey(key) ? skillSlots[key] : null;

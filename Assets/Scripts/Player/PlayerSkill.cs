@@ -19,6 +19,7 @@ public class PlayerSkill : MonoBehaviour
     {
     }
 
+    // 플레이어와 스킬 싱크 맞추기
     public void SyncSkillAnimation()
     {
         if (playerInput == null || skillAnimator == null) return;

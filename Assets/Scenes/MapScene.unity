@@ -4879,7 +4879,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 827136734}
+      - m_Target: {fileID: 1817078519}
         m_TargetAssemblyTypeName: SkillManager, Assembly-CSharp
         m_MethodName: LearnNewSkill
         m_Mode: 5
@@ -5165,7 +5165,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 827136734}
+      - m_Target: {fileID: 1817078519}
         m_TargetAssemblyTypeName: SkillManager, Assembly-CSharp
         m_MethodName: LearnNewSkill
         m_Mode: 5
@@ -11139,7 +11139,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 827136734}
+      - m_Target: {fileID: 1817078519}
         m_TargetAssemblyTypeName: SkillManager, Assembly-CSharp
         m_MethodName: LearnNewSkill
         m_Mode: 5
@@ -11472,7 +11472,6 @@ GameObject:
   - component: {fileID: 827136729}
   - component: {fileID: 827136731}
   - component: {fileID: 827136732}
-  - component: {fileID: 827136734}
   - component: {fileID: 827136730}
   - component: {fileID: 827136735}
   m_Layer: 6
@@ -11586,19 +11585,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d13d5df15b0784eb9889bea46e6ec7f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &827136734
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 827136728}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3bf1d6614ce17e34d81a8e59e7265756, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  defaultSkillCooldown: 3
+  defaultSkillCooldown: 5
   skillSpawnPoint: {fileID: 1832350650}
 --- !u!61 &827136735
 BoxCollider2D:
@@ -32628,7 +32615,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 827136734}
+      - m_Target: {fileID: 1817078519}
         m_TargetAssemblyTypeName: SkillManager, Assembly-CSharp
         m_MethodName: LearnNewSkill
         m_Mode: 5
@@ -76800,6 +76787,51 @@ MonoBehaviour:
   - {fileID: 9095043128700965093, guid: 1131aa6a3fa99a4408ab2ec0995ce1a2, type: 3}
   - {fileID: 6912028092020063341, guid: 375ae0ad75ff57e408cfd2cccefb9f92, type: 3}
   - {fileID: -3101311472157396234, guid: 8ba4c40620913fe4a8c8d845804716ba, type: 3}
+--- !u!1 &1817078518
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1817078520}
+  - component: {fileID: 1817078519}
+  m_Layer: 0
+  m_Name: SkillManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1817078519
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1817078518}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3bf1d6614ce17e34d81a8e59e7265756, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerInput: {fileID: 1685004371}
+--- !u!4 &1817078520
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1817078518}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 675.53125, y: 83.689285, z: -0.38439563}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1832350649
 GameObject:
   m_ObjectHideFlags: 0
@@ -78850,3 +78882,4 @@ SceneRoots:
   - {fileID: 1490024343}
   - {fileID: 281560811}
   - {fileID: 439330313}
+  - {fileID: 1817078520}

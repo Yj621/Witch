@@ -29,7 +29,7 @@ public class PlayerInput : MonoBehaviour
     {
         player = GameManager.Instance.player;
         playerController = GetComponent<PlayerController>();
-        skillManager = GetComponentInChildren<SkillManager>();
+        skillManager = SkillManager.Instance;
         stateMachine = playerController.stateMachine;
         stateMachine.Initialize(stateMachine.idleState);
         // PlayerSkill 가져오기
@@ -118,7 +118,6 @@ public class PlayerInput : MonoBehaviour
     // Q 스킬
     public void OnFirstSkill(InputValue value)
     {
-        Debug.Log("Q");
         Action skill = skillManager.GetSkill(KeyCode.Q);
         skill?.Invoke();
     }

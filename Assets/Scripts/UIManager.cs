@@ -45,6 +45,7 @@ public class UIManager : MonoBehaviour
         UpdateSkillIconKey(KeyCode.E, Eskill, skillManager);
     }
     
+
     private void UpdateSkillIconKey(KeyCode key, Image image, SkillManager skillManager)
     {
         Action skillAction = skillManager.GetSkill(key);
@@ -91,5 +92,28 @@ public class UIManager : MonoBehaviour
             image.enabled = false;
         }
 
+    }
+
+    public void OnUpgradeFireSlash()
+    {
+        SkillManager.Instance.UpgradeSkillDamage("FireSlashs", 10f);
+    }
+    public void OnUpgradeIcePillar()
+    {
+        SkillManager.Instance.UpgradeSkillDamage("IcePillar", 10f);
+    }
+    public void OnUpgradeThunder()
+    {
+        SkillManager.Instance.UpgradeSkillDamage("Thunder", 10f);
+    }
+    public void OnUpgradeInfierno()
+    {
+        SkillManager.Instance.UpgradeSkillDamage("Infierno", 10f);
+    }
+
+    //스킬 레벨, 데미지 갱신
+    public void UpdateSkillUpgradeUI(string skillName, int level, float damage)
+    {
+        Debug.Log($"UI 갱신 : {skillName} 레벨 {level}, 데미지 {damage}");
     }
 }

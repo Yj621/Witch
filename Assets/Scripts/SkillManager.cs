@@ -7,13 +7,21 @@ using UnityEditor.Experimental.GraphView;
 public class SkillManager : MonoBehaviour
 {
     //Action 타입은 입력과 출력이 없는 메서드를 가리킬 수 있는 델리게이트
+    //각 키에 할당할 스킬
     private Dictionary<KeyCode, Action> skillSlots = new Dictionary<KeyCode, Action>();
+    //스킬 업그레이드 레벨 저장
+    private Dictionary<string, int> skillUpgradeLevels = new Dictionary<string, int>();
+    //배운 스킬 리스트
     private List<Action> skillList = new List<Action>();
     [SerializeField] private PlayerInput playerInput;
 
-
     // 등록 가능한 슬롯 리스트 
     private readonly KeyCode[] slotKeys = { KeyCode.Q, KeyCode.E };
+
+    //스킬 매핑 및 관련 함수 딕셔너리
+    private Dictionary<string, Action> skillActionMap;
+    private Dictionary<string, Func<float>> skillDamageMap;
+    private Dictionary<string, Action<float>> skillUpgradeMap;
 
     Player player;
 
@@ -41,6 +49,32 @@ public class SkillManager : MonoBehaviour
             skillSlots[key] = null;
         }
 
+        // 스킬 액션 미리 등록
+        skillActionMap = new Dictionary<string, Action>()
+        {
+            { "FireSlashs", playerInput.UseFireSlash },
+            { "IcePillar", playerInput.UseIcePillar },
+            { "Thunder", playerInput.UseThunder },
+            { "Infierno", playerInput.UseInfierno }
+        };
+
+
+        // 스킬 데미지 조회 딕셔너리
+        skillDamageMap = new Dictionary<string, Func<float>>()
+        {
+            { "FireSlashs", ()=> player.skill.fireSlashsDamage },
+            { "IcePillar", ()=> player.skill.icePillarDamage },
+            { "Thunder", ()=> player.skill.thunderDamage},
+            { "Infierno", ()=> player.skill.infiernoDamage }
+        };
+
+        skillUpgradeMap = new Dictionary<string, Action<float>>()
+        {
+            { "FireSlashs", amount => player.skill.fireSlashsDamage += amount },
+            { "IcePillar", amount=> player.skill.icePillarDamage+= amount  },
+            { "Thunder", amount=> player.skill.thunderDamage+= amount },
+            { "Infierno", amount=> player.skill.infiernoDamage+= amount  }
+        };
     }
 
     void Update()
@@ -60,7 +94,11 @@ public class SkillManager : MonoBehaviour
     public void LearnNewSkill(string skillName)
     {
         Action skillAction = GetSkillAction(skillName);
-        Debug.Log("스킬 아이콘 업데이트");
+        // 스킬 기본 레벨 설정
+        if (!skillUpgradeLevels.ContainsKey(skillName))
+        {
+            skillUpgradeLevels[skillName] = 1;
+        }
         if (skillAction == null)
         {
             Debug.LogWarning($"알 수 없는 스킬 : {skillName}");
@@ -83,22 +121,11 @@ public class SkillManager : MonoBehaviour
     // 스킬 이름에 따라 PlayerInput의 메서드 반환
     public Action GetSkillAction(string skillName)
     {
-        switch (skillName)
+        if(skillActionMap.TryGetValue(skillName, out Action action))
         {
-            case "FireSlashs":
-                return playerInput.UseFireSlash;
-            case "IcePillar":
-                return playerInput.UseIcePillar;
-            case "Thunder":
-                return playerInput.UseThunder;
-            case "BlackHole":
-                return playerInput.UseBlackHole;
-            case "Infierno":
-                return playerInput.UseInfierno;
-            default:
-                Debug.LogWarning($"알 수 없는 스킬 : {skillName}");
-                return null;
+            return action;
         }
+        return null;
     }
 
     // 키에 맞는 스킬 가져오기
@@ -112,16 +139,28 @@ public class SkillManager : MonoBehaviour
     // 스킬 데미지 할당
     public float GetSkillDamage(string skillName)
     {
-        switch (skillName)
+        if(skillDamageMap.TryGetValue(skillName, out Func<float> getDamage))
         {
-            case "FireSlashs": return player.skill.fireSlashsDamage;
-            case "IcePillar": return player.skill.icePillarDamage;
-            case "Thunder": return player.skill.thunderDamage;
-            case "Infierno": return player.skill.infiernoDamage;
-            default:
-                Debug.LogWarning($"알 수 없는 스킬 데미지 요청: {skillName}");
-                return 0f;
+            return getDamage();
+        }
+        return 0f;
+    }
+     
+    // 스킬 데미지 업그레이드 함수
+    public void UpgradeSkillDamage(string skillName, float amountPerLevel)
+    {
+        // skillName이 맞지 않으면
+        if (!skillUpgradeLevels.ContainsKey(skillName))
+        {
+            Debug.LogWarning($"업그레이드 레벨 정보 없음: {skillName}");
+            return;
+        }
+        skillUpgradeLevels[skillName]++;
+        int level = skillUpgradeLevels[skillName];
+        
+        if(skillUpgradeMap.TryGetValue(skillName, out Action<float> upgrade))
+        {
+            upgrade(amountPerLevel);
         }
     }
-
 }

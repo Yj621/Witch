@@ -5,7 +5,7 @@ using System;
 using static UnityEngine.EventSystems.EventTrigger;
 public class PlayerInput : MonoBehaviour
 {
-    [SerializeField] private float dashCoolTime;
+    public float dashCoolTime = 5f;
     [SerializeField] private float dashDuration = 0.5f; //대쉬 지속시간
     private float dashCooldownTimer; //대쉬 쿨타임을 계산하기 위한 변수
     private bool isDash;
@@ -19,8 +19,19 @@ public class PlayerInput : MonoBehaviour
     private PlayerSkill playerSkill;
     private SkillManager skillManager;
 
+    public static PlayerInput Instance { get; private set; }
+
     private void Awake()
     {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
         rigid = GetComponent<Rigidbody2D>();
     }
 

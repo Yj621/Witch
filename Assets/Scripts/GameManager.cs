@@ -17,10 +17,10 @@ public class GameManager : MonoBehaviour
         
         player = new Player(
             level: 1,
-            hp: 100,
             exp: 0,
             playerSpeed: 5f,
-            dashSpeed: 8f
+            dashSpeed: 8f,
+            maxHp : 100
         );
 
     }

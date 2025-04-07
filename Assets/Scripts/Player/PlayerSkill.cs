@@ -7,7 +7,7 @@ public class PlayerSkill : MonoBehaviour
     private PlayerInput playerInput;
     private SkillManager skillManager;
 
-    [SerializeField] private float defaultSkillCooldown;
+    public float defaultSkillCooldown;
     [SerializeField] private Transform skillSpawnPoint;
     private float currentDamage;
 

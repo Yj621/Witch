@@ -29,7 +29,7 @@ public class MonsterSpwaner : MonoBehaviour
 
     void ApplyLevelScaling(int level)
     {
-        currentInterval = Mathf.Max(0.5f, baseSpawnInterval - (level * 0.1f)); // ✅ 0.1초씩 감소
+        currentInterval = Mathf.Max(0.5f, baseSpawnInterval - (level * 0.1f));
     }
 
     void UpdateSpawnTypes(int level)

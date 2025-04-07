@@ -77,6 +77,7 @@ public class Player
         Level++;
         Hp += 10;
         maxExp = NextLevelExp(Level);
+        UIManager.Instance.LevelUpPanelPop();
         Debug.Log($"레벨 업! 현재 레벨: {Level}, 다음 레벨 경험치: {maxExp}");
     }
 

@@ -1,16 +1,20 @@
 using System;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
     public Slider HpSlider;
     public Slider ExpSlider;
+    public Slider CleanSlider;
+    public GameObject LevelUpPanel;
     Player player;
     [SerializeField] private Image Qskill;
     [SerializeField] private Image Eskill;
     public Sprite[] skillIcons;
     SkillManager skillManager;
+    Animator ani;
     public static UIManager Instance { get; private set; }
 
     void Awake()
@@ -29,6 +33,9 @@ public class UIManager : MonoBehaviour
         skillManager = SkillManager.Instance;
         HpSlider.maxValue = player.Hp;
         ExpSlider.maxValue = player.maxExp;
+        CleanSlider.maxValue = 100;
+        ani = GetComponent<Animator>();
+        LevelUpPanel.SetActive(false);
     }
 
     void Update()
@@ -36,6 +43,7 @@ public class UIManager : MonoBehaviour
         HpSlider.value = player.Hp;
         ExpSlider.maxValue = player.maxExp;
         ExpSlider.value = player.Exp;
+        CleanSlider.value = GameManager.Instance.currentClean;
     }
 
     //스킬 아이콘 업데이트
@@ -116,4 +124,30 @@ public class UIManager : MonoBehaviour
     {
         Debug.Log($"UI 갱신 : {skillName} 레벨 {level}, 데미지 {damage}");
     }
+
+    public void LevelUpPanelPop()
+    {
+        LevelUpPanel.SetActive(true);
+    }
+
+    public void OnSelect(BaseEventData eventData)
+    {
+        ani.SetTrigger("Select");
+    }
+
+    public void OnPressed()
+    {
+        LevelUpPanel.SetActive(false);
+    }
+
+    public void OnDeselect(BaseEventData eventData)
+    {
+        ani.SetTrigger("Idle");
+    }
+
+    public void OnLevelUp()
+    {
+        player.LevelUp();
+    }
+
 }

@@ -5,6 +5,7 @@ public class Player
     public int level;
     public int hp;
     public int exp;
+    public int maxHp;
     public int maxExp;
 
     public float playerSpeed; 
@@ -26,22 +27,37 @@ public class Player
             {
                 Die();
             }
+            if( hp > maxHp)
+            {
+                hp = maxHp;
+            }
         }
     }
+
+    public int MaxHp
+    {
+        get { return maxHp; }
+        set { maxHp=value;}
+    }
+
     public int Exp
     {
         get { return exp; }
         set { exp = value; }
     }
 
-    public Player(int level, int hp, int exp, float playerSpeed, float dashSpeed)
+    public Player(int level, int exp, float playerSpeed, float dashSpeed, int maxHp)
     {
         skill = new Skill();
         Level = level;
-        Hp = hp;
         Exp = exp;
         maxExp = NextLevelExp(Level);
 
+        this.maxHp = maxHp;
+        if(hp>maxHp)
+        {
+            hp = maxHp;
+        }
         this.playerSpeed = playerSpeed;
         this.dashSpeed = dashSpeed;
     }
@@ -58,6 +74,10 @@ public class Player
     public void Heal(int amount)
     {
         Hp += amount;
+        if(Hp > maxHp)
+        {
+            Hp = maxHp;
+        }
     }
 
     public void GetExperience(int getExp)

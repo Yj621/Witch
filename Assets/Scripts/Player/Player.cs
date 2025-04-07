@@ -94,7 +94,7 @@ public class Player
     public void LevelUp()
     {
         //타임 스또뿌
-        //Time.timeScale = 0f;
+        Time.timeScale = 0f;
         Level++;
         Hp += 10;
         maxExp = NextLevelExp(Level);

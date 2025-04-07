@@ -51,6 +51,7 @@ public class PlayerInput : MonoBehaviour
     private void Update()
     {
         stateMachine.Execute();
+            Debug.Log($"stateMachine.CurrentState : {stateMachine.CurrentState}");
 
 
         if (dashCooldownTimer > 0)

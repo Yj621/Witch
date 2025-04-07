@@ -65,6 +65,7 @@ public class UpgradeButton : MonoBehaviour
                     UpgradeSkillDamage("Infierno", 10f);
                 break;
         }
+        Time.timeScale = 1f;
     }
     public void UpgradeSkillDamage(string skillName, float damage)
     {

@@ -6,6 +6,8 @@ public class GameManager : MonoBehaviour
 
     public Player player;
     public SkillObjectPool skillObjectPool;
+    public float currentClean;
+
     void Awake()
     {
         if (Instance != null && Instance != this)
@@ -22,6 +24,5 @@ public class GameManager : MonoBehaviour
             dashSpeed: 8f,
             maxHp : 100
         );
-
     }
 }

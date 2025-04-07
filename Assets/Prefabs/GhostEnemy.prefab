@@ -130,6 +130,7 @@ MonoBehaviour:
   MaxHp: 20
   type: 1
   Exp: 50
+  Clean: 0.6
   ExpCandyPrefab: {fileID: 7043946626270088607, guid: 6e1dc3b5b369144cdb9dd968de9dd8aa, type: 3}
 --- !u!61 &8533487392993278531
 BoxCollider2D:

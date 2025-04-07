@@ -14,6 +14,7 @@ public class EnemyMove : MonoBehaviour
     public MonsterType type;
     private bool isDie = false;
     public int Exp = 50;
+    public float Clean = 10f;
     public GameObject ExpCandyPrefab;
 
     public void Init(Transform player, MonsterType type)
@@ -60,6 +61,7 @@ public class EnemyMove : MonoBehaviour
     void Die()
     {
         isDie = true;
+        GameManager.Instance.currentClean += Clean;
         ani.SetTrigger("Die");
         StartCoroutine(DropExpCandies());
     }

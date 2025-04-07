@@ -1,0 +1,59 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b9dc631d4cdda2d4f9b126ca96a1ac4c, type: 3}
+  m_Name: UpgradeDataBase
+  m_EditorClassIdentifier: 
+  upgradeOptions:
+  - type: 0
+    title: "\uC774\uB3D9\uC18D\uB3C4 \uC5C5\uADF8\uB808\uC774\uB4DC"
+    description: "\uC774\uB3D9\uC18D\uB3C4\uAC00 \uB298\uC5B4\uB09C\uB2E4"
+    icon: {fileID: -2875125566309657267, guid: 77e0bbe58d3f3a44ab6357ebde4d19cc, type: 3}
+  - type: 1
+    title: "\uB300\uC26C\uC18D\uB3C4 \uC5C5\uADF8\uB808\uC774\uB4DC"
+    description: "\uB300\uC26C \uC18D\uB3C4\uAC00 \uB298\uC5B4\uB09C\uB2E4"
+    icon: {fileID: -2381350663909541956, guid: 0f74410d21e278b49b524163b186241f, type: 3}
+  - type: 2
+    title: "\uB300\uC26C \uCFE8\uB2E4\uC6B4"
+    description: "\uB300\uC26C \uCFE8\uD0C0\uC784\uC774 \uAC10\uC18C\uD55C\uB2E4"
+    icon: {fileID: -7844869662627084820, guid: 610251596d5809049b897cc493740722, type: 3}
+  - type: 3
+    title: "\uACBD\uD5D8\uCE58 \uC99D\uAC00"
+    description: "\uBC1B\uB294 \uACBD\uD5D8\uCE58\uAC00 \uC99D\uAC00\uD55C\uB2E4"
+    icon: {fileID: 95807002999202596, guid: 5cb8c37f126a1e144aebdfc4ffe37f7f, type: 3}
+  - type: 4
+    title: "Hp \uC99D\uAC00"
+    description: "\uCD5C\uB300 Hp\uAC00 \uC99D\uAC00\uD55C\uB2E4"
+    icon: {fileID: -3029695942722606338, guid: fcaf9fc5b15beb044826f044d365b02a, type: 3}
+  - type: 5
+    title: "\uAE30\uBCF8\uC2A4\uD0AC \uC0AC\uAC70\uB9AC \uC99D\uAC00"
+    description: "\uAE30\uBCF8 \uC2A4\uD0AC\uC758 \uC0AC\uAC70\uB9AC\uAC00 \uC99D\uAC00\uD55C\uB2E4"
+    icon: {fileID: -8931649982321883935, guid: 0b73dcf54cd772d45a99b9493c78b90f, type: 3}
+  - type: 6
+    title: "\uAE30\uBCF8\uC2A4\uD0AC \uCFE8\uD0C0\uC784 \uAC10\uC18C"
+    description: "\uAE30\uBCF8\uC2A4\uD0AC\uC774 \uB354 \uC790\uC8FC \uB098\uAC04\uB2E4"
+    icon: {fileID: -8931649982321883935, guid: 0b73dcf54cd772d45a99b9493c78b90f, type: 3}
+  - type: 7
+    title: "\uAE30\uBCF8 \uC2A4\uD0AC \uB370\uBBF8\uC9C0"
+    description: "\uAE30\uBCF8 \uC2A4\uD0AC\uC774 \uB354\uC6B1 \uAC15\uD574\uC9C4\uB2E4"
+    icon: {fileID: -8931649982321883935, guid: 0b73dcf54cd772d45a99b9493c78b90f, type: 3}
+  - type: 8
+    title: "Q, E \uC2A4\uD0AC \uC0AC\uAC70\uB9AC \uC99D\uAC00"
+    description: "Q, E \uC2A4\uD0AC\uC774 \uB354\uC6B1 \uBA40\uB9AC \uBC1C\uC0AC\uB41C\uB2E4"
+    icon: {fileID: 9095043128700965093, guid: 1131aa6a3fa99a4408ab2ec0995ce1a2, type: 3}
+  - type: 9
+    title: "Q, E \uC2A4\uD0AC \uCFE8\uB2E4\uC6B4"
+    description: "Q, E \uC2A4\uD0AC\uC758 \uCFE8\uD0C0\uC784\uC774 \uAC10\uC18C\uD55C\uB2E4"
+    icon: {fileID: 9095043128700965093, guid: 1131aa6a3fa99a4408ab2ec0995ce1a2, type: 3}
+  - type: 10
+    title: "Q, E \uC2A4\uD0AC \uB370\uBBF8\uC9C0"
+    description: "Q, E \uC2A4\uD0AC\uC758 \uB370\uBBF8\uC9C0\uAC00 \uC99D\uAC00\uD55C\uB2E4"
+    icon: {fileID: 9095043128700965093, guid: 1131aa6a3fa99a4408ab2ec0995ce1a2, type: 3}

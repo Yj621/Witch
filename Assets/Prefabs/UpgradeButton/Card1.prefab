@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: 5953341218638835855}
   - component: {fileID: 1707281837020461701}
   - component: {fileID: 2706340603673983622}
-  - component: {fileID: 6051470657056763482}
   - component: {fileID: 3442843699428534261}
+  - component: {fileID: -2556037070626321509}
   m_Layer: 5
   m_Name: Card1
   m_TagString: Untagged
@@ -125,9 +125,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 6051470657056763482}
-        m_TargetAssemblyTypeName: UpgradeButton, Assembly-CSharp
-        m_MethodName: OnUpgrade
+      - m_Target: {fileID: -2556037070626321509}
+        m_TargetAssemblyTypeName: UpgradeCard, Assembly-CSharp
+        m_MethodName: OnSelect
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -137,21 +137,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &6051470657056763482
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4352840996136642958}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9af69ca86196b43578f6fe71f5506e29, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  upgradeTitleText: {fileID: 8412339758743743339}
-  upgradeDetailText: {fileID: 8870892071360207927}
-  upgradeImage: {fileID: 2421240583342904029}
 --- !u!95 &3442843699428534261
 Animator:
   serializedVersion: 7
@@ -174,6 +159,21 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &-2556037070626321509
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4352840996136642958}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1ea82ad0448198249a5ab1bea4efe9fc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  titleText: {fileID: 8412339758743743339}
+  descriptionText: {fileID: 8870892071360207927}
+  iconImage: {fileID: 2421240583342904029}
 --- !u!1 &5590208071189172960
 GameObject:
   m_ObjectHideFlags: 0

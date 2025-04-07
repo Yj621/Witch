@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -12,6 +13,9 @@ public class UIManager : MonoBehaviour
     Player player;
     [SerializeField] private Image Qskill;
     [SerializeField] private Image Eskill;
+    [SerializeField] private UpgradeDataBase upgradeDB;
+    [SerializeField] private GameObject cardPrefab;
+    [SerializeField] private Transform cardParent;
     public Sprite[] skillIcons;
     SkillManager skillManager;
     Animator ani;
@@ -31,7 +35,7 @@ public class UIManager : MonoBehaviour
     {
         player = GameManager.Instance.player;
         skillManager = SkillManager.Instance;
-        HpSlider.maxValue = player.Hp;
+        HpSlider.maxValue = player.maxHp;
         ExpSlider.maxValue = player.maxExp;
         CleanSlider.maxValue = 100;
         ani = GetComponent<Animator>();
@@ -128,6 +132,27 @@ public class UIManager : MonoBehaviour
     public void LevelUpPanelPop()
     {
         LevelUpPanel.SetActive(true);
+
+        foreach (Transform child in cardParent)
+        {
+            Destroy(child.gameObject);
+        }
+
+        var selectedTypes = new List<UpgradeType>();
+        while (selectedTypes.Count < 3)
+        {
+            var rand = (UpgradeType)UnityEngine.Random.Range(0, System.Enum.GetValues(typeof(UpgradeType)).Length);
+            if (!selectedTypes.Contains(rand))
+                selectedTypes.Add(rand);
+        }
+
+        foreach (var type in selectedTypes)
+        {
+            var option = upgradeDB.GetOption(type);
+            var cardGO = Instantiate(cardPrefab, cardParent);
+            var card = cardGO.GetComponent<UpgradeCard>();
+            card.Init(option, FindFirstObjectByType<UpgradeButton>());
+        }
     }
 
     public void OnSelect(BaseEventData eventData)

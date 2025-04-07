@@ -51,6 +51,7 @@ public class Player
         skill = new Skill();
         Level = level;
         Exp = exp;
+        this.hp = maxHp;
         maxExp = NextLevelExp(Level);
 
         this.maxHp = maxHp;

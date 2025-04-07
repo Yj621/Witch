@@ -106,23 +106,6 @@ public class UIManager : MonoBehaviour
 
     }
 
-    public void OnUpgradeFireSlash()
-    {
-        SkillManager.Instance.UpgradeSkillDamage("FireSlashs", 10f);
-    }
-    public void OnUpgradeIcePillar()
-    {
-        SkillManager.Instance.UpgradeSkillDamage("IcePillar", 10f);
-    }
-    public void OnUpgradeThunder()
-    {
-        SkillManager.Instance.UpgradeSkillDamage("Thunder", 10f);
-    }
-    public void OnUpgradeInfierno()
-    {
-        SkillManager.Instance.UpgradeSkillDamage("Infierno", 10f);
-    }
-
     //스킬 레벨, 데미지 갱신
     public void UpdateSkillUpgradeUI(string skillName, int level, float damage)
     {

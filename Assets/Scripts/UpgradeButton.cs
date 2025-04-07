@@ -20,12 +20,12 @@ public enum UpgradeType
     QESkillDamage
 }
 
-public class UpgradeButton : MonoBehaviour, IUpgrade
+public class UpgradeButton : MonoBehaviour
 {
     private Player player;
     [SerializeField] private UpgradeType upgradeType;
     public UpgradeLevel upgradeLevel;
-    private string skillName;
+    [SerializeField] private string skillName;
 
     public void SetUpgrade(UpgradeType type)
     {
@@ -55,8 +55,8 @@ public class UpgradeButton : MonoBehaviour, IUpgrade
                 PlayerInput.Instance.GetComponentInChildren<PlayerSkill>().defaultSkillCooldown -= 0.5f;
                 break;
             case UpgradeType.QESkillDamage:
-                if (skillName == "FireSlash")
-                    UpgradeSkillDamage("FireSlash", 10f);
+                if (skillName == "FireSlashs")
+                    UpgradeSkillDamage("FireSlashs", 10f);
                 else if (skillName == "IcePillar")
                     UpgradeSkillDamage("IcePillar", 10f);
                 else if (skillName == "Thunder")
@@ -66,7 +66,6 @@ public class UpgradeButton : MonoBehaviour, IUpgrade
                 break;
         }
     }
-
     public void UpgradeSkillDamage(string skillName, float damage)
     {
         SkillManager.Instance.UpgradeSkillDamage(skillName, damage);

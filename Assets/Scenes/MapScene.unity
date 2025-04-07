@@ -31793,6 +31793,7 @@ GameObject:
   - component: {fileID: 1078643922}
   - component: {fileID: 1078643925}
   - component: {fileID: 1078643924}
+  - component: {fileID: 1078643926}
   - component: {fileID: 1078643923}
   m_Layer: 5
   m_Name: DamageupButton
@@ -31865,16 +31866,16 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1793802665}
-        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
-        m_MethodName: OnUpgradeFireSlash
+      - m_Target: {fileID: 1078643926}
+        m_TargetAssemblyTypeName: UpgradeButton, Assembly-CSharp
+        m_MethodName: OnUpgrade
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: Thunder
+          m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &1078643924
@@ -31915,6 +31916,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1078643921}
   m_CullTransparentMesh: 1
+--- !u!114 &1078643926
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1078643921}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9af69ca86196b43578f6fe71f5506e29, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  upgradeType: 10
+  skillName: FireSlashs
 --- !u!1 &1110667900
 GameObject:
   m_ObjectHideFlags: 0
@@ -32287,6 +32302,7 @@ GameObject:
   - component: {fileID: 1152390402}
   - component: {fileID: 1152390405}
   - component: {fileID: 1152390404}
+  - component: {fileID: 1152390406}
   - component: {fileID: 1152390403}
   m_Layer: 5
   m_Name: DamageupButton (1)
@@ -32358,19 +32374,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1152390404}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1793802665}
-        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
-        m_MethodName: OnUpgradeIcePillar
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: Thunder
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &1152390404
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -32409,6 +32413,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1152390401}
   m_CullTransparentMesh: 1
+--- !u!114 &1152390406
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1152390401}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9af69ca86196b43578f6fe71f5506e29, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  upgradeType: 10
+  skillName: IcePillar
 --- !u!1 &1155315344
 GameObject:
   m_ObjectHideFlags: 0
@@ -33605,6 +33623,7 @@ GameObject:
   - component: {fileID: 1419798822}
   - component: {fileID: 1419798825}
   - component: {fileID: 1419798824}
+  - component: {fileID: 1419798826}
   - component: {fileID: 1419798823}
   m_Layer: 5
   m_Name: DamageupButton (2)
@@ -33676,19 +33695,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1419798824}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1793802665}
-        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
-        m_MethodName: OnUpgradeThunder
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: Thunder
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &1419798824
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -33727,6 +33734,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1419798821}
   m_CullTransparentMesh: 1
+--- !u!114 &1419798826
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1419798821}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9af69ca86196b43578f6fe71f5506e29, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  upgradeType: 10
+  skillName: Thunder
 --- !u!1 &1420345304
 GameObject:
   m_ObjectHideFlags: 0
@@ -77272,6 +77293,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   upgradeType: 0
+  skillName: 
 --- !u!1 &1817078518
 GameObject:
   m_ObjectHideFlags: 0
@@ -77515,6 +77537,7 @@ GameObject:
   - component: {fileID: 1859905126}
   - component: {fileID: 1859905129}
   - component: {fileID: 1859905128}
+  - component: {fileID: 1859905130}
   - component: {fileID: 1859905127}
   m_Layer: 5
   m_Name: DamageupButton (3)
@@ -77586,19 +77609,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1859905128}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1793802665}
-        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
-        m_MethodName: OnUpgradeInfierno
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: Thunder
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &1859905128
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -77637,6 +77648,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1859905125}
   m_CullTransparentMesh: 1
+--- !u!114 &1859905130
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1859905125}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9af69ca86196b43578f6fe71f5506e29, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  upgradeType: 10
+  skillName: Infierno
 --- !u!1 &1889533135
 GameObject:
   m_ObjectHideFlags: 0

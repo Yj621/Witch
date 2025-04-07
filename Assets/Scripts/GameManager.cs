@@ -18,8 +18,8 @@ public class GameManager : MonoBehaviour
         Instance = this;
         
         player = new Player(
-            level: 1,
             exp: 0,
+            level: 1,
             playerSpeed: 5f,
             dashSpeed: 8f,
             maxHp : 100

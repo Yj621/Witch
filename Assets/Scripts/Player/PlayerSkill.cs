@@ -15,10 +15,10 @@ public class PlayerSkill : MonoBehaviour
     {
         skillAnimator = GetComponent<Animator>(); 
         playerInput = GetComponentInParent<PlayerInput>();
-        skillManager = SkillManager.Instance;
     }
     private void Start()
     {
+        skillManager = SkillManager.Instance;
         // 일정 시간마다 OnDefaultSkill 자동 실행
         StartCoroutine(AutoFireDefaultSkill());
     }
@@ -39,6 +39,7 @@ public class PlayerSkill : MonoBehaviour
             return; // 스킬 데미지 요청 안 함
         }
 
+        Debug.Log($"skillManager: {skillManager}");
         float damage = skillManager.GetSkillDamage(currentState);
         Debug.Log($"currentState는 {currentState}, 데미지는 {damage}");
 

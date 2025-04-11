@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
 
 public class PlayerSkill : MonoBehaviour
 {
@@ -35,7 +36,7 @@ public class PlayerSkill : MonoBehaviour
     }
     private void Update()
     {
-    }
+     }
 
     // 플레이어와 스킬 싱크 맞추기
     public void SyncSkillAnimation()
@@ -60,14 +61,8 @@ public class PlayerSkill : MonoBehaviour
     // 스킬 데미지
     private void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log($"OnTriggerEnter2D 호출됨: {other.name}");
-
         float damage = skillManager.GetSkillDamage(playerInput.GetCurrentTriggerName());
-        if (other.gameObject.tag == "Ground")
-        {
-            Destroy(other.gameObject);     
-        }
-        else if (other.gameObject.tag == "Enemy")
+        if (other.gameObject.CompareTag("Enemy"))
         {
             Debug.Log($"currentDamage : {currentDamage}");
             other.GetComponent<EnemyMove>().EnemyHurt(currentDamage);

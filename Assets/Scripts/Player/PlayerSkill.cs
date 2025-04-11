@@ -9,16 +9,27 @@ public class PlayerSkill : MonoBehaviour
 
     public float defaultSkillCooldown;
     [SerializeField] private Transform skillSpawnPoint;
+    [SerializeField] private Transform playerTransform;
     private float currentDamage;
+    public static PlayerSkill Instance { get; private set; }
 
     private void Awake()
     {
-        skillAnimator = GetComponent<Animator>(); 
-        playerInput = GetComponentInParent<PlayerInput>();
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        skillAnimator = GetComponent<Animator>();
     }
     private void Start()
     {
         skillManager = SkillManager.Instance;
+        playerInput = PlayerInput.Instance;
         // 일정 시간마다 OnDefaultSkill 자동 실행
         StartCoroutine(AutoFireDefaultSkill());
     }
@@ -39,7 +50,6 @@ public class PlayerSkill : MonoBehaviour
             return; // 스킬 데미지 요청 안 함
         }
 
-        Debug.Log($"skillManager: {skillManager}");
         float damage = skillManager.GetSkillDamage(currentState);
         Debug.Log($"currentState는 {currentState}, 데미지는 {damage}");
 
@@ -50,6 +60,8 @@ public class PlayerSkill : MonoBehaviour
     // 스킬 데미지
     private void OnTriggerEnter2D(Collider2D other)
     {
+        Debug.Log($"OnTriggerEnter2D 호출됨: {other.name}");
+
         float damage = skillManager.GetSkillDamage(playerInput.GetCurrentTriggerName());
         if (other.gameObject.tag == "Ground")
         {
@@ -57,6 +69,7 @@ public class PlayerSkill : MonoBehaviour
         }
         else if (other.gameObject.tag == "Enemy")
         {
+            Debug.Log($"currentDamage : {currentDamage}");
             other.GetComponent<EnemyMove>().EnemyHurt(currentDamage);
         }
     }
@@ -72,7 +85,7 @@ public class PlayerSkill : MonoBehaviour
     //기본 스킬 
     public void DefaultSkill()
     {
-        float direction = Mathf.Sign(transform.parent.localScale.x); // 캐릭터 방향 (왼쪽:-1, 오른쪽:1)
+        float direction = Mathf.Sign(playerTransform.localScale.x); // 캐릭터 방향 (왼쪽:-1, 오른쪽:1)
 
         Vector2 spawnPosition = skillSpawnPoint.position;
 

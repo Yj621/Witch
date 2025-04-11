@@ -11608,7 +11608,9 @@ GameObject:
   - component: {fileID: 827136732}
   - component: {fileID: 827136730}
   - component: {fileID: 827136735}
-  m_Layer: 6
+  - component: {fileID: 827136736}
+  - component: {fileID: 827136737}
+  m_Layer: 9
   m_Name: Skill
   m_TagString: Skill
   m_Icon: {fileID: 0}
@@ -11624,11 +11626,11 @@ Transform:
   m_GameObject: {fileID: 827136728}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.636, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 3.45, y: 0, z: 0}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1685004370}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &827136730
 Animator:
@@ -11721,6 +11723,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   defaultSkillCooldown: 5
   skillSpawnPoint: {fileID: 1832350650}
+  playerTransform: {fileID: 1685004370}
 --- !u!61 &827136735
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -11728,7 +11731,7 @@ BoxCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 827136728}
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 3
   m_Density: 1
   m_Material: {fileID: 0}
@@ -11767,6 +11770,47 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1.68, y: 1.28}
   m_EdgeRadius: 0
+--- !u!50 &827136736
+Rigidbody2D:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 827136728}
+  m_BodyType: 0
+  m_Simulated: 0
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
+--- !u!114 &827136737
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 827136728}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a6009ce474221e46a66676adeb83c02, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 1685004370}
+  offset: {x: 0.954, y: 0, z: 0}
 --- !u!1 &831639385
 GameObject:
   m_ObjectHideFlags: 0
@@ -30577,7 +30621,7 @@ GameObject:
   - component: {fileID: 911908681}
   - component: {fileID: 911908680}
   - component: {fileID: 911908683}
-  m_Layer: 6
+  m_Layer: 9
   m_Name: Main Camera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
@@ -34675,7 +34719,7 @@ GameObject:
   - component: {fileID: 1503458964}
   - component: {fileID: 1503458966}
   - component: {fileID: 1503458965}
-  m_Layer: 6
+  m_Layer: 9
   m_Name: Shadow1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -76340,11 +76384,10 @@ Transform:
   m_GameObject: {fileID: 1685004363}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 6.98, y: 0.03, z: 0}
+  m_LocalPosition: {x: 2.4960003, y: 0, z: 0}
   m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 827136729}
   - {fileID: 1503458964}
   - {fileID: 911908682}
   - {fileID: 1832350650}
@@ -77323,7 +77366,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3bf1d6614ce17e34d81a8e59e7265756, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerInput: {fileID: 1685004371}
 --- !u!4 &1817078520
 Transform:
   m_ObjectHideFlags: 0
@@ -77348,7 +77390,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1832350650}
-  m_Layer: 6
+  m_Layer: 9
   m_Name: SkillSpawnPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -79913,3 +79955,4 @@ SceneRoots:
   - {fileID: 281560811}
   - {fileID: 439330313}
   - {fileID: 1817078520}
+  - {fileID: 827136729}

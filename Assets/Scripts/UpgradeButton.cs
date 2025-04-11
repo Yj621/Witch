@@ -26,6 +26,10 @@ public class UpgradeButton : MonoBehaviour
     [SerializeField] private UpgradeType upgradeType;
     public UpgradeLevel upgradeLevel;
     [SerializeField] private string skillName;
+    void Start()
+    {
+        player = GameManager.Instance.player;
+    }
 
     public void SetUpgrade(UpgradeType type)
     {
@@ -52,7 +56,7 @@ public class UpgradeButton : MonoBehaviour
                 DefaultSkill.Instance.defaultDamage += 2;
                 break;
             case UpgradeType.DefaultSkillCooldown:
-                PlayerInput.Instance.GetComponentInChildren<PlayerSkill>().defaultSkillCooldown -= 0.5f;
+               PlayerSkill.Instance.defaultSkillCooldown -= 0.5f;
                 break;
             case UpgradeType.QESkillDamage:
                 if (skillName == "FireSlashs")

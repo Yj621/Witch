@@ -13,7 +13,7 @@ public class SkillManager : MonoBehaviour
     private Dictionary<string, int> skillUpgradeLevels = new Dictionary<string, int>();
     //배운 스킬 리스트
     private List<Action> skillList = new List<Action>();
-    [SerializeField] private PlayerInput playerInput;
+    PlayerInput playerInput;
 
     // 등록 가능한 슬롯 리스트 
     private readonly KeyCode[] slotKeys = { KeyCode.Q, KeyCode.E };
@@ -43,6 +43,7 @@ public class SkillManager : MonoBehaviour
     void Start()
     {
         player = GameManager.Instance.player;
+        playerInput = PlayerInput.Instance;
 
         foreach (var key in slotKeys)
         {

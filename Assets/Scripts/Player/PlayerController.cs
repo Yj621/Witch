@@ -12,12 +12,14 @@ public class PlayerController : MonoBehaviour
     private void Awake()
     {
         stateMachine = new StateMachine(this);
-        player = GameManager.Instance.player;
+        player = GameManager.Instance.player; 
+        Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("Skill"), true);
+
     }
 
     private void Start()
     {
-        playerSkill = GetComponentInChildren<PlayerSkill>();
+        playerSkill = PlayerSkill.Instance;
     }
 
     private void Update()
@@ -32,7 +34,6 @@ public class PlayerController : MonoBehaviour
         if (!isHurt)
         {
             player.Hurt(damage);
-            stateMachine.TransitionTo(stateMachine.hurtState);
             playerSkill.SyncSkillAnimation();
             Debug.Log($"player.hp : {player.hp}");
         }
@@ -42,6 +43,7 @@ public class PlayerController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
+        Debug.Log("맞음");
         if (other.CompareTag("Enemy"))
         {
             Hurt(10);

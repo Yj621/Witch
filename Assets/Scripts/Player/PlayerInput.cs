@@ -44,7 +44,7 @@ public class PlayerInput : MonoBehaviour
         stateMachine = playerController.stateMachine;
         stateMachine.Initialize(stateMachine.idleState);
         // PlayerSkill 가져오기
-        playerSkill = GetComponentInChildren<PlayerSkill>();
+        playerSkill = PlayerSkill.Instance; 
 
     }
 

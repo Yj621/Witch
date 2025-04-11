@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -19,6 +20,11 @@ public class UIManager : MonoBehaviour
     public Sprite[] skillIcons;
     SkillManager skillManager;
     Animator ani;
+    [SerializeField] public TextMeshProUGUI DCText;
+    [SerializeField] public TextMeshProUGUI DSText;
+    [SerializeField] public TextMeshProUGUI PSText;
+    [SerializeField] public TextMeshProUGUI EPText;
+    [SerializeField] public TextMeshProUGUI HPText;
     public static UIManager Instance { get; private set; }
 
     void Awake()
@@ -40,6 +46,7 @@ public class UIManager : MonoBehaviour
         CleanSlider.maxValue = 100;
         ani = GetComponent<Animator>();
         LevelUpPanel.SetActive(false);
+        UpdateStatNum();
     }
 
     void Update()
@@ -107,10 +114,6 @@ public class UIManager : MonoBehaviour
     }
 
     //스킬 레벨, 데미지 갱신
-    public void UpdateSkillUpgradeUI(string skillName, int level, float damage)
-    {
-        Debug.Log($"UI 갱신 : {skillName} 레벨 {level}, 데미지 {damage}");
-    }
 
     public void LevelUpPanelPop()
     {
@@ -137,6 +140,30 @@ public class UIManager : MonoBehaviour
             card.Init(option, FindFirstObjectByType<UpgradeButton>());
         }
     }
+
+    public void UpdateStatNum()
+    {
+        DCText.text = UpgradeManager.Instance.IsMaxLevel(UpgradeType.DefaultSkillCooldown)
+            ? "Max"
+            : "Lv " + UpgradeManager.Instance.GetLevel(UpgradeType.DefaultSkillCooldown);
+
+        DSText.text = UpgradeManager.Instance.IsMaxLevel(UpgradeType.DefaultSkillRange)
+            ? "Max"
+            : "Lv " + UpgradeManager.Instance.GetLevel(UpgradeType.DefaultSkillRange);
+
+        PSText.text = UpgradeManager.Instance.IsMaxLevel(UpgradeType.CharacterMoveSpeed)
+            ? "Max"
+            : "Lv " + UpgradeManager.Instance.GetLevel(UpgradeType.CharacterMoveSpeed);
+
+        EPText.text = UpgradeManager.Instance.IsMaxLevel(UpgradeType.ExpIncrease)
+            ? "Max"
+            : "Lv " + UpgradeManager.Instance.GetLevel(UpgradeType.ExpIncrease);
+
+        HPText.text = UpgradeManager.Instance.IsMaxLevel(UpgradeType.MaxHPIncrease)
+            ? "Max"
+            : "Lv " + UpgradeManager.Instance.GetLevel(UpgradeType.MaxHPIncrease);
+    }
+
 
     public void OnSelect(BaseEventData eventData)
     {

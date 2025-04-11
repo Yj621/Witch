@@ -45,15 +45,15 @@ MonoBehaviour:
     title: "\uAE30\uBCF8 \uC2A4\uD0AC \uB370\uBBF8\uC9C0"
     description: "\uAE30\uBCF8 \uC2A4\uD0AC\uC774 \uB354\uC6B1 \uAC15\uD574\uC9C4\uB2E4"
     icon: {fileID: -8931649982321883935, guid: 0b73dcf54cd772d45a99b9493c78b90f, type: 3}
-  - type: 8
-    title: "Q, E \uC2A4\uD0AC \uC0AC\uAC70\uB9AC \uC99D\uAC00"
-    description: "Q, E \uC2A4\uD0AC\uC774 \uB354\uC6B1 \uBA40\uB9AC \uBC1C\uC0AC\uB41C\uB2E4"
+  - type: 10
+    title: "\uBC88\uAC1C \uB370\uBBF8\uC9C0 \uAC15\uD654"
+    description: "\uBC88\uAC1C \uB370\uBBF8\uC9C0\uAC00 \uAC15\uD654\uB41C\uB2E4"
     icon: {fileID: 9095043128700965093, guid: 1131aa6a3fa99a4408ab2ec0995ce1a2, type: 3}
   - type: 9
-    title: "Q, E \uC2A4\uD0AC \uCFE8\uB2E4\uC6B4"
-    description: "Q, E \uC2A4\uD0AC\uC758 \uCFE8\uD0C0\uC784\uC774 \uAC10\uC18C\uD55C\uB2E4"
+    title: "\uBC88\uAC1C \uC2A4\uD0AC \uCFE8\uB2E4\uC6B4"
+    description: "\uBC88\uAC1C \uCFE8\uD0C0\uC784\uC774 \uAC10\uC18C\uB41C\uB2E4"
     icon: {fileID: 9095043128700965093, guid: 1131aa6a3fa99a4408ab2ec0995ce1a2, type: 3}
-  - type: 10
-    title: "Q, E \uC2A4\uD0AC \uB370\uBBF8\uC9C0"
-    description: "Q, E \uC2A4\uD0AC\uC758 \uB370\uBBF8\uC9C0\uAC00 \uC99D\uAC00\uD55C\uB2E4"
+  - type: 8
+    title: "\uBC88\uAC1C \uC0AC\uAC70\uB9AC \uC99D\uAC00"
+    description: "\uBC88\uAC1C\uC758 \uC0AC\uAC70\uB9AC\uAC00 \uC99D\uAC00\uD55C\uB2E4"
     icon: {fileID: 9095043128700965093, guid: 1131aa6a3fa99a4408ab2ec0995ce1a2, type: 3}

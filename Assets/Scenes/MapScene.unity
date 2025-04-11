@@ -31826,6 +31826,81 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!1 &1071886035
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1071886036}
+  - component: {fileID: 1071886038}
+  - component: {fileID: 1071886037}
+  m_Layer: 5
+  m_Name: Image
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1071886036
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1071886035}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1793802663}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 1.9379, y: -446.576}
+  m_SizeDelta: {x: 773.88, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1071886037
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1071886035}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.6320754, g: 0.6320754, b: 0.6320754, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &1071886038
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1071886035}
+  m_CullTransparentMesh: 1
 --- !u!1 &1078643921
 GameObject:
   m_ObjectHideFlags: 0
@@ -31974,6 +32049,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   upgradeType: 10
   skillName: FireSlashs
+  hasLearnFS: 0
+  hasLearnIP: 0
+  hasLearnTD: 0
+  hasLearnIF: 0
 --- !u!1 &1110667900
 GameObject:
   m_ObjectHideFlags: 0
@@ -32471,6 +32550,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   upgradeType: 10
   skillName: IcePillar
+  hasLearnFS: 0
+  hasLearnIP: 0
+  hasLearnTD: 0
+  hasLearnIF: 0
 --- !u!1 &1155315344
 GameObject:
   m_ObjectHideFlags: 0
@@ -33792,6 +33875,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   upgradeType: 10
   skillName: Thunder
+  hasLearnFS: 0
+  hasLearnIP: 0
+  hasLearnTD: 0
+  hasLearnIF: 0
 --- !u!1 &1420345304
 GameObject:
   m_ObjectHideFlags: 0
@@ -77268,6 +77355,7 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 1071886036}
   - {fileID: 1594651439}
   - {fileID: 1967667247}
   - {fileID: 516804260}
@@ -77321,8 +77409,13 @@ MonoBehaviour:
   - {fileID: -3398877403596534436, guid: 3973b2f38070bc349b38925effa520ee, type: 3}
   - {fileID: 7805107759501430460, guid: 53f698a0f47a96f40a14e13c00dcc7fa, type: 3}
   - {fileID: 9095043128700965093, guid: 1131aa6a3fa99a4408ab2ec0995ce1a2, type: 3}
-  - {fileID: 6912028092020063341, guid: 375ae0ad75ff57e408cfd2cccefb9f92, type: 3}
   - {fileID: -3101311472157396234, guid: 8ba4c40620913fe4a8c8d845804716ba, type: 3}
+  - {fileID: 6912028092020063341, guid: 375ae0ad75ff57e408cfd2cccefb9f92, type: 3}
+  DCText: {fileID: 1476948449}
+  DSText: {fileID: 1889533137}
+  PSText: {fileID: 1511937073}
+  EPText: {fileID: 2076624295}
+  HPText: {fileID: 1267961252}
 --- !u!114 &1793802666
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -77337,6 +77430,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   upgradeType: 0
   skillName: 
+  hasLearnFS: 0
+  hasLearnIP: 0
+  hasLearnTD: 0
+  hasLearnIF: 0
 --- !u!1 &1817078518
 GameObject:
   m_ObjectHideFlags: 0
@@ -77704,6 +77801,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   upgradeType: 10
   skillName: Infierno
+  hasLearnFS: 0
+  hasLearnIP: 0
+  hasLearnTD: 0
+  hasLearnIF: 0
 --- !u!1 &1889533135
 GameObject:
   m_ObjectHideFlags: 0
@@ -79734,6 +79835,50 @@ Transform:
   m_Children: []
   m_Father: {fileID: 366026714}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2091354697
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2091354699}
+  - component: {fileID: 2091354698}
+  m_Layer: 0
+  m_Name: UpgradeManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &2091354698
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2091354697}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 638393cb74e7f3f4fa54f9859a6ceb31, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &2091354699
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2091354697}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 41.570778, y: 141.28064, z: -1.8920568}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2120178696
 GameObject:
   m_ObjectHideFlags: 0
@@ -79956,3 +80101,4 @@ SceneRoots:
   - {fileID: 439330313}
   - {fileID: 1817078520}
   - {fileID: 827136729}
+  - {fileID: 2091354699}

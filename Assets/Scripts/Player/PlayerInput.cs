@@ -51,14 +51,24 @@ public class PlayerInput : MonoBehaviour
     private void Update()
     {
         stateMachine.Execute();
-            //Debug.Log($"stateMachine.CurrentState : {stateMachine.CurrentState}");
+        playerSkill.SyncSkillAnimation();
 
+        // moveInput의 값이 지속적으로 갱신되는지 체크
+        if (moveInput.sqrMagnitude > 0.01f)  // 약간의 임계치를 두어 노이즈 필터링
+        {
+            stateMachine.TransitionTo(stateMachine.walkState);
+        }
+        else
+        {
+            stateMachine.TransitionTo(stateMachine.idleState);
+        }
 
         if (dashCooldownTimer > 0)
         {
             dashCooldownTimer -= Time.deltaTime;
         }
     }
+
     private void FixedUpdate()
     {
         if (!isDash)
@@ -74,8 +84,6 @@ public class PlayerInput : MonoBehaviour
     public void OnMove(InputValue value)
     {
         moveInput = value.Get<Vector2>();
-
-        //입력 벡터의 x, y 절대값을 비교해 수평 또는 수직 이동
         isHorizonMove = Mathf.Abs(moveInput.x) >= Mathf.Abs(moveInput.y);
 
         // 스프라이트 방향 설정
@@ -87,20 +95,6 @@ public class PlayerInput : MonoBehaviour
         {
             gameObject.transform.localScale = new Vector3(1.5f, 1.5f, 1.5f);
         }
-
-        // 움직임 여부를 체크하고 상태 전환
-        if (moveInput.x != 0)
-        {
-            // 이동 입력이 있는 경우 Walk 상태로 전환
-            stateMachine.TransitionTo(stateMachine.walkState);
-            playerSkill.SyncSkillAnimation();
-        }
-        else
-        {
-            stateMachine.TransitionTo(stateMachine.idleState);
-            playerSkill.SyncSkillAnimation();
-        }
-
     }
 
     // 대쉬

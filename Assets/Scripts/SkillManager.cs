@@ -85,7 +85,6 @@ public class SkillManager : MonoBehaviour
         {
             if (Input.GetKeyDown(key) && skillSlots[key] != null)
             {
-                Debug.Log($"{key} 슬롯에서 실행된 스킬: {skillSlots[key].Method.Name}");
                 skillSlots[key]?.Invoke();
             }
         }
@@ -111,7 +110,6 @@ public class SkillManager : MonoBehaviour
             if (skillSlots[key] == null)
             {
                 skillSlots[key] = skillAction;
-                Debug.Log($"{key}에 {skillName}스킬이 등록됨");
                 break;
             }
         }

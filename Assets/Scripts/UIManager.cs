@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -47,6 +48,7 @@ public class UIManager : MonoBehaviour
         ani = GetComponent<Animator>();
         LevelUpPanel.SetActive(false);
         UpdateStatNum();
+        upgradeDB.ResetAllLearned();
     }
 
     void Update()
@@ -120,26 +122,30 @@ public class UIManager : MonoBehaviour
         LevelUpPanel.SetActive(true);
 
         foreach (Transform child in cardParent)
-        {
             Destroy(child.gameObject);
+
+        var selectedOptions = new List<UpgradeOption>();
+
+        while (selectedOptions.Count < 3)
+        {
+            var option = upgradeDB.GetRandomOption(
+                excludeList: selectedOptions.Select(opt => opt.type).ToList()
+            );
+
+            if (option == null)
+                break;
+
+            selectedOptions.Add(option);
         }
 
-        var selectedTypes = new List<UpgradeType>();
-        while (selectedTypes.Count < 3)
+        foreach (var option in selectedOptions)
         {
-            var rand = (UpgradeType)UnityEngine.Random.Range(0, System.Enum.GetValues(typeof(UpgradeType)).Length);
-            if (!selectedTypes.Contains(rand))
-                selectedTypes.Add(rand);
-        }
-
-        foreach (var type in selectedTypes)
-        {
-            var option = upgradeDB.GetOption(type);
             var cardGO = Instantiate(cardPrefab, cardParent);
             var card = cardGO.GetComponent<UpgradeCard>();
             card.Init(option, FindFirstObjectByType<UpgradeButton>());
         }
     }
+
 
     public void UpdateStatNum()
     {

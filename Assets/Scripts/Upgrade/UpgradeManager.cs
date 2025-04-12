@@ -8,6 +8,7 @@ public class UpgradeManager : MonoBehaviour
 
     private Dictionary<UpgradeType, int> levels = new();
     private Dictionary<UpgradeType, int> maxLevels = new();
+    public UpgradeDataBase data;
 
     private void Awake()
     {

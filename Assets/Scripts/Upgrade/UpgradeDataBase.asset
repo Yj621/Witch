@@ -17,43 +17,215 @@ MonoBehaviour:
     title: "\uC774\uB3D9\uC18D\uB3C4 \uC5C5\uADF8\uB808\uC774\uB4DC"
     description: "\uC774\uB3D9\uC18D\uB3C4\uAC00 \uB298\uC5B4\uB09C\uB2E4"
     icon: {fileID: -2875125566309657267, guid: 77e0bbe58d3f3a44ab6357ebde4d19cc, type: 3}
+    hasLearned: 0
+    requireUnlockFS: 0
+    requireUnlockIP: 0
+    requireUnlockTD: 0
+    requireUnlockIF: 0
   - type: 1
     title: "\uB300\uC26C\uC18D\uB3C4 \uC5C5\uADF8\uB808\uC774\uB4DC"
     description: "\uB300\uC26C \uC18D\uB3C4\uAC00 \uB298\uC5B4\uB09C\uB2E4"
     icon: {fileID: -2381350663909541956, guid: 0f74410d21e278b49b524163b186241f, type: 3}
+    hasLearned: 0
+    requireUnlockFS: 0
+    requireUnlockIP: 0
+    requireUnlockTD: 0
+    requireUnlockIF: 0
   - type: 2
     title: "\uB300\uC26C \uCFE8\uB2E4\uC6B4"
     description: "\uB300\uC26C \uCFE8\uD0C0\uC784\uC774 \uAC10\uC18C\uD55C\uB2E4"
     icon: {fileID: -7844869662627084820, guid: 610251596d5809049b897cc493740722, type: 3}
+    hasLearned: 0
+    requireUnlockFS: 0
+    requireUnlockIP: 0
+    requireUnlockTD: 0
+    requireUnlockIF: 0
   - type: 3
     title: "\uACBD\uD5D8\uCE58 \uC99D\uAC00"
     description: "\uBC1B\uB294 \uACBD\uD5D8\uCE58\uAC00 \uC99D\uAC00\uD55C\uB2E4"
     icon: {fileID: 95807002999202596, guid: 5cb8c37f126a1e144aebdfc4ffe37f7f, type: 3}
+    hasLearned: 0
+    requireUnlockFS: 0
+    requireUnlockIP: 0
+    requireUnlockTD: 0
+    requireUnlockIF: 0
   - type: 4
     title: "Hp \uC99D\uAC00"
     description: "\uCD5C\uB300 Hp\uAC00 \uC99D\uAC00\uD55C\uB2E4"
     icon: {fileID: -3029695942722606338, guid: fcaf9fc5b15beb044826f044d365b02a, type: 3}
+    hasLearned: 0
+    requireUnlockFS: 0
+    requireUnlockIP: 0
+    requireUnlockTD: 0
+    requireUnlockIF: 0
   - type: 5
     title: "\uAE30\uBCF8\uC2A4\uD0AC \uC0AC\uAC70\uB9AC \uC99D\uAC00"
     description: "\uAE30\uBCF8 \uC2A4\uD0AC\uC758 \uC0AC\uAC70\uB9AC\uAC00 \uC99D\uAC00\uD55C\uB2E4"
     icon: {fileID: -8931649982321883935, guid: 0b73dcf54cd772d45a99b9493c78b90f, type: 3}
+    hasLearned: 0
+    requireUnlockFS: 0
+    requireUnlockIP: 0
+    requireUnlockTD: 0
+    requireUnlockIF: 0
   - type: 6
     title: "\uAE30\uBCF8\uC2A4\uD0AC \uCFE8\uD0C0\uC784 \uAC10\uC18C"
     description: "\uAE30\uBCF8\uC2A4\uD0AC\uC774 \uB354 \uC790\uC8FC \uB098\uAC04\uB2E4"
     icon: {fileID: -8931649982321883935, guid: 0b73dcf54cd772d45a99b9493c78b90f, type: 3}
+    hasLearned: 0
+    requireUnlockFS: 0
+    requireUnlockIP: 0
+    requireUnlockTD: 0
+    requireUnlockIF: 0
   - type: 7
     title: "\uAE30\uBCF8 \uC2A4\uD0AC \uB370\uBBF8\uC9C0"
     description: "\uAE30\uBCF8 \uC2A4\uD0AC\uC774 \uB354\uC6B1 \uAC15\uD574\uC9C4\uB2E4"
     icon: {fileID: -8931649982321883935, guid: 0b73dcf54cd772d45a99b9493c78b90f, type: 3}
-  - type: 10
+    hasLearned: 0
+    requireUnlockFS: 0
+    requireUnlockIP: 0
+    requireUnlockTD: 0
+    requireUnlockIF: 0
+  - type: 16
     title: "\uBC88\uAC1C \uB370\uBBF8\uC9C0 \uAC15\uD654"
     description: "\uBC88\uAC1C \uB370\uBBF8\uC9C0\uAC00 \uAC15\uD654\uB41C\uB2E4"
     icon: {fileID: 9095043128700965093, guid: 1131aa6a3fa99a4408ab2ec0995ce1a2, type: 3}
-  - type: 9
+    hasLearned: 0
+    requireUnlockFS: 0
+    requireUnlockIP: 0
+    requireUnlockTD: 1
+    requireUnlockIF: 0
+  - type: 15
     title: "\uBC88\uAC1C \uC2A4\uD0AC \uCFE8\uB2E4\uC6B4"
     description: "\uBC88\uAC1C \uCFE8\uD0C0\uC784\uC774 \uAC10\uC18C\uB41C\uB2E4"
     icon: {fileID: 9095043128700965093, guid: 1131aa6a3fa99a4408ab2ec0995ce1a2, type: 3}
-  - type: 8
+    hasLearned: 0
+    requireUnlockFS: 0
+    requireUnlockIP: 0
+    requireUnlockTD: 1
+    requireUnlockIF: 0
+  - type: 14
     title: "\uBC88\uAC1C \uC0AC\uAC70\uB9AC \uC99D\uAC00"
     description: "\uBC88\uAC1C\uC758 \uC0AC\uAC70\uB9AC\uAC00 \uC99D\uAC00\uD55C\uB2E4"
     icon: {fileID: 9095043128700965093, guid: 1131aa6a3fa99a4408ab2ec0995ce1a2, type: 3}
+    hasLearned: 0
+    requireUnlockFS: 0
+    requireUnlockIP: 0
+    requireUnlockTD: 1
+    requireUnlockIF: 0
+  - type: 10
+    title: "\uD30C\uC774\uC5B4\uC2AC\uB798\uC2DC \uB370\uBBF8\uC9C0"
+    description: "\uB380\uC99D"
+    icon: {fileID: -3398877403596534436, guid: 3973b2f38070bc349b38925effa520ee, type: 3}
+    hasLearned: 0
+    requireUnlockFS: 1
+    requireUnlockIP: 0
+    requireUnlockTD: 0
+    requireUnlockIF: 0
+  - type: 9
+    title: "\uD30C\uC774\uC5B4\uC2AC\uB798\uC2DC \uCFE8\uD0C0\uC784"
+    description: "\uCFE8\uAC10"
+    icon: {fileID: -3398877403596534436, guid: 3973b2f38070bc349b38925effa520ee, type: 3}
+    hasLearned: 0
+    requireUnlockFS: 1
+    requireUnlockIP: 0
+    requireUnlockTD: 0
+    requireUnlockIF: 0
+  - type: 8
+    title: "\uD30C\uC774\uC5B4\uC2AC\uB798\uC2DC \uC0AC\uAC70\uB9AC"
+    description: "\uC0AC\uAC70\uB9AC\uC99D\uAC00"
+    icon: {fileID: -3398877403596534436, guid: 3973b2f38070bc349b38925effa520ee, type: 3}
+    hasLearned: 0
+    requireUnlockFS: 1
+    requireUnlockIP: 0
+    requireUnlockTD: 0
+    requireUnlockIF: 0
+  - type: 11
+    title: "\uC544\uC774\uC2A4\uD544\uB7EC \uC0AC\uAC70\uB9AC"
+    description: "\uC0AC\uAC70\uB9AC\uC99D\uAC00"
+    icon: {fileID: 7805107759501430460, guid: 53f698a0f47a96f40a14e13c00dcc7fa, type: 3}
+    hasLearned: 0
+    requireUnlockFS: 0
+    requireUnlockIP: 1
+    requireUnlockTD: 0
+    requireUnlockIF: 0
+  - type: 12
+    title: "\uC544\uC774\uC2A4\uD544\uB7EC \uCFE8\uB2E4\uC6B4"
+    description: "\uCFE8\uB2E4\uC6B4"
+    icon: {fileID: 7805107759501430460, guid: 53f698a0f47a96f40a14e13c00dcc7fa, type: 3}
+    hasLearned: 0
+    requireUnlockFS: 0
+    requireUnlockIP: 1
+    requireUnlockTD: 0
+    requireUnlockIF: 0
+  - type: 13
+    title: "\uC544\uC774\uC2A4\uD544\uB7EC \uB370\uBBF8\uC9C0"
+    description: "\uB380\uC99D"
+    icon: {fileID: 7805107759501430460, guid: 53f698a0f47a96f40a14e13c00dcc7fa, type: 3}
+    hasLearned: 0
+    requireUnlockFS: 0
+    requireUnlockIP: 1
+    requireUnlockTD: 0
+    requireUnlockIF: 0
+  - type: 19
+    title: "\uC778\uD398\uB974\uB178 \uB380\uC99D"
+    description: "\uB380\uC99D"
+    icon: {fileID: -3101311472157396234, guid: 8ba4c40620913fe4a8c8d845804716ba, type: 3}
+    hasLearned: 0
+    requireUnlockFS: 0
+    requireUnlockIP: 0
+    requireUnlockTD: 0
+    requireUnlockIF: 1
+  - type: 18
+    title: "\uC778\uD398\uB974\uB178 \uCFE8\uB2E4\uC6B4"
+    description: "\uCFE8\uB2E4\uC6B4"
+    icon: {fileID: -3101311472157396234, guid: 8ba4c40620913fe4a8c8d845804716ba, type: 3}
+    hasLearned: 0
+    requireUnlockFS: 0
+    requireUnlockIP: 0
+    requireUnlockTD: 0
+    requireUnlockIF: 1
+  - type: 17
+    title: "\uC778\uD398\uB974\uB178 \uC0AC\uAC70\uB9AC\uC99D\uAC00"
+    description: "\uC0AC\uAC70\uB9AC"
+    icon: {fileID: -3101311472157396234, guid: 8ba4c40620913fe4a8c8d845804716ba, type: 3}
+    hasLearned: 0
+    requireUnlockFS: 0
+    requireUnlockIP: 0
+    requireUnlockTD: 0
+    requireUnlockIF: 1
+  - type: 20
+    title: "\uD30C\uC774\uC5B4\uC2AC\uB798\uC2DC \uC2B5\uB4DD"
+    description: "\uD30C\uC774\uC5B4\uC2AC\uB798\uC2DC\uB97C \uC2B5\uB4DD\uD55C\uB2E4"
+    icon: {fileID: -3398877403596534436, guid: 3973b2f38070bc349b38925effa520ee, type: 3}
+    hasLearned: 0
+    requireUnlockFS: 0
+    requireUnlockIP: 0
+    requireUnlockTD: 0
+    requireUnlockIF: 0
+  - type: 21
+    title: "\uC544\uC774\uC2A4\uD544\uB7EC \uC2B5\uB4DD"
+    description: "\uC544\uC774\uC2A4\uD544\uB7EC\uB97C \uC2B5\uB4DD\uD55C\uB2E4"
+    icon: {fileID: 7805107759501430460, guid: 53f698a0f47a96f40a14e13c00dcc7fa, type: 3}
+    hasLearned: 1
+    requireUnlockFS: 0
+    requireUnlockIP: 0
+    requireUnlockTD: 0
+    requireUnlockIF: 0
+  - type: 22
+    title: "\uBC88\uAC1C \uC2B5\uB4DD"
+    description: "\uBC88\uAC1C\uB97C \uC2B5\uB4DD\uD55C\uB2E4"
+    icon: {fileID: 9095043128700965093, guid: 1131aa6a3fa99a4408ab2ec0995ce1a2, type: 3}
+    hasLearned: 1
+    requireUnlockFS: 0
+    requireUnlockIP: 0
+    requireUnlockTD: 0
+    requireUnlockIF: 0
+  - type: 23
+    title: "\uC778\uD398\uB974\uB178 \uC2B5\uB4DD"
+    description: "\uC778\uD398\uB974\uB178\uB97C \uC2B5\uB4DD\uD55C\uB2E4"
+    icon: {fileID: -3101311472157396234, guid: 8ba4c40620913fe4a8c8d845804716ba, type: 3}
+    hasLearned: 0
+    requireUnlockFS: 0
+    requireUnlockIP: 0
+    requireUnlockTD: 0
+    requireUnlockIF: 0

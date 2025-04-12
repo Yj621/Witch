@@ -15,9 +15,27 @@ public enum UpgradeType
     DefaultSkillDamage,
 
     // 스킬 업그레이드
-    QESkillRange,
-    QESkillCooldown,
-    QESkillDamage
+    FSSkillRange,
+    FSSkillCooldown,
+    FSSkillDamage,
+
+    IPSkillRange,
+    IPSkillCooldown,
+    IPSkillDamage,
+
+    TDSkillRange,
+    TDSkillCooldown,
+    TDSkillDamage,
+
+    IFSkillRange,
+    IFSkillCooldown,
+    IFSkillDamage,
+
+    //스킬 습득
+    FSSkillLearn,
+    IPSkillLearn,
+    TDSkillLearn,
+    IFSkillLearn
 }
 
 public class UpgradeButton : MonoBehaviour
@@ -25,11 +43,7 @@ public class UpgradeButton : MonoBehaviour
     private Player player;
     [SerializeField] private UpgradeType upgradeType;
     public UpgradeLevel upgradeLevel;
-    [SerializeField] private string skillName;
-    [SerializeField] private bool hasLearnFS = false;
-    [SerializeField] private bool hasLearnIP = false;
-    [SerializeField] private bool hasLearnTD = false;
-    [SerializeField] private bool hasLearnIF = false;
+    
     void Start()
     {
         player = GameManager.Instance.player;
@@ -68,27 +82,66 @@ public class UpgradeButton : MonoBehaviour
                PlayerSkill.Instance.defaultSkillCooldown -= 0.5f;
                 Debug.Log("강화! 현재: " + PlayerSkill.Instance.defaultSkillCooldown);
                 break;
-            case UpgradeType.QESkillDamage:
-                if (skillName == "FireSlashs")
-                {
-                    if (!hasLearnFS) { SkillManager.Instance.LearnNewSkill("FireSlashs"); hasLearnFS = true; }
-                    else UpgradeSkillDamage("FireSlashs", 10f);
-                }
-                else if (skillName == "IcePillar")
-                {
-                    if (!hasLearnIP) {SkillManager.Instance.LearnNewSkill("IcePillar"); hasLearnIP = true; }
-                    else UpgradeSkillDamage("IcePillar", 10f);
-                }
-                else if (skillName == "Thunder")
-                {
-                    if (!hasLearnTD) {SkillManager.Instance.LearnNewSkill("Thunder"); hasLearnTD = true; }
-                    else UpgradeSkillDamage("Thunder", 10f);
-                }
-                else if (skillName == "Infierno")
-                {
-                    if (!hasLearnIF) {SkillManager.Instance.LearnNewSkill("Infierno"); hasLearnIF = true; }
-                    else UpgradeSkillDamage("Infierno", 10f);
-                }
+
+
+            case UpgradeType.FSSkillLearn:
+                SkillManager.Instance.LearnNewSkill("FireSlashs");
+                UpgradeManager.Instance.data.SetDisabled(UpgradeType.FSSkillLearn, true);
+                break;
+            case UpgradeType.FSSkillDamage:
+                UpgradeSkillDamage("FireSlashs", 10f);
+                break;
+            case UpgradeType.FSSkillCooldown:
+                UpgradeSkillDamage("FireSlashs", 10f);
+                break;
+            case UpgradeType.FSSkillRange:
+                UpgradeSkillDamage("FireSlashs", 10f);
+                break;
+
+
+
+            case UpgradeType.IPSkillLearn:
+                SkillManager.Instance.LearnNewSkill("IcePillar");
+                UpgradeManager.Instance.data.SetDisabled(UpgradeType.IPSkillLearn, true);
+                break;
+            case UpgradeType.IPSkillDamage:
+                UpgradeSkillDamage("IcePillar", 10f);
+                break;
+            case UpgradeType.IPSkillCooldown:
+                UpgradeSkillDamage("IcePillar", 10f);
+                break;
+            case UpgradeType.IPSkillRange:
+                UpgradeSkillDamage("IcePillar", 10f);
+                break;
+
+
+            case UpgradeType.TDSkillLearn:
+                SkillManager.Instance.LearnNewSkill("Thunder");
+                UpgradeManager.Instance.data.SetDisabled(UpgradeType.TDSkillLearn, true);
+                break;
+            case UpgradeType.TDSkillDamage:
+                UpgradeSkillDamage("Thunder", 10f);
+                break;
+            case UpgradeType.TDSkillCooldown:
+                UpgradeSkillDamage("Thunder", 10f);
+                break;
+            case UpgradeType.TDSkillRange:
+                UpgradeSkillDamage("Thunder", 10f);
+                break;
+
+
+            case UpgradeType.IFSkillLearn:
+                SkillManager.Instance.LearnNewSkill("Infierno");
+                UpgradeManager.Instance.data.SetDisabled(UpgradeType.IFSkillLearn, true);
+                break;
+            case UpgradeType.IFSkillDamage:
+                UpgradeSkillDamage("Infierno", 10f);
+                break;
+            case UpgradeType.IFSkillCooldown:
+                UpgradeSkillDamage("Infierno", 10f);
+                break;
+            case UpgradeType.IFSkillRange:
+                UpgradeSkillDamage("Infierno", 10f);
                 break;
         }
 

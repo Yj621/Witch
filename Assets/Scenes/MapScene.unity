@@ -32048,11 +32048,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   upgradeType: 10
-  skillName: FireSlashs
-  hasLearnFS: 0
-  hasLearnIP: 0
-  hasLearnTD: 0
-  hasLearnIF: 0
 --- !u!1 &1110667900
 GameObject:
   m_ObjectHideFlags: 0
@@ -32549,11 +32544,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   upgradeType: 10
-  skillName: IcePillar
-  hasLearnFS: 0
-  hasLearnIP: 0
-  hasLearnTD: 0
-  hasLearnIF: 0
 --- !u!1 &1155315344
 GameObject:
   m_ObjectHideFlags: 0
@@ -33141,18 +33131,6 @@ MonoBehaviour:
       - m_Target: {fileID: 1793802665}
         m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
         m_MethodName: OnLevelUp
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: Thunder
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 1793802665}
-        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
-        m_MethodName: LevelUpPanelPop
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -33874,11 +33852,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   upgradeType: 10
-  skillName: Thunder
-  hasLearnFS: 0
-  hasLearnIP: 0
-  hasLearnTD: 0
-  hasLearnIF: 0
 --- !u!1 &1420345304
 GameObject:
   m_ObjectHideFlags: 0
@@ -77429,11 +77402,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   upgradeType: 0
-  skillName: 
-  hasLearnFS: 0
-  hasLearnIP: 0
-  hasLearnTD: 0
-  hasLearnIF: 0
 --- !u!1 &1817078518
 GameObject:
   m_ObjectHideFlags: 0
@@ -77800,11 +77768,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   upgradeType: 10
-  skillName: Infierno
-  hasLearnFS: 0
-  hasLearnIP: 0
-  hasLearnTD: 0
-  hasLearnIF: 0
 --- !u!1 &1889533135
 GameObject:
   m_ObjectHideFlags: 0
@@ -79864,6 +79827,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 638393cb74e7f3f4fa54f9859a6ceb31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  data: {fileID: 11400000, guid: cd39e6a254f5f9548a69c14e1f1fb3e4, type: 2}
 --- !u!4 &2091354699
 Transform:
   m_ObjectHideFlags: 0

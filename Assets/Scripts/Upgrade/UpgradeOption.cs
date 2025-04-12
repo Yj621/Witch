@@ -7,4 +7,10 @@ public class UpgradeOption
     public string title;
     public string description;
     public Sprite icon;
+
+    public bool hasLearned;
+    public bool requireUnlockFS ;
+    public bool requireUnlockIP;
+    public bool requireUnlockTD;
+    public bool requireUnlockIF;
 }

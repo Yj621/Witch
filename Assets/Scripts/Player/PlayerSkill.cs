@@ -1,6 +1,7 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
-using static UnityEngine.GraphicsBuffer;
+using System;
 
 public class PlayerSkill : MonoBehaviour
 {
@@ -9,9 +10,19 @@ public class PlayerSkill : MonoBehaviour
     private SkillManager skillManager;
 
     public float defaultSkillCooldown;
+
+    // 스킬 쿨다운 타이머 관리
+    private Dictionary<string, float> skillCooldownTimers = new Dictionary<string, float>();
+    public Dictionary<string, float> addSkillCooldown = new Dictionary<string, float>()
+    {
+        { "IcePillar", 3f },
+        { "Blackhole", 4f },
+        { "Infierno", 2f }
+    };
+
     [SerializeField] private Transform skillSpawnPoint;
     [SerializeField] private Transform playerTransform;
-    private float currentDamage;
+
     public static PlayerSkill Instance { get; private set; }
 
     private void Awake()
@@ -27,47 +38,43 @@ public class PlayerSkill : MonoBehaviour
         }
         skillAnimator = GetComponent<Animator>();
     }
+
     private void Start()
     {
         skillManager = SkillManager.Instance;
         playerInput = PlayerInput.Instance;
-        // 일정 시간마다 OnDefaultSkill 자동 실행
-        StartCoroutine(AutoFireDefaultSkill());
-    }
-    private void Update()
-    {
-     }
 
-    // 플레이어와 스킬 싱크 맞추기
+        // 기본 스킬 자동 발사 시작
+        StartCoroutine(AutoFireDefaultSkill());
+
+        // 추가 스킬 쿨다운 타이머 초기화
+        foreach (var skill in addSkillCooldown)
+        {
+            skillCooldownTimers[skill.Key] = 0f;
+        }
+
+    }
+
+    // 스킬 애니메이션과 동기화
     public void SyncSkillAnimation()
     {
         if (playerInput == null || skillAnimator == null) return;
 
         string currentState = playerInput.GetCurrentTriggerName();
-
-        // 애니메이션 상태 중 스킬과 관련 없는 것들은 필터링
-        if (currentState == "Idle" || currentState == "Walk" || currentState == "Dash" || currentState == "Die")
-        {
-            return; // 스킬 데미지 요청 안 함
-        }
+        if (IsNonSkillState(currentState)) return;
 
         float damage = skillManager.GetSkillDamage(currentState);
         Debug.Log($"currentState는 {currentState}, 데미지는 {damage}");
 
-        // 스킬 애니메이터의 상태도 변경
         skillAnimator.SetTrigger(currentState);
     }
 
-    // 스킬 데미지
-    private void OnTriggerEnter2D(Collider2D other)
+    private bool IsNonSkillState(string state)
     {
-        float damage = skillManager.GetSkillDamage(playerInput.GetCurrentTriggerName());
-        if (other.gameObject.CompareTag("Enemy"))
-        {
-            Debug.Log($"currentDamage : {currentDamage}");
-            other.GetComponent<EnemyMove>().EnemyHurt(currentDamage);
-        }
+        return state == "Idle" || state == "Walk" || state == "Dash" || state == "Die";
     }
+
+    // 기본 스킬 자동 발사
     private IEnumerator AutoFireDefaultSkill()
     {
         while (true)
@@ -77,22 +84,66 @@ public class PlayerSkill : MonoBehaviour
         }
     }
 
-    //기본 스킬 
+    // 기본 스킬 발사
     public void DefaultSkill()
     {
-        float direction = Mathf.Sign(playerTransform.localScale.x); // 캐릭터 방향 (왼쪽:-1, 오른쪽:1)
+        FireSkill(GameManager.Instance.skillObjectPool.GetFireObject(), 4f);
+    }
 
+// 추가 스킬 자동 발사
+public IEnumerator AutoAddSkills()
+{
+    while (true)
+    {
+        // SkillManager에서 현재 배운 스킬 목록 가져오기
+        var learnedSkills = SkillManager.Instance.GetAutoSkills();
+
+        foreach (var skill in addSkillCooldown.Keys)
+        {
+            // 배운 스킬인지 확인
+            if (!learnedSkills.Exists(action => SkillManager.Instance.GetSkillAction(skill) == action))
+                continue;
+
+            // 스킬 발사 처리
+            if (Time.time >= skillCooldownTimers[skill])
+            {
+                skillCooldownTimers[skill] = Time.time + addSkillCooldown[skill];
+                AddSkill(skill);
+                Debug.Log($"Learned skill fired: {skill}");
+            }
+        }
+        yield return null; // 매 프레임 체크
+    }
+}
+
+    // 추가 스킬 발사
+    private void AddSkill(string skillName)
+    {
+        GameObject skill = GameManager.Instance.skillObjectPool.GetSkillObject(skillName);
+        FireSkill(skill, 0f); // 속도는 스킬별로 설정 가능
+    }
+
+    // 스킬 발사 로직
+    private void FireSkill(GameObject skill, float speed)
+    {
+        if (skill == null) return;
+
+        float direction = Mathf.Sign(playerTransform.localScale.x); // 캐릭터 방향
         Vector2 spawnPosition = skillSpawnPoint.position;
 
-        // 총알 생성 및 위치 설정
-        GameObject skill = GameManager.Instance.skillObjectPool.GetObject();
         skill.transform.position = spawnPosition;
         skill.transform.rotation = Quaternion.identity;
 
-        // 총알 속도 및 방향 설정
-        skill.GetComponent<DefaultSkill>().velocity = new Vector2(4f * direction, 0);
+        // 좌우 반전 설정
         skill.transform.localScale = new Vector3(direction * Mathf.Abs(skill.transform.localScale.x),
-                                          skill.transform.localScale.y,
-                                          skill.transform.localScale.z);
+                                                  skill.transform.localScale.y,
+                                                  skill.transform.localScale.z);
+
+        // 속도 설정
+        var skillComponent = skill.GetComponent<DefaultSkill>();
+        if (skillComponent != null)
+        {
+            skillComponent.velocity = new Vector2(speed * direction, 0);
+        }
     }
 }

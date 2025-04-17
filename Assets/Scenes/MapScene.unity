@@ -77389,6 +77389,7 @@ MonoBehaviour:
   PSText: {fileID: 1511937073}
   EPText: {fileID: 2076624295}
   HPText: {fileID: 1267961252}
+  LvText: {fileID: 1766768703}
 --- !u!114 &1793802666
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -19,6 +19,9 @@ public class MonsterSpwaner : MonoBehaviour
     void Start()
     {
         player = GameManager.Instance.player;
+        currentLevel = player.Level;
+        ApplyLevelScaling(currentLevel);
+        UpdateSpawnTypes(currentLevel);
         StartCoroutine(SpawnRoutine());
     }
 
@@ -35,7 +38,7 @@ public class MonsterSpwaner : MonoBehaviour
     void UpdateSpawnTypes(int level)
     {
         availableTypes.Clear();
-        if (level >= 1) availableTypes.Add(MonsterType.Pumpkin);
+        if (level >= 0) availableTypes.Add(MonsterType.Pumpkin);
         if (level >= 5) availableTypes.Add(MonsterType.Ghost);
         if (level >= 10) availableTypes.Add(MonsterType.Spider);
         if (level >= 15) availableTypes.Add(MonsterType.Skull);

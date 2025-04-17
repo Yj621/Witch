@@ -2,14 +2,12 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class Opening : MonoBehaviour
+public class OpPanelController : MonoBehaviour
 {
-    public GameObject OptionPanel;
     public Image[] buttonpickimages;
 
     private int selectedIndex = 0;
-    private bool isOptionPanelOpen = false;
-
+   
     void Start()
     {
         for (int i = 0; i < buttonpickimages.Length; i++)
@@ -20,18 +18,8 @@ public class Opening : MonoBehaviour
 
     void Update()
     {
-        if (!isOptionPanelOpen)
-        {
             HandleMenuInput();
             HandleMenuSelection();
-        }
-        else
-        {
-            if (Input.GetKeyDown(KeyCode.Escape))
-            {
-                CloseOptionPanel();
-            }
-        }
     }
 
     void HandleMenuInput()
@@ -63,37 +51,15 @@ public class Opening : MonoBehaviour
             switch (selectedIndex)
             {
                 case 0:
-                    StartGame();
+                    
                     break;
                 case 1:
-                    OpenOptionPanel();
+                    
                     break;
                 case 2:
-                    GameEnd();
+                    
                     break;
             }
         }
-    }
-
-    void StartGame()
-    {
-        SceneManager.LoadScene("MapScene");
-    }
-
-    void OpenOptionPanel()
-    {
-        OptionPanel.SetActive(true);
-        isOptionPanelOpen = true;
-    }
-
-    void CloseOptionPanel()
-    {
-        OptionPanel.SetActive(false);
-        isOptionPanelOpen = false;
-    }
-
-    void GameEnd()
-    {
-        Application.Quit();
     }
 }

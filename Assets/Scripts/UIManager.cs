@@ -26,6 +26,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] public TextMeshProUGUI PSText;
     [SerializeField] public TextMeshProUGUI EPText;
     [SerializeField] public TextMeshProUGUI HPText;
+    [SerializeField] public TextMeshProUGUI LvText;
     public static UIManager Instance { get; private set; }
 
     void Awake()
@@ -57,6 +58,7 @@ public class UIManager : MonoBehaviour
         ExpSlider.maxValue = player.maxExp;
         ExpSlider.value = player.Exp;
         CleanSlider.value = GameManager.Instance.currentClean;
+        LvText.text = "Lv " + player.level;
     }
 
     //스킬 아이콘 업데이트

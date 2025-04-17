@@ -77636,6 +77636,7 @@ GameObject:
   - component: {fileID: 1788937605}
   - component: {fileID: 1788937607}
   - component: {fileID: 1788937606}
+  - component: {fileID: 1788937608}
   m_Layer: 5
   m_Name: Panel
   m_TagString: Untagged
@@ -77704,6 +77705,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1788937604}
   m_CullTransparentMesh: 1
+--- !u!114 &1788937608
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1788937604}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 431fdce9733eb704d942b00ded882986, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  buttonpickimages:
+  - {fileID: 771895203}
+  - {fileID: 450776551}
+  - {fileID: 761072287}
 --- !u!1 &1798083307
 GameObject:
   m_ObjectHideFlags: 0
@@ -78668,9 +78685,9 @@ RectTransform:
   - {fileID: 1303807071}
   - {fileID: 896662543}
   - {fileID: 1149548930}
-  - {fileID: 1788937605}
   - {fileID: 1853354061}
   - {fileID: 2062169425}
+  - {fileID: 1788937605}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -79278,6 +79295,55 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2066700751}
   m_CullTransparentMesh: 1
+--- !u!1 &2124902909
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2124902911}
+  - component: {fileID: 2124902910}
+  m_Layer: 0
+  m_Name: OpeningManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &2124902910
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2124902909}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e733ee6327c7d86498eca01595484a38, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OptionPanel: {fileID: 1788937604}
+  buttonpickimages:
+  - {fileID: 1679175814}
+  - {fileID: 1891647632}
+  - {fileID: 1807803069}
+--- !u!4 &2124902911
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2124902909}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1611.6204, y: 901.64185, z: 4.0642953}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2130409135
 GameObject:
   m_ObjectHideFlags: 0
@@ -79546,3 +79612,4 @@ SceneRoots:
   - {fileID: 1930722308}
   - {fileID: 1690842625}
   - {fileID: 1825148368}
+  - {fileID: 2124902911}

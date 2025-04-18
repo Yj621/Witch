@@ -15,6 +15,9 @@ public class UIManager : MonoBehaviour
     Player player;
     [SerializeField] private Image Qskill;
     [SerializeField] private Image Eskill;
+    [SerializeField] private Image P1Skill;
+    [SerializeField] private Image P2Skill;
+    [SerializeField] private Image P3Skill;
     [SerializeField] private UpgradeDataBase upgradeDB;
     [SerializeField] private GameObject cardPrefab;
     [SerializeField] private Transform cardParent;
@@ -66,7 +69,12 @@ public class UIManager : MonoBehaviour
     {
         UpdateSkillIconKey(KeyCode.Q, Qskill, skillManager);
         UpdateSkillIconKey(KeyCode.E, Eskill, skillManager);
+        UpdateSkillIconKey(KeyCode.Z, P1Skill, skillManager);
+        UpdateSkillIconKey(KeyCode.X, P2Skill, skillManager);
+        UpdateSkillIconKey(KeyCode.C, P3Skill, skillManager);
     }
+
+    
     
 
     private void UpdateSkillIconKey(KeyCode key, Image image, SkillManager skillManager)

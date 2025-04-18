@@ -76,6 +76,11 @@ public class SkillManager : MonoBehaviour
             { "Thunder", amount=> player.skill.thunderDamage+= amount },
             { "Infierno", amount=> player.skill.infiernoDamage+= amount  }
         };
+
+        LearnNewSkill("FireSlashs");
+        UpgradeManager.Instance.data.SetDisabled(UpgradeType.FSSkillLearn, true);
+        LearnNewSkill("Infierno");
+        UpgradeManager.Instance.data.SetDisabled(UpgradeType.IFSkillLearn, true);
     }
 
     void Update()

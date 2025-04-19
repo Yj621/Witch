@@ -9,25 +9,22 @@ public class SkillManager : MonoBehaviour
     //Action 타입은 입력과 출력이 없는 메서드를 가리킬 수 있는 델리게이트
     //각 키에 할당할 스킬
     private Dictionary<KeyCode, Action> skillSlots = new Dictionary<KeyCode, Action>();
+    private List<Action> autoskillSlots = new List<Action>();
     //스킬 업그레이드 레벨 저장
     private Dictionary<string, int> skillUpgradeLevels = new Dictionary<string, int>();
     //배운 스킬 리스트
     private List<Action> skillList = new List<Action>();
-
-    //추가 자동 스킬 리스트
-    private List<Action> autoSkillList = new List<Action>();
     PlayerInput playerInput;
 
     // 등록 가능한 슬롯 리스트 
     private readonly KeyCode[] slotKeys = { KeyCode.Q, KeyCode.E };
 
     //스킬 매핑 및 관련 함수 딕셔너리
-    public Dictionary<string, Action> skillActionMap;
+    private Dictionary<string, Action> skillActionMap;
     private Dictionary<string, Func<float>> skillDamageMap;
     private Dictionary<string, Action<float>> skillUpgradeMap;
 
     Player player;
-    private Coroutine autoAddSkillCoroutine;
 
     public static SkillManager Instance { get; private set; }
 
@@ -80,6 +77,11 @@ public class SkillManager : MonoBehaviour
             { "Thunder", amount=> player.skill.thunderDamage+= amount },
             { "Infierno", amount=> player.skill.infiernoDamage+= amount  }
         };
+
+        LearnNewSkill("FireSlashs");
+        UpgradeManager.Instance.data.SetDisabled(UpgradeType.FSSkillLearn, true);
+        LearnNewSkill("Infierno");
+        UpgradeManager.Instance.data.SetDisabled(UpgradeType.IFSkillLearn, true);
     }
 
     void Update()
@@ -95,7 +97,7 @@ public class SkillManager : MonoBehaviour
     }
 
     // 배운 스킬을 순서대로 슬롯에 등록
-    public void LearnNewSkill(string skillName)
+    public void LearnNewSkill(string skillName, bool isAuto = false)
     {
         Action skillAction = GetSkillAction(skillName);
         // 스킬 기본 레벨 설정
@@ -108,47 +110,30 @@ public class SkillManager : MonoBehaviour
             Debug.LogWarning($"알 수 없는 스킬 : {skillName}");
             return;
         }
+        skillList.Add(skillAction);
 
-        //스킬 빈 자리가 있다면
-        bool assignedToSlot = false;
-        foreach (var key in slotKeys)
+        if (isAuto)
         {
-            if (skillSlots[key] == null)
-            {
-                skillSlots[key] = skillAction;
-                assignedToSlot = true;
-                break;
-            }
+            autoskillSlots.Add(skillAction);
         }
-
-
-        //스킬 빈 자리가 없다면 자동 리스트로
-        if (!assignedToSlot)
+        else
         {
-            autoSkillList.Add(skillAction);
-            // autoSkillList가 비어있지 않고 코루틴이 실행 중이 아니면 코루틴 시작
-            if (autoAddSkillCoroutine == null)
+            foreach (var key in slotKeys)
             {
-                autoAddSkillCoroutine = StartCoroutine(PlayerSkill.Instance.AutoAddSkills());
+                if (skillSlots[key] == null)
+                {
+                    skillSlots[key] = skillAction;
+                    break;
+                }
             }
-        }
-
-        //스킬 아이콘 업데이트
-        UIManager.Instance.UpdateSkillIcons();
-    }
-    // 코루틴 종료 관리
-    public void StopAutoAddSkillIfNeeded()
-    {
-        if (autoSkillList.Count == 0 && autoAddSkillCoroutine != null)
-        {
-            StopCoroutine(autoAddSkillCoroutine);
-            autoAddSkillCoroutine = null;
+            UIManager.Instance.UpdateSkillIcons(); // 수동 스킬만 UI 반영
         }
     }
+
     // 스킬 이름에 따라 PlayerInput의 메서드 반환
     public Action GetSkillAction(string skillName)
     {
-        if (skillActionMap.TryGetValue(skillName, out Action action))
+        if(skillActionMap.TryGetValue(skillName, out Action action))
         {
             return action;
         }
@@ -161,18 +146,21 @@ public class SkillManager : MonoBehaviour
         return skillSlots.ContainsKey(key) ? skillSlots[key] : null;
     }
 
-
+    public List<Action> GetAutoSkills()
+    {
+        return autoskillSlots;
+    }
 
     // 스킬 데미지 할당
     public float GetSkillDamage(string skillName)
     {
-        if (skillDamageMap.TryGetValue(skillName, out Func<float> getDamage))
+        if(skillDamageMap.TryGetValue(skillName, out Func<float> getDamage))
         {
             return getDamage();
         }
         return 0f;
     }
-
+     
     // 스킬 데미지 업그레이드 함수
     public void UpgradeSkillDamage(string skillName, float amountPerLevel)
     {
@@ -184,16 +172,10 @@ public class SkillManager : MonoBehaviour
         }
         skillUpgradeLevels[skillName]++;
         int level = skillUpgradeLevels[skillName];
-
-        if (skillUpgradeMap.TryGetValue(skillName, out Action<float> upgrade))
+        
+        if(skillUpgradeMap.TryGetValue(skillName, out Action<float> upgrade))
         {
             upgrade(amountPerLevel);
         }
-    }
-
-    //스킬 리스트 반환 함수
-    public List<Action> GetAutoSkills()
-    {
-        return autoSkillList;
     }
 }

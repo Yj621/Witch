@@ -101,7 +101,7 @@ public class UpgradeButton : MonoBehaviour
 
 
             case UpgradeType.IPSkillLearn:
-                SkillManager.Instance.LearnNewSkill("IcePillar");
+                SkillManager.Instance.LearnNewSkill("IcePillar", true);
                 UpgradeManager.Instance.data.SetDisabled(UpgradeType.IPSkillLearn, true);
                 break;
             case UpgradeType.IPSkillDamage:
@@ -116,7 +116,7 @@ public class UpgradeButton : MonoBehaviour
 
 
             case UpgradeType.TDSkillLearn:
-                SkillManager.Instance.LearnNewSkill("Thunder");
+                SkillManager.Instance.LearnNewSkill("Thunder", true);
                 UpgradeManager.Instance.data.SetDisabled(UpgradeType.TDSkillLearn, true);
                 break;
             case UpgradeType.TDSkillDamage:
@@ -148,6 +148,7 @@ public class UpgradeButton : MonoBehaviour
         UpgradeManager.Instance.LevelUp(upgradeType);
         Time.timeScale = 1f;
         UIManager.Instance.UpdateStatNum();
+        UIManager.Instance.UpdateSkillIcons();
     }
     public void UpgradeSkillDamage(string skillName, float damage)
     {

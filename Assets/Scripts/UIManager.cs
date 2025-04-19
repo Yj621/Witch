@@ -4,6 +4,7 @@ using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
@@ -15,6 +16,9 @@ public class UIManager : MonoBehaviour
     Player player;
     [SerializeField] private Image Qskill;
     [SerializeField] private Image Eskill;
+    [SerializeField] private Image P1Skill;
+    [SerializeField] private Image P2Skill;
+    [SerializeField] private Image P3Skill;
     [SerializeField] private UpgradeDataBase upgradeDB;
     [SerializeField] private GameObject cardPrefab;
     [SerializeField] private Transform cardParent;
@@ -26,6 +30,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] public TextMeshProUGUI PSText;
     [SerializeField] public TextMeshProUGUI EPText;
     [SerializeField] public TextMeshProUGUI HPText;
+    [SerializeField] public TextMeshProUGUI LvText;
     public static UIManager Instance { get; private set; }
 
     void Awake()
@@ -57,6 +62,7 @@ public class UIManager : MonoBehaviour
         ExpSlider.maxValue = player.maxExp;
         ExpSlider.value = player.Exp;
         CleanSlider.value = GameManager.Instance.currentClean;
+        LvText.text = "Lv " + player.level;
     }
 
     //스킬 아이콘 업데이트
@@ -64,7 +70,12 @@ public class UIManager : MonoBehaviour
     {
         UpdateSkillIconKey(KeyCode.Q, Qskill, skillManager);
         UpdateSkillIconKey(KeyCode.E, Eskill, skillManager);
+        UpdateSkillIconNonKey(0, P1Skill, skillManager);
+        UpdateSkillIconNonKey(1, P2Skill, skillManager);
+        UpdateSkillIconNonKey(2, P3Skill, skillManager);
     }
+
+    
     
 
     private void UpdateSkillIconKey(KeyCode key, Image image, SkillManager skillManager)
@@ -79,6 +90,8 @@ public class UIManager : MonoBehaviour
             return;
         }
 
+        
+
         string methodName = skillAction.Method.Name;
         int index = -1;
 
@@ -87,17 +100,8 @@ public class UIManager : MonoBehaviour
             case "UseFireSlash":
                 index = 0;
                 break;
-            case "UseIcePillar":
-                index = 1;
-                break;
-            case "UseThunder":
-                index = 2;
-                break;
-            case "UseBlackHole":
-                index = 3;
-                break;
             case "UseInfierno":
-                index = 4;
+                index = 1;
                 break;
             default:
                 break;
@@ -114,6 +118,52 @@ public class UIManager : MonoBehaviour
         }
 
     }
+
+    private void UpdateSkillIconNonKey(int indexInList, Image image, SkillManager skillManager)
+    {
+        List<Action> autoSkills = skillManager.GetAutoSkills();
+
+        // 리스트 길이 확인해서 예외 방지
+        if (indexInList >= autoSkills.Count || autoSkills[indexInList] == null)
+        {
+            image.sprite = null;
+            image.enabled = false;
+            return;
+        }
+
+        Action skillAction = autoSkills[indexInList];
+        string methodName = skillAction.Method.Name;
+        int iconIndex = -1;
+
+        switch (methodName)
+        {
+            case "UseIcePillar":
+                iconIndex = 2;
+                break;
+            case "UseThunder":
+                iconIndex = 3;
+                break;
+            case "UseBlackHole":
+                iconIndex = 4;
+                break;
+            // 필요 시 추가
+            default: break;
+        }
+
+        if (iconIndex >= 0 && iconIndex < skillIcons.Length)
+        {
+            image.sprite = skillIcons[iconIndex];
+            image.enabled = true;
+        }
+        else
+        {
+            image.sprite = null;
+            image.enabled = false;
+        }
+        Debug.Log("업뎃");
+    }
+
+
 
     //스킬 레벨, 데미지 갱신
 

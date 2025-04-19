@@ -43,7 +43,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -135,10 +135,10 @@ TextureImporter:
       name: Slash1(NoGlow))1_0
       rect:
         serializedVersion: 2
-        x: 23
-        y: 29
-        width: 28
-        height: 46
+        x: 0
+        y: 0
+        width: 133
+        height: 96
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -153,55 +153,11 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
-    - serializedVersion: 2
-      name: Slash1(NoGlow))1_1
-      rect:
-        serializedVersion: 2
-        x: 45
-        y: 45
-        width: 13
-        height: 15
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: b94357430171e1a80800000000000000
-      internalID: -8494326488807164773
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Slash1(NoGlow))1_2
-      rect:
-        serializedVersion: 2
-        x: 48
-        y: 30
-        width: 10
-        height: 11
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: d56c571954571eea0800000000000000
-      internalID: -5845261899696585123
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
     outline: []
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 0176e283ee168d548a6e36071a7afb81
     internalID: 0
     vertices: []
     indices: 
@@ -212,8 +168,6 @@ TextureImporter:
       entries: []
     nameFileIdTable:
       Slash1(NoGlow))1_0: 7944895357420995964
-      Slash1(NoGlow))1_1: -8494326488807164773
-      Slash1(NoGlow))1_2: -5845261899696585123
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

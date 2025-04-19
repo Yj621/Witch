@@ -55,7 +55,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -147,10 +147,10 @@ TextureImporter:
       name: Slash3(NoGlow))9_0
       rect:
         serializedVersion: 2
-        x: 22
-        y: 26
-        width: 35
-        height: 35
+        x: 0
+        y: 0
+        width: 133
+        height: 96
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -165,143 +165,11 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
-    - serializedVersion: 2
-      name: Slash3(NoGlow))9_1
-      rect:
-        serializedVersion: 2
-        x: 63
-        y: 36
-        width: 54
-        height: 38
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 3ee4584badf98fda0800000000000000
-      internalID: -5910798749243453725
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Slash3(NoGlow))9_2
-      rect:
-        serializedVersion: 2
-        x: 80
-        y: 26
-        width: 14
-        height: 10
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 0f0bce4f55f7c9fc0800000000000000
-      internalID: -3486772004333506320
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Slash3(NoGlow))9_3
-      rect:
-        serializedVersion: 2
-        x: 91
-        y: 19
-        width: 14
-        height: 17
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: c46e66f27b6c5ca80800000000000000
-      internalID: -8447127035986909620
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Slash3(NoGlow))9_4
-      rect:
-        serializedVersion: 2
-        x: 101
-        y: 35
-        width: 8
-        height: 7
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 15c8d089517fe7d70800000000000000
-      internalID: 9042936773923933265
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Slash3(NoGlow))9_5
-      rect:
-        serializedVersion: 2
-        x: 103
-        y: 29
-        width: 29
-        height: 13
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 8122d4876594006f0800000000000000
-      internalID: -720495304644943336
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Slash3(NoGlow))9_6
-      rect:
-        serializedVersion: 2
-        x: 64
-        y: 27
-        width: 8
-        height: 8
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: d20d3ea0990b1e0b0800000000000000
-      internalID: -5701081481915150291
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
     outline: []
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 53a5a21698c96d4428a51b0b25f34f18
     internalID: 0
     vertices: []
     indices: 
@@ -312,12 +180,6 @@ TextureImporter:
       entries: []
     nameFileIdTable:
       Slash3(NoGlow))9_0: 2883722154165660055
-      Slash3(NoGlow))9_1: -5910798749243453725
-      Slash3(NoGlow))9_2: -3486772004333506320
-      Slash3(NoGlow))9_3: -8447127035986909620
-      Slash3(NoGlow))9_4: 9042936773923933265
-      Slash3(NoGlow))9_5: -720495304644943336
-      Slash3(NoGlow))9_6: -5701081481915150291
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

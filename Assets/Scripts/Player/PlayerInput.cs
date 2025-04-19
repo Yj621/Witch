@@ -44,23 +44,25 @@ public class PlayerInput : MonoBehaviour
         stateMachine = playerController.stateMachine;
         stateMachine.Initialize(stateMachine.idleState);
         // PlayerSkill 가져오기
-        playerSkill = PlayerSkill.Instance; 
+        playerSkill = PlayerSkill.Instance;
 
     }
 
     private void Update()
     {
         stateMachine.Execute();
-        playerSkill.SyncSkillAnimation();
 
-        // moveInput의 값이 지속적으로 갱신되는지 체크
-        if (moveInput.sqrMagnitude > 0.01f)  // 약간의 임계치를 두어 노이즈 필터링
+        var curr = stateMachine.CurrentState;
+        if (curr == stateMachine.idleState || curr == stateMachine.walkState)
         {
-            stateMachine.TransitionTo(stateMachine.walkState);
-        }
-        else
-        {
-            stateMachine.TransitionTo(stateMachine.idleState);
+            if (moveInput.sqrMagnitude > 0.01f)
+            {
+                stateMachine.TransitionTo(stateMachine.walkState);
+            }
+            else
+            {
+                stateMachine.TransitionTo(stateMachine.idleState);
+            }
         }
 
         if (dashCooldownTimer > 0)
@@ -104,7 +106,6 @@ public class PlayerInput : MonoBehaviour
         {
             StartCoroutine(Dash());
             stateMachine.TransitionTo(stateMachine.dashState);
-            playerSkill.SyncSkillAnimation();
         }
     }
 
@@ -118,7 +119,6 @@ public class PlayerInput : MonoBehaviour
         isDash = false;
         dashCooldownTimer = dashCoolTime;
         stateMachine.TransitionTo(stateMachine.idleState);
-        playerSkill.SyncSkillAnimation();
     }
 
     // Q 스킬
@@ -135,36 +135,17 @@ public class PlayerInput : MonoBehaviour
         skill?.Invoke();
     }
 
-       // 스킬 실행 함수
+    // 스킬 실행 함수
     public void UseFireSlash()
     {
         stateMachine.TransitionTo(stateMachine.skillFireSlashState);
-        playerSkill.SyncSkillAnimation();
-    }
-
-    public void UseIcePillar()
-    {
-        stateMachine.TransitionTo(stateMachine.skillIcePillarState);
-        playerSkill.SyncSkillAnimation();
     }
 
     public void UseThunder()
     {
         stateMachine.TransitionTo(stateMachine.skillThunderState);
-        playerSkill.SyncSkillAnimation();
     }
 
-    public void UseBlackHole()
-    {
-        stateMachine.TransitionTo(stateMachine.skillBlackHoleState);
-        playerSkill.SyncSkillAnimation();
-    }
-
-    public void UseInfierno()
-    {
-        stateMachine.TransitionTo(stateMachine.skillInfiernoState);
-        playerSkill.SyncSkillAnimation();
-    }
 
     // Trigger 파라미터 리턴 함수
     public string GetCurrentTriggerName()

@@ -43,6 +43,15 @@ public class EnemyMove : MonoBehaviour
             spriteRenderer.flipX = true;  // 왼쪽
     }
 
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("Skill"))
+        { 
+            QESKill qESKill = other.GetComponent<QESKill>();
+
+            QESKill.Instance.Attack(this.GetComponent<Collider2D>());
+        }
+    }
     public void EnemyHurt(float Damage)
     {
         CurrentHp -= Damage;

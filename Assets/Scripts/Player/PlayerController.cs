@@ -34,7 +34,6 @@ public class PlayerController : MonoBehaviour
         if (!isHurt)
         {
             player.Hurt(damage);
-            playerSkill.SyncSkillAnimation();
             Debug.Log($"player.hp : {player.hp}");
         }
     }
@@ -60,6 +59,5 @@ public class PlayerController : MonoBehaviour
     public void GoIdle()
     {
         stateMachine.TransitionTo(stateMachine.idleState);
-        playerSkill.SyncSkillAnimation();
     }
 }

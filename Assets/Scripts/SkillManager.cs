@@ -55,9 +55,7 @@ public class SkillManager : MonoBehaviour
         skillActionMap = new Dictionary<string, Action>()
         {
             { "FireSlashs", playerInput.UseFireSlash },
-            { "IcePillar", playerInput.UseIcePillar },
-            { "Thunder", playerInput.UseThunder },
-            { "Infierno", playerInput.UseInfierno }
+            { "Thunder", playerInput.UseThunder }
         };
 
 
@@ -80,8 +78,8 @@ public class SkillManager : MonoBehaviour
 
         LearnNewSkill("FireSlashs");
         UpgradeManager.Instance.data.SetDisabled(UpgradeType.FSSkillLearn, true);
-        LearnNewSkill("Infierno");
-        UpgradeManager.Instance.data.SetDisabled(UpgradeType.IFSkillLearn, true);
+        LearnNewSkill("Thunder");
+        UpgradeManager.Instance.data.SetDisabled(UpgradeType.TDSkillLearn, true);
     }
 
     void Update()

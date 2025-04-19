@@ -40,7 +40,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -132,10 +132,10 @@ TextureImporter:
       name: Slash1(NoGlow))5_0
       rect:
         serializedVersion: 2
-        x: 20
-        y: 27
-        width: 43
-        height: 45
+        x: 0
+        y: 0
+        width: 133
+        height: 96
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -150,33 +150,11 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
-    - serializedVersion: 2
-      name: Slash1(NoGlow))5_1
-      rect:
-        serializedVersion: 2
-        x: 52
-        y: 32
-        width: 32
-        height: 34
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: ffd2852289ed2a2d0800000000000000
-      internalID: -3268805634524959233
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
     outline: []
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: ed4dd743ed8c8cf4c940c78cee9d4871
     internalID: 0
     vertices: []
     indices: 
@@ -187,7 +165,6 @@ TextureImporter:
       entries: []
     nameFileIdTable:
       Slash1(NoGlow))5_0: -2515376136311585276
-      Slash1(NoGlow))5_1: -3268805634524959233
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -43,7 +43,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -135,10 +135,10 @@ TextureImporter:
       name: Slash1(NoGlow))3_0
       rect:
         serializedVersion: 2
-        x: 21
-        y: 30
-        width: 30
-        height: 43
+        x: 0
+        y: 0
+        width: 133
+        height: 96
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -153,55 +153,11 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
-    - serializedVersion: 2
-      name: Slash1(NoGlow))3_1
-      rect:
-        serializedVersion: 2
-        x: 48
-        y: 45
-        width: 13
-        height: 15
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 078f6e92619444000800000000000000
-      internalID: 19220657957435504
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Slash1(NoGlow))3_2
-      rect:
-        serializedVersion: 2
-        x: 47
-        y: 26
-        width: 13
-        height: 16
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 4023ad7c12b92b9a0800000000000000
-      internalID: -6218737566056041980
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
     outline: []
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 2570eaff067d77c489b6d8962afd1820
     internalID: 0
     vertices: []
     indices: 
@@ -212,8 +168,6 @@ TextureImporter:
       entries: []
     nameFileIdTable:
       Slash1(NoGlow))3_0: -7050861561912376448
-      Slash1(NoGlow))3_1: 19220657957435504
-      Slash1(NoGlow))3_2: -6218737566056041980
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

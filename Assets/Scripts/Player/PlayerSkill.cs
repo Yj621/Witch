@@ -55,25 +55,6 @@ public class PlayerSkill : MonoBehaviour
 
     }
 
-    // 스킬 애니메이션과 동기화
-    public void SyncSkillAnimation()
-    {
-        if (playerInput == null || skillAnimator == null) return;
-
-        string currentState = playerInput.GetCurrentTriggerName();
-        if (IsNonSkillState(currentState)) return;
-
-        float damage = skillManager.GetSkillDamage(currentState);
-        Debug.Log($"currentState는 {currentState}, 데미지는 {damage}");
-
-        skillAnimator.SetTrigger(currentState);
-    }
-
-    private bool IsNonSkillState(string state)
-    {
-        return state == "Idle" || state == "Walk" || state == "Dash" || state == "Die";
-    }
-
     // 기본 스킬 자동 발사
     private IEnumerator AutoFireDefaultSkill()
     {
@@ -90,31 +71,31 @@ public class PlayerSkill : MonoBehaviour
         FireSkill(GameManager.Instance.skillObjectPool.GetFireObject(), 4f);
     }
 
-// 추가 스킬 자동 발사
-public IEnumerator AutoAddSkills()
-{
-    while (true)
+    // 추가 스킬 자동 발사
+    public IEnumerator AutoAddSkills()
     {
-        // SkillManager에서 현재 배운 스킬 목록 가져오기
-        var learnedSkills = SkillManager.Instance.GetAutoSkills();
-
-        foreach (var skill in addSkillCooldown.Keys)
+        while (true)
         {
-            // 배운 스킬인지 확인
-            if (!learnedSkills.Exists(action => SkillManager.Instance.GetSkillAction(skill) == action))
-                continue;
+            // SkillManager에서 현재 배운 스킬 목록 가져오기
+            var learnedSkills = SkillManager.Instance.GetAutoSkills();
 
-            // 스킬 발사 처리
-            if (Time.time >= skillCooldownTimers[skill])
+            foreach (var skill in addSkillCooldown.Keys)
             {
-                skillCooldownTimers[skill] = Time.time + addSkillCooldown[skill];
-                AddSkill(skill);
-                Debug.Log($"Learned skill fired: {skill}");
+                // 배운 스킬인지 확인
+                if (!learnedSkills.Exists(action => SkillManager.Instance.GetSkillAction(skill) == action))
+                    continue;
+
+                // 스킬 발사 처리
+                if (Time.time >= skillCooldownTimers[skill])
+                {
+                    skillCooldownTimers[skill] = Time.time + addSkillCooldown[skill];
+                    AddSkill(skill);
+                    Debug.Log($"Learned skill fired: {skill}");
+                }
             }
+            yield return null; // 매 프레임 체크
         }
-        yield return null; // 매 프레임 체크
     }
-}
 
     // 추가 스킬 발사
     private void AddSkill(string skillName)
@@ -146,4 +127,5 @@ public IEnumerator AutoAddSkills()
             skillComponent.velocity = new Vector2(speed * direction, 0);
         }
     }
+
 }

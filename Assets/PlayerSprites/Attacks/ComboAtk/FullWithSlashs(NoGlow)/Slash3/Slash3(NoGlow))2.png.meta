@@ -46,7 +46,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -138,10 +138,10 @@ TextureImporter:
       name: Slash3(NoGlow))2_0
       rect:
         serializedVersion: 2
-        x: 12
-        y: 66
-        width: 31
-        height: 13
+        x: 0
+        y: 0
+        width: 133
+        height: 96
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -156,77 +156,11 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
-    - serializedVersion: 2
-      name: Slash3(NoGlow))2_1
-      rect:
-        serializedVersion: 2
-        x: 20
-        y: 76
-        width: 7
-        height: 9
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 2b903f2147c52bbf0800000000000000
-      internalID: -310083770731263566
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Slash3(NoGlow))2_2
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 25
-        width: 49
-        height: 45
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 2a0c4cf736ab4bc50800000000000000
-      internalID: 6680169083805417634
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Slash3(NoGlow))2_3
-      rect:
-        serializedVersion: 2
-        x: 24
-        y: 64
-        width: 8
-        height: 6
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 23fa6691e4b8b5450800000000000000
-      internalID: 6078605289616486194
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
     outline: []
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 35649f6846c3ccb40ae232596240c666
     internalID: 0
     vertices: []
     indices: 
@@ -237,9 +171,6 @@ TextureImporter:
       entries: []
     nameFileIdTable:
       Slash3(NoGlow))2_0: -3138296436333890940
-      Slash3(NoGlow))2_1: -310083770731263566
-      Slash3(NoGlow))2_2: 6680169083805417634
-      Slash3(NoGlow))2_3: 6078605289616486194
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

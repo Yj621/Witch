@@ -9,6 +9,7 @@ public class SkillManager : MonoBehaviour
     //Action 타입은 입력과 출력이 없는 메서드를 가리킬 수 있는 델리게이트
     //각 키에 할당할 스킬
     private Dictionary<KeyCode, Action> skillSlots = new Dictionary<KeyCode, Action>();
+    private List<Action> autoskillSlots = new List<Action>();
     //스킬 업그레이드 레벨 저장
     private Dictionary<string, int> skillUpgradeLevels = new Dictionary<string, int>();
     //배운 스킬 리스트
@@ -96,7 +97,7 @@ public class SkillManager : MonoBehaviour
     }
 
     // 배운 스킬을 순서대로 슬롯에 등록
-    public void LearnNewSkill(string skillName)
+    public void LearnNewSkill(string skillName, bool isAuto = false)
     {
         Action skillAction = GetSkillAction(skillName);
         // 스킬 기본 레벨 설정
@@ -110,16 +111,23 @@ public class SkillManager : MonoBehaviour
             return;
         }
         skillList.Add(skillAction);
-        foreach (var key in slotKeys)
+
+        if (isAuto)
         {
-            if (skillSlots[key] == null)
-            {
-                skillSlots[key] = skillAction;
-                break;
-            }
+            autoskillSlots.Add(skillAction);
         }
-        //스킬 아이콘 업데이트
-        UIManager.Instance.UpdateSkillIcons();
+        else
+        {
+            foreach (var key in slotKeys)
+            {
+                if (skillSlots[key] == null)
+                {
+                    skillSlots[key] = skillAction;
+                    break;
+                }
+            }
+            UIManager.Instance.UpdateSkillIcons(); // 수동 스킬만 UI 반영
+        }
     }
 
     // 스킬 이름에 따라 PlayerInput의 메서드 반환
@@ -138,7 +146,10 @@ public class SkillManager : MonoBehaviour
         return skillSlots.ContainsKey(key) ? skillSlots[key] : null;
     }
 
-
+    public List<Action> GetAutoSkills()
+    {
+        return autoskillSlots;
+    }
 
     // 스킬 데미지 할당
     public float GetSkillDamage(string skillName)

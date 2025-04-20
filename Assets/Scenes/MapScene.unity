@@ -3820,6 +3820,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 233481850}
+  - component: {fileID: 233481851}
   m_Layer: 5
   m_Name: TestButton
   m_TagString: Untagged
@@ -3855,6 +3856,18 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &233481851
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 233481849}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a0ffc4502efb864085f360f415b0206, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &264080410
 GameObject:
   m_ObjectHideFlags: 0
@@ -4006,7 +4019,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   firePrefab: {fileID: 7908250298470026618, guid: b76564537cc3a4325be26cadf7b1f7f9, type: 3}
   fireInitialCount: 20
-  skillPrefabs: []
 --- !u!1 &291240642
 GameObject:
   m_ObjectHideFlags: 0
@@ -5559,10 +5571,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1817078519}
-        m_TargetAssemblyTypeName: SkillManager, Assembly-CSharp
-        m_MethodName: LearnNewSkill
-        m_Mode: 5
+      - m_Target: {fileID: 233481851}
+        m_TargetAssemblyTypeName: AutoSkillManager, Assembly-CSharp
+        m_MethodName: LearnThunderAuto
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -5845,9 +5857,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1817078519}
+      - m_Target: {fileID: 233481849}
         m_TargetAssemblyTypeName: SkillManager, Assembly-CSharp
-        m_MethodName: LearnNewSkill
+        m_MethodName: 
         m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -11608,10 +11620,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1817078519}
-        m_TargetAssemblyTypeName: SkillManager, Assembly-CSharp
-        m_MethodName: LearnNewSkill
-        m_Mode: 5
+      - m_Target: {fileID: 233481851}
+        m_TargetAssemblyTypeName: AutoSkillManager, Assembly-CSharp
+        m_MethodName: LearnInfiernoAuto
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -11794,6 +11806,54 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 805443477}
   m_CullTransparentMesh: 1
+--- !u!1 &823360950
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 823360951}
+  - component: {fileID: 823360952}
+  m_Layer: 0
+  m_Name: SkillPool
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &823360951
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 823360950}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &823360952
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 823360950}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3c1a7ad344af64fbcb4cf168759fc61d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  icePrefab: {fileID: 7908250298470026618, guid: df7cffd059c634954ad0f1aab3ef6ef2, type: 3}
+  blackholePrefab: {fileID: 7908250298470026618, guid: a18ec693670a3401aac7c8c9574c04f1, type: 3}
+  infiernoPrefab: {fileID: 7908250298470026618, guid: e7bf62449db1848fa917ecec9ef5a30a, type: 3}
+  initialCount: 20
 --- !u!1 &827136728
 GameObject:
   m_ObjectHideFlags: 0
@@ -33460,10 +33520,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1817078519}
-        m_TargetAssemblyTypeName: SkillManager, Assembly-CSharp
-        m_MethodName: LearnNewSkill
-        m_Mode: 5
+      - m_Target: {fileID: 233481851}
+        m_TargetAssemblyTypeName: AutoSkillManager, Assembly-CSharp
+        m_MethodName: LearnIcePillarAuto
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -35145,6 +35205,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   skillObjectPool: {fileID: 281560812}
+  autoSkillPool: {fileID: 823360952}
   currentClean: 0
 --- !u!4 &1490024343
 Transform:
@@ -79658,9 +79719,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Fire
-
-'
+  m_text: '-'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -80683,3 +80742,4 @@ SceneRoots:
   - {fileID: 1817078520}
   - {fileID: 827136729}
   - {fileID: 2091354699}
+  - {fileID: 823360951}

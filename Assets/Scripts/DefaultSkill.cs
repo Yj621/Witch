@@ -2,7 +2,6 @@ using UnityEngine;
 
 public class DefaultSkill : MonoBehaviour
 {
-    // 실제 velocity는 SkillManager에서 bullet.GetComponent<DefaultSkill>().velocity 로 동적 할당중
     public Vector2 velocity = new Vector2(5f, 0);
     public float defaultDamage = 2;
 

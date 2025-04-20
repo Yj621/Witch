@@ -1,8 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System;
-
 public class PlayerSkill : MonoBehaviour
 {
     private Animator skillAnimator;
@@ -47,12 +45,13 @@ public class PlayerSkill : MonoBehaviour
         // 기본 스킬 자동 발사 시작
         StartCoroutine(AutoFireDefaultSkill());
 
+        // 추가 스킬 자동 발사 시작
+        StartCoroutine(AutoAddSkills()); // 자동 발사 코루틴 시작
         // 추가 스킬 쿨다운 타이머 초기화
         foreach (var skill in addSkillCooldown)
         {
             skillCooldownTimers[skill.Key] = 0f;
         }
-
     }
 
     // 기본 스킬 자동 발사
@@ -68,40 +67,46 @@ public class PlayerSkill : MonoBehaviour
     // 기본 스킬 발사
     public void DefaultSkill()
     {
-        FireSkill(GameManager.Instance.skillObjectPool.GetFireObject(), 4f);
+    FireSkill(SkillObjectPool.Instance.GetFireObject(), 4f); // SkillObjectPool에서 가져오기
     }
 
     // 추가 스킬 자동 발사
-    public IEnumerator AutoAddSkills()
+    private IEnumerator AutoAddSkills()
     {
         while (true)
         {
-            // SkillManager에서 현재 배운 스킬 목록 가져오기
+            // SkillManager에서 현재 배운 오토 스킬 목록 가져오기
             var learnedSkills = SkillManager.Instance.GetAutoSkills();
 
-            foreach (var skill in addSkillCooldown.Keys)
+            foreach (var skillName in addSkillCooldown.Keys)
             {
                 // 배운 스킬인지 확인
-                if (!learnedSkills.Exists(action => SkillManager.Instance.GetSkillAction(skill) == action))
+                if (!learnedSkills.Exists(action => SkillManager.Instance.GetSkillAction(skillName) == action))
                     continue;
 
-                // 스킬 발사 처리
-                if (Time.time >= skillCooldownTimers[skill])
+                // 스킬 쿨다운이 끝났는지 확인
+                if (Time.time >= skillCooldownTimers[skillName])
                 {
-                    skillCooldownTimers[skill] = Time.time + addSkillCooldown[skill];
-                    AddSkill(skill);
-                    Debug.Log($"Learned skill fired: {skill}");
+                    skillCooldownTimers[skillName] = Time.time + addSkillCooldown[skillName]; // 쿨다운 갱신
+                    AddSkill(skillName); // 스킬 발사
+                    Debug.Log($"[Auto Skill Fired] {skillName}");
                 }
             }
-            yield return null; // 매 프레임 체크
+
+            yield return new WaitForSeconds(1f); // 1초마다 쿨다운 확인
         }
     }
 
+
     // 추가 스킬 발사
-    private void AddSkill(string skillName)
+    public void AddSkill(string skillName)
     {
-        GameObject skill = GameManager.Instance.skillObjectPool.GetSkillObject(skillName);
-        FireSkill(skill, 0f); // 속도는 스킬별로 설정 가능
+        GameObject skillPrefab = GameManager.Instance.autoSkillPool.GetSkillObject(skillName);
+
+        if (skillPrefab != null)
+        {
+            FireSkill(skillPrefab, 4f);  // 4f는 발사 속도
+        }
     }
 
     // 스킬 발사 로직
@@ -127,5 +132,4 @@ public class PlayerSkill : MonoBehaviour
             skillComponent.velocity = new Vector2(speed * direction, 0);
         }
     }
-
 }

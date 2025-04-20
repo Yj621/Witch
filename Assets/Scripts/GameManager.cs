@@ -6,6 +6,7 @@ public class GameManager : MonoBehaviour
 
     public Player player;
     public SkillObjectPool skillObjectPool;
+    public AutoSKillPool autoSkillPool;
     public float currentClean;
 
     void Awake()

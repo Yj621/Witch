@@ -55,7 +55,9 @@ public class SkillManager : MonoBehaviour
         skillActionMap = new Dictionary<string, Action>()
         {
             { "FireSlashs", playerInput.UseFireSlash },
-            { "Thunder", playerInput.UseThunder }
+            { "Thunder", playerInput.UseThunder },
+            { "IcePillar", () => GameManager.Instance.autoSkillPool.GetSkillObject("IcePillar") },
+            { "Infierno", () => GameManager.Instance.autoSkillPool.GetSkillObject("Infierno") }
         };
 
 

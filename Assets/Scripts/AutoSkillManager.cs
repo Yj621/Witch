@@ -7,9 +7,9 @@ public class AutoSkillManager : MonoBehaviour
         SkillManager.Instance.LearnNewSkill("Infierno", true);
     }
 
-    public void LearnThunderAuto()
+    public void LearnBlackholeAuto()
     {
-        SkillManager.Instance.LearnNewSkill("Thunder", true);
+        SkillManager.Instance.LearnNewSkill("Blackhole", true);
     }
     public void LearnIcePillarAuto()
     {

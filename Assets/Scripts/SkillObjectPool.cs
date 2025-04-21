@@ -24,6 +24,12 @@ public class SkillObjectPool : MonoBehaviour
 
         InitializeFirePool();    // 기본 스킬 풀 초기화
     }
+    
+    void Start()
+    {
+        Debug.Log("AutoSkillPool 존재 확인: " + (GameManager.Instance.autoSkillPool != null));
+
+    }
 
     // 기본 스킬 풀 초기화
     private void InitializeFirePool()

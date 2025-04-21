@@ -9,7 +9,7 @@ public class SkillManager : MonoBehaviour
     //Action 타입은 입력과 출력이 없는 메서드를 가리킬 수 있는 델리게이트
     //각 키에 할당할 스킬
     private Dictionary<KeyCode, Action> skillSlots = new Dictionary<KeyCode, Action>();
-    private List<Action> autoskillSlots = new List<Action>();
+    private List<Action> autoskillSlots = new(); // 오토 스킬용 리스트
     //스킬 업그레이드 레벨 저장
     private Dictionary<string, int> skillUpgradeLevels = new Dictionary<string, int>();
     //배운 스킬 리스트
@@ -20,10 +20,11 @@ public class SkillManager : MonoBehaviour
     private readonly KeyCode[] slotKeys = { KeyCode.Q, KeyCode.E };
 
     //스킬 매핑 및 관련 함수 딕셔너리
-    private Dictionary<string, Action> skillActionMap;
+    private Dictionary<string, Action> skillActionMap; // 스킬 이름 -> 발동 함수
     private Dictionary<string, Func<float>> skillDamageMap;
     private Dictionary<string, Action<float>> skillUpgradeMap;
-
+    private float autoSkillCooldown = 3f;
+    private float autoSkillTimer = 0f;
     Player player;
 
     public static SkillManager Instance { get; private set; }
@@ -51,13 +52,30 @@ public class SkillManager : MonoBehaviour
             skillSlots[key] = null;
         }
 
-        // 스킬 액션 미리 등록
-        skillActionMap = new Dictionary<string, Action>()
+  // 스킬 발동 액션 설정
+        skillActionMap = new()
         {
             { "FireSlashs", playerInput.UseFireSlash },
             { "Thunder", playerInput.UseThunder },
-            { "IcePillar", () => GameManager.Instance.autoSkillPool.GetSkillObject("IcePillar") },
-            { "Infierno", () => GameManager.Instance.autoSkillPool.GetSkillObject("Infierno") }
+            { "IcePillar", () =>
+                {
+                    var obj = GameManager.Instance.autoSkillPool.GetSkillObject("IcePillar");
+                    obj.transform.position = playerInput.transform.position + Vector3.up * 2f;
+                }
+            },
+            { "Infierno", () =>
+                {
+                    var obj = GameManager.Instance.autoSkillPool.GetSkillObject("Infierno");
+                    obj.transform.position = playerInput.transform.position;
+                }
+            },
+
+            { "Blackhole", () =>
+                {
+                    var obj = GameManager.Instance.autoSkillPool.GetSkillObject("Blackhole");
+                    obj.transform.position = playerInput.transform.position;
+                }
+            }
         };
 
 
@@ -92,6 +110,18 @@ public class SkillManager : MonoBehaviour
             if (Input.GetKeyDown(key) && skillSlots[key] != null)
             {
                 skillSlots[key]?.Invoke();
+            }
+        }
+
+
+        autoSkillTimer += Time.deltaTime;
+        if (autoSkillTimer >= autoSkillCooldown)
+        {
+            autoSkillTimer = 0f;
+
+            foreach (var auto in autoskillSlots)
+            {
+                auto?.Invoke();
             }
         }
     }
@@ -133,7 +163,7 @@ public class SkillManager : MonoBehaviour
     // 스킬 이름에 따라 PlayerInput의 메서드 반환
     public Action GetSkillAction(string skillName)
     {
-        if(skillActionMap.TryGetValue(skillName, out Action action))
+        if (skillActionMap.TryGetValue(skillName, out Action action))
         {
             return action;
         }
@@ -154,13 +184,13 @@ public class SkillManager : MonoBehaviour
     // 스킬 데미지 할당
     public float GetSkillDamage(string skillName)
     {
-        if(skillDamageMap.TryGetValue(skillName, out Func<float> getDamage))
+        if (skillDamageMap.TryGetValue(skillName, out Func<float> getDamage))
         {
             return getDamage();
         }
         return 0f;
     }
-     
+
     // 스킬 데미지 업그레이드 함수
     public void UpgradeSkillDamage(string skillName, float amountPerLevel)
     {
@@ -172,8 +202,8 @@ public class SkillManager : MonoBehaviour
         }
         skillUpgradeLevels[skillName]++;
         int level = skillUpgradeLevels[skillName];
-        
-        if(skillUpgradeMap.TryGetValue(skillName, out Action<float> upgrade))
+
+        if (skillUpgradeMap.TryGetValue(skillName, out Action<float> upgrade))
         {
             upgrade(amountPerLevel);
         }

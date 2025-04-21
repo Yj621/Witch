@@ -13,9 +13,9 @@ public class PlayerSkill : MonoBehaviour
     private Dictionary<string, float> skillCooldownTimers = new Dictionary<string, float>();
     public Dictionary<string, float> addSkillCooldown = new Dictionary<string, float>()
     {
-        { "IcePillar", 3f },
-        { "Blackhole", 4f },
-        { "Infierno", 2f }
+        { "IcePillar", 7f },
+        { "Blackhole", 8f },
+        { "Infierno", 6f }
     };
 
     [SerializeField] private Transform skillSpawnPoint;

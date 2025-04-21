@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 315758728393050135}
   - component: {fileID: 339489906334517705}
   - component: {fileID: 7884280136060379848}
-  - component: {fileID: 8730967645014110250}
+  - component: {fileID: 2684376278853919794}
   m_Layer: 0
   m_Name: 'BlackholeAddSkill '
   m_TagString: Skill
@@ -186,7 +186,7 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 0.35567337, y: 0.36047643}
   m_EdgeRadius: 0
---- !u!114 &8730967645014110250
+--- !u!114 &2684376278853919794
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -195,8 +195,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 7908250298470026618}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1e7bbe9d6bbe24da58b58959faa6613c, type: 3}
+  m_Script: {fileID: 11500000, guid: e90b0bedbcc3948898db328b66e4e070, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  velocity: {x: 0, y: 0}
-  defaultDamage: 2
+  radius: 5
+  force: 10
+  duration: 7
+  damage: 3

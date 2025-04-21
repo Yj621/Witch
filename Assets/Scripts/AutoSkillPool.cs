@@ -55,20 +55,16 @@ public class AutoSKillPool : MonoBehaviour
         }
     }
 
-    // 스킬 오브젝트 가져오기 (스킬 이름에 따라 풀을 선택)
+    // 이름으로 해당 풀에서 오브젝트 가져오기
     public GameObject GetSkillObject(string skillName)
     {
-        switch (skillName)
+        return skillName switch
         {
-            case "IcePillar":
-                return GetFromPool(icePool, icePrefab);
-            case "Blackhole":
-                return GetFromPool(blackholePool, blackholePrefab);
-            case "Infierno":
-                return GetFromPool(infiernoPool, infiernoPrefab);
-            default:
-                return null; // 기본 스킬을 처리하지 않음        
-        }
+            "IcePillar" => GetFromPool(icePool, icePrefab),
+            "Blackhole" => GetFromPool(blackholePool, blackholePrefab),
+            "Infierno" => GetFromPool(infiernoPool, infiernoPrefab),
+            _ => null
+        };
     }
 
     // 풀에서 스킬 오브젝트 가져오기
@@ -78,24 +74,26 @@ public class AutoSKillPool : MonoBehaviour
         {
             GameObject skill = pool[i];
 
-            // 오브젝트가 파괴된 경우 리스트에서 제거
             if (skill == null)
             {
+                Debug.Log("null 오브젝트 발견, 제거");
                 pool.RemoveAt(i);
                 continue;
             }
 
             if (!skill.activeSelf)
             {
+                Debug.Log("풀에서 재사용되는 오브젝트 활성화");
                 skill.SetActive(true);
                 return skill;
             }
         }
 
-        // 풀이 부족하면 새로 생성
+        Debug.Log("새 오브젝트 인스턴스 생성");
         GameObject newSkill = Instantiate(prefab, transform);
         newSkill.SetActive(true);
         pool.Add(newSkill);
         return newSkill;
     }
+
 }

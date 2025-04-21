@@ -64,10 +64,37 @@ public class PlayerSkill : MonoBehaviour
         }
     }
 
+    //근처 적 주변에 추가 스킬 생성
+    public void SpawnSkillNearEnemy(GameObject skillPrefab)
+    {
+        Collider2D[] hits = Physics2D.OverlapCircleAll(playerTransform.position, 10f, LayerMask.GetMask("Monster"));
+
+        if (hits.Length == 0)
+        {
+            skillPrefab.transform.position = playerTransform.position;
+            return;
+        }
+
+        Transform nearest = null;
+        float minDist = Mathf.Infinity;
+
+        foreach (var hit in hits)
+        {
+            float dist = Vector2.Distance(playerTransform.position, hit.transform.position);
+            if (dist < minDist)
+            {
+                minDist = dist;
+                nearest = hit.transform;
+            }
+        }
+
+        skillPrefab.transform.position = nearest.position;
+    }
+
     // 기본 스킬 발사
     public void DefaultSkill()
     {
-    FireSkill(SkillObjectPool.Instance.GetFireObject(), 4f); // SkillObjectPool에서 가져오기
+        FireSkill(GameManager.Instance.skillObjectPool.GetFireObject(), 4f); // SkillObjectPool에서 가져오기
     }
 
     // 추가 스킬 자동 발사
@@ -103,11 +130,18 @@ public class PlayerSkill : MonoBehaviour
     {
         GameObject skillPrefab = GameManager.Instance.autoSkillPool.GetSkillObject(skillName);
 
-        if (skillPrefab != null)
+        if (skillPrefab == null) return;
+
+        if (skillName == "IcePillar" || skillName == "Infierno" || skillName == "Blackhole")
         {
-            FireSkill(skillPrefab, 4f);  // 4f는 발사 속도
+            SpawnSkillNearEnemy(skillPrefab); //생성 위치 설정
+        }
+        else
+        {
+            FireSkill(skillPrefab, 4f); // 기본 발사 스킬만 여기로
         }
     }
+
 
     // 스킬 발사 로직
     private void FireSkill(GameObject skill, float speed)

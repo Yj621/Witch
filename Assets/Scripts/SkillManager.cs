@@ -52,30 +52,30 @@ public class SkillManager : MonoBehaviour
             skillSlots[key] = null;
         }
 
-  // 스킬 발동 액션 설정
+        // 스킬 발동 액션 설정
         skillActionMap = new()
         {
             { "FireSlashs", playerInput.UseFireSlash },
             { "Thunder", playerInput.UseThunder },
-            { "IcePillar", () =>
-                {
-                    var obj = GameManager.Instance.autoSkillPool.GetSkillObject("IcePillar");
-                    obj.transform.position = playerInput.transform.position + Vector3.up * 2f;
-                }
-            },
-            { "Infierno", () =>
-                {
-                    var obj = GameManager.Instance.autoSkillPool.GetSkillObject("Infierno");
-                    obj.transform.position = playerInput.transform.position;
-                }
-            },
+{ "IcePillar", () =>
+    {
+        var obj = GameManager.Instance.autoSkillPool.GetSkillObject("IcePillar");
+        PlayerSkill.Instance.SpawnSkillNearEnemy(obj); // 가까운 적 위치에 생성
+    }
+},
+{ "Infierno", () =>
+    {
+        var obj = GameManager.Instance.autoSkillPool.GetSkillObject("Infierno");
+        PlayerSkill.Instance.SpawnSkillNearEnemy(obj);
+    }
+},
+{ "Blackhole", () =>
+    {
+        var obj = GameManager.Instance.autoSkillPool.GetSkillObject("Blackhole");
+        PlayerSkill.Instance.SpawnSkillNearEnemy(obj);
+    }
+}
 
-            { "Blackhole", () =>
-                {
-                    var obj = GameManager.Instance.autoSkillPool.GetSkillObject("Blackhole");
-                    obj.transform.position = playerInput.transform.position;
-                }
-            }
         };
 
 
@@ -110,18 +110,6 @@ public class SkillManager : MonoBehaviour
             if (Input.GetKeyDown(key) && skillSlots[key] != null)
             {
                 skillSlots[key]?.Invoke();
-            }
-        }
-
-
-        autoSkillTimer += Time.deltaTime;
-        if (autoSkillTimer >= autoSkillCooldown)
-        {
-            autoSkillTimer = 0f;
-
-            foreach (var auto in autoskillSlots)
-            {
-                auto?.Invoke();
             }
         }
     }

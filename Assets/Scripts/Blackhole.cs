@@ -6,8 +6,8 @@ public class Blackhole : MonoBehaviour
 {
     public float radius = 5f;              // 끌어당기는 범위
     public float force = 10f;              // 끌어당기는 힘
-    public float duration = 3f;            // 지속 시간
-    public float damage = 3f;              // 범위 데미지 (선택)
+    public float duration = 10f;            // 지속 시간
+    public float damage = 3f;              // 데미지
 
     private List<Rigidbody2D> affectedEnemies = new();
 
@@ -42,12 +42,15 @@ public class Blackhole : MonoBehaviour
         }
 
         affectedEnemies.Clear();
-        gameObject.SetActive(false);
     }
 
+    public void SkillEnd()
+    {
+        gameObject.SetActive(false);
+    }
     private void PullEnemies()
     {
-        Collider2D[] enemies = Physics2D.OverlapCircleAll(transform.position, radius, LayerMask.GetMask("Enemy"));
+        Collider2D[] enemies = Physics2D.OverlapCircleAll(transform.position, radius, LayerMask.GetMask("Monster"));
 
         foreach (Collider2D col in enemies)
         {
@@ -68,5 +71,14 @@ public class Blackhole : MonoBehaviour
     {
         Gizmos.color = Color.magenta;
         Gizmos.DrawWireSphere(transform.position, radius);
+    }
+
+        private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("Enemy"))
+        {
+            other.GetComponent<EnemyMove>().EnemyHurt(damage);
+            Debug.Log($"[Blackhole] {other.name}에게 {damage} 데미지");
+        }
     }
 }

@@ -4,7 +4,7 @@ using System.Collections;
 public class Infierno : MonoBehaviour
 {
     public float damage = 8f;
-    public float duration = 1.5f;
+    public float duration = 10f;
     public float radius = 3f;
 
     private void OnEnable()
@@ -28,13 +28,24 @@ public class Infierno : MonoBehaviour
     private IEnumerator DisableAfterTime()
     {
         yield return new WaitForSeconds(duration);
+    }
+    public void SkillEnd()
+    {
         gameObject.SetActive(false);
     }
-
     private void OnDrawGizmosSelected()
     {
         // 범위 확인용 기즈모
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, radius);
+    }
+
+        private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("Enemy"))
+        {
+            other.GetComponent<EnemyMove>().EnemyHurt(damage);
+            Debug.Log($"[Infierno] {other.name}에게 {damage} 데미지");
+        }
     }
 }

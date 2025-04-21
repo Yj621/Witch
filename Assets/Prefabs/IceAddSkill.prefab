@@ -199,4 +199,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 5
-  lifetime: 2
+  lifetime: 10

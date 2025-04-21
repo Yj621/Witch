@@ -199,5 +199,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 8
-  duration: 5
+  duration: 10
   radius: 3

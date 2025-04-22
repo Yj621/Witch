@@ -198,5 +198,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71069d9e1870849a7b22dd955394a7ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 5
-  lifetime: 10
+  skillData: {fileID: 11400000, guid: c1e99aebbab7d4b44b44e236462c2926, type: 2}

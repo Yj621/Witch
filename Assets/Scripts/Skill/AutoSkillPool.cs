@@ -95,5 +95,11 @@ public class AutoSKillPool : MonoBehaviour
         pool.Add(newSkill);
         return newSkill;
     }
+    public void ReturnSkillObject(GameObject skill)
+    {
+        if (skill == null) return;
 
+        // 활성화 끄기
+        skill.SetActive(false);
+    }
 }

@@ -198,6 +198,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c16ea25c7bfc4765b73565eeb1b2cfe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 8
-  duration: 10
-  radius: 3
+  skillData: {fileID: 11400000, guid: d6bc8c3ca2e3647cca70eca92f185b43, type: 2}

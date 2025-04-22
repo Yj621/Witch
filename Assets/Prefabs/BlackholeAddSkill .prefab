@@ -198,7 +198,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e90b0bedbcc3948898db328b66e4e070, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  radius: 5
-  force: 10
-  duration: 10
-  damage: 3
+  skillData: {fileID: 11400000, guid: fc2f0fe3480994fc48f8b2e5a6826560, type: 2}

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Collections;
 using UnityEditor.Experimental.GraphView;
+using System.Linq;
 
 public class SkillManager : MonoBehaviour
 {
@@ -26,6 +27,14 @@ public class SkillManager : MonoBehaviour
     private float autoSkillCooldown = 3f;
     private float autoSkillTimer = 0f;
     Player player;
+
+    //SkillDatabase가져오기
+    [SerializeField] private SkillDatabase skillDatabase;
+    // 런타임에 쓸 SkillData 복제본
+    private Dictionary<string, SkillData> runtimeSkillData = new();
+
+    // 업그레이드 레벨 저장
+    private Dictionary<string, int> skillLevels = new();
 
     public static SkillManager Instance { get; private set; }
 
@@ -52,28 +61,39 @@ public class SkillManager : MonoBehaviour
             skillSlots[key] = null;
         }
 
+        //  Database에 등록된 스킬마다 복제본을 만들어 둔다
+        foreach (var data in skillDatabase.allSkills)
+        {
+            // Instantiate 하면 메모리 상에만 존재하는 복제본이 만들어진다
+            var clone = Instantiate(data);
+            clone.name = data.skillName;    // 구분용
+            runtimeSkillData[data.skillName] = clone;
+            skillLevels[data.skillName] = 1;
+        }
+
         // 스킬 발동 액션 설정
         skillActionMap = new()
         {
             { "FireSlashs", playerInput.UseFireSlash },
             { "Thunder", playerInput.UseThunder },
-{ "IcePillar", () =>
-    {
-        var obj = GameManager.Instance.autoSkillPool.GetSkillObject("IcePillar");
-        PlayerSkill.Instance.SpawnSkillNearEnemy(obj); // 가까운 적 위치에 생성
-    }
-},
-{ "Infierno", () =>
-    {
-        var obj = GameManager.Instance.autoSkillPool.GetSkillObject("Infierno");
-        PlayerSkill.Instance.SpawnSkillNearEnemy(obj);
-    }
-},
-{ "Blackhole", () =>
-    {
-        var obj = GameManager.Instance.autoSkillPool.GetSkillObject("Blackhole");
-        PlayerSkill.Instance.SpawnSkillNearEnemy(obj);
-    }
+            { "IcePillar", () =>
+                {
+                    var obj = GameManager.Instance.autoSkillPool.GetSkillObject("IcePillar");
+                    PlayerSkill.Instance.SpawnSkillNearEnemy(obj); // 가까운 적 위치에 생성
+                }
+            },
+            { "Infierno", () =>
+                {
+                    var obj = GameManager.Instance.autoSkillPool.GetSkillObject("Infierno");
+                    PlayerSkill.Instance.SpawnSkillNearEnemy(obj);
+                }
+            },
+            { "Blackhole", () =>
+                {
+                    var obj = GameManager.Instance.autoSkillPool.GetSkillObject("Blackhole");
+                    PlayerSkill.Instance.SpawnSkillNearEnemy(obj);
+                }
+
 }
 
         };
@@ -83,9 +103,7 @@ public class SkillManager : MonoBehaviour
         skillDamageMap = new Dictionary<string, Func<float>>()
         {
             { "FireSlashs", ()=> player.skill.fireSlashsDamage },
-            { "IcePillar", ()=> player.skill.icePillarDamage },
-            { "Thunder", ()=> player.skill.thunderDamage},
-            { "Infierno", ()=> player.skill.infiernoDamage }
+            { "Thunder", ()=> player.skill.thunderDamage}
         };
 
         skillUpgradeMap = new Dictionary<string, Action<float>>()
@@ -100,8 +118,22 @@ public class SkillManager : MonoBehaviour
         UpgradeManager.Instance.data.SetDisabled(UpgradeType.FSSkillLearn, true);
         LearnNewSkill("Thunder");
         UpgradeManager.Instance.data.SetDisabled(UpgradeType.TDSkillLearn, true);
-    }
+        // 복제본 할당 (한 번만)
+        SetupAutoSkillPrefabs();
 
+        // 스킬 액션·데미지 맵 구성
+        ConfigureSkillActions();
+
+    }
+    private void SetupAutoSkillPrefabs()
+    {
+        // 예: 블랙홀 프리팹을 꺼내서, 그 컴포넌트에 복제본을 넣어 준다
+        var proto = GameManager.Instance.autoSkillPool.GetSkillObject("Blackhole");
+        proto.GetComponent<Blackhole>().skillData = runtimeSkillData["Blackhole"];
+        // 다시 풀에 돌려넣기
+        GameManager.Instance.autoSkillPool.ReturnSkillObject(proto);
+
+    }
     void Update()
     {
         // Q, E에 대해 입력 확인
@@ -169,7 +201,7 @@ public class SkillManager : MonoBehaviour
         return autoskillSlots;
     }
 
-    // 스킬 데미지 할당
+    // Q,E 스킬 데미지 할당
     public float GetSkillDamage(string skillName)
     {
         if (skillDamageMap.TryGetValue(skillName, out Func<float> getDamage))
@@ -179,8 +211,65 @@ public class SkillManager : MonoBehaviour
         return 0f;
     }
 
+    private void ConfigureSkillActions()
+    {
+        skillActionMap = new Dictionary<string, Action>()
+        {
+            { "IcePillar", () => {
+                var obj = GameManager.Instance.autoSkillPool.GetSkillObject("IcePillar");
+                // 프리팹에 붙은 IcePillar 컴포넌트의 skillData를 복제본으로 교체
+                obj.GetComponent<IcePillar>().skillData = runtimeSkillData["IcePillar"];
+                PlayerSkill.Instance.SpawnSkillNearEnemy(obj);
+            }},
+            { "Blackhole", () => {
+                var obj = GameManager.Instance.autoSkillPool.GetSkillObject("Blackhole");
+                // 프리팹에 붙은 Blackhole 컴포넌트의 skillData를 복제본으로 교체
+                obj.GetComponent<Blackhole>().skillData = runtimeSkillData["Blackhole"];
+                PlayerSkill.Instance.SpawnSkillNearEnemy(obj);
+            }},
+            { "Infierno", () => {
+                var obj = GameManager.Instance.autoSkillPool.GetSkillObject("Infierno");
+                // 프리팹에 붙은 Infierno 컴포넌트의 skillData를 복제본으로 교체
+                obj.GetComponent<Infierno>().skillData = runtimeSkillData["Infierno"];
+                PlayerSkill.Instance.SpawnSkillNearEnemy(obj);
+            }},
+        };
+        // 2) 데미지 조회 맵: 클론된 SkillData.damage 읽도록
+        skillDamageMap = new Dictionary<string, Func<float>>()
+            {
+                { "IcePillar", () => runtimeSkillData["IcePillar"].damage },
+                { "Blackhole", () => runtimeSkillData["Blackhole"].damage },
+                { "Infierno",  () => runtimeSkillData["Infierno"].damage },
+            };
+    }
+
+
+    // Passive Skill 데미지 업그레이드 함수
+    // skillName 스킬을 amountPerLevel 만큼 올려준다
+    public void UpgradePassiveSkill(string skillName, float amount)
+    {
+        if (!runtimeSkillData.TryGetValue(skillName, out var data))
+        {
+            Debug.LogWarning($"Skill '{skillName}' not found in runtime data");
+            return;
+        }
+        skillLevels[skillName]++;           // 레벨 저장
+        runtimeSkillData[skillName].damage += amount;
+    }
+
+        /// <summary>
+        /// 지정한 스킬의 런타임 복제본을 반환합니다.
+        /// </summary>
+        public SkillData GetRuntimeSkillData(string skillName)
+        {
+            if (runtimeSkillData.TryGetValue(skillName, out var data))
+                return data;
+            Debug.LogWarning($"[SkillManager] '{skillName}' 런타임 데이터 없음");
+            return null;
+        }
+        
     // 스킬 데미지 업그레이드 함수
-    public void UpgradeSkillDamage(string skillName, float amountPerLevel)
+    public void UpgradeQESkillDamage(string skillName, float amountPerLevel)
     {
         // skillName이 맞지 않으면
         if (!skillUpgradeLevels.ContainsKey(skillName))

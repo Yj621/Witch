@@ -14,28 +14,33 @@ public enum UpgradeType
     DefaultSkillCooldown,
     DefaultSkillDamage,
 
-    // 스킬 업그레이드
+    // QE 스킬 업그레이드
     FSSkillRange,
     FSSkillCooldown,
     FSSkillDamage,
-
-    IPSkillRange,
-    IPSkillCooldown,
-    IPSkillDamage,
 
     TDSkillRange,
     TDSkillCooldown,
     TDSkillDamage,
 
+    // 패시브 스킬 업그레이드
+    IPSkillRange,
+    IPSkillCooldown,
+    IPSkillDamage,
+
     IFSkillRange,
     IFSkillCooldown,
     IFSkillDamage,
+    BHSkillRange,
+    BHSkillCooldown,
+    BHSkillDamage,
 
     //스킬 습득
     FSSkillLearn,
     IPSkillLearn,
     TDSkillLearn,
-    IFSkillLearn
+    IFSkillLearn,
+    BHSkillLearn
 }
 
 public class UpgradeButton : MonoBehaviour
@@ -89,13 +94,13 @@ public class UpgradeButton : MonoBehaviour
                 UpgradeManager.Instance.data.SetDisabled(UpgradeType.FSSkillLearn, true);
                 break;
             case UpgradeType.FSSkillDamage:
-                UpgradeSkillDamage("FireSlashs", 10f);
+                UpgradeQESkillDamage("FireSlashs", 10f);
                 break;
             case UpgradeType.FSSkillCooldown:
-                UpgradeSkillDamage("FireSlashs", 10f);
+                UpgradeQESkillDamage("FireSlashs", 10f);
                 break;
             case UpgradeType.FSSkillRange:
-                UpgradeSkillDamage("FireSlashs", 10f);
+                UpgradeQESkillDamage("FireSlashs", 10f);
                 break;
 
 
@@ -105,13 +110,13 @@ public class UpgradeButton : MonoBehaviour
                 UpgradeManager.Instance.data.SetDisabled(UpgradeType.IPSkillLearn, true);
                 break;
             case UpgradeType.IPSkillDamage:
-                UpgradeSkillDamage("IcePillar", 10f);
+                UpgradePassiveSkill("IcePillar", 10f);
                 break;
             case UpgradeType.IPSkillCooldown:
-                UpgradeSkillDamage("IcePillar", 10f);
+                UpgradePassiveSkill("IcePillar", 10f);
                 break;
             case UpgradeType.IPSkillRange:
-                UpgradeSkillDamage("IcePillar", 10f);
+                UpgradePassiveSkill("IcePillar", 10f);
                 break;
 
 
@@ -120,13 +125,13 @@ public class UpgradeButton : MonoBehaviour
                 UpgradeManager.Instance.data.SetDisabled(UpgradeType.TDSkillLearn, true);
                 break;
             case UpgradeType.TDSkillDamage:
-                UpgradeSkillDamage("Thunder", 10f);
+                UpgradeQESkillDamage("Thunder", 10f);
                 break;
             case UpgradeType.TDSkillCooldown:
-                UpgradeSkillDamage("Thunder", 10f);
+                UpgradeQESkillDamage("Thunder", 10f);
                 break;
             case UpgradeType.TDSkillRange:
-                UpgradeSkillDamage("Thunder", 10f);
+                UpgradeQESkillDamage("Thunder", 10f);
                 break;
 
 
@@ -135,13 +140,28 @@ public class UpgradeButton : MonoBehaviour
                 UpgradeManager.Instance.data.SetDisabled(UpgradeType.IFSkillLearn, true);
                 break;
             case UpgradeType.IFSkillDamage:
-                UpgradeSkillDamage("Infierno", 10f);
+                UpgradePassiveSkill("Infierno", 10f);
                 break;
             case UpgradeType.IFSkillCooldown:
-                UpgradeSkillDamage("Infierno", 10f);
+                UpgradePassiveSkill("Infierno", 10f);
                 break;
             case UpgradeType.IFSkillRange:
-                UpgradeSkillDamage("Infierno", 10f);
+                UpgradePassiveSkill("Infierno", 10f);
+                break;
+
+
+            case UpgradeType.BHSkillLearn:
+                SkillManager.Instance.LearnNewSkill("Blackhole");
+                UpgradeManager.Instance.data.SetDisabled(UpgradeType.BHSkillLearn, true);
+                break;
+            case UpgradeType.BHSkillDamage:
+                UpgradePassiveSkill("Blackhole", 10f);
+                break;
+            case UpgradeType.BHSkillCooldown:
+                UpgradePassiveSkill("Blackhole", 10f);
+                break;
+            case UpgradeType.BHSkillRange:
+                UpgradePassiveSkill("Blackhole", 10f);
                 break;
         }
 
@@ -150,8 +170,14 @@ public class UpgradeButton : MonoBehaviour
         UIManager.Instance.UpdateStatNum();
         UIManager.Instance.UpdateSkillIcons();
     }
-    public void UpgradeSkillDamage(string skillName, float damage)
+    public void UpgradeQESkillDamage(string skillName, float damage)
     {
-        SkillManager.Instance.UpgradeSkillDamage(skillName, damage);
+        SkillManager.Instance.UpgradeQESkillDamage(skillName, damage);
+    }
+
+    public void UpgradePassiveSkill(string skillName, float damage)
+    {
+        SkillManager.Instance.UpgradePassiveSkill(skillName, damage);
+        Debug.Log($"SkillManager.Instance.UpgradePassiveSkill : {SkillManager.Instance}");
     }
 }

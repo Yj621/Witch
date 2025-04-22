@@ -32751,7 +32751,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1152390404}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1152390406}
+        m_TargetAssemblyTypeName: UpgradeButton, Assembly-CSharp
+        m_MethodName: OnUpgrade
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1152390404
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -32802,7 +32814,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9af69ca86196b43578f6fe71f5506e29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  upgradeType: 10
+  upgradeType: 13
 --- !u!1 &1155315344
 GameObject:
   m_ObjectHideFlags: 0
@@ -34253,7 +34265,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1419798824}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1152390406}
+        m_TargetAssemblyTypeName: UpgradeButton, Assembly-CSharp
+        m_MethodName: OnUpgrade
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1419798824
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -34304,7 +34328,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9af69ca86196b43578f6fe71f5506e29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  upgradeType: 10
+  upgradeType: 22
 --- !u!1 &1420345304
 GameObject:
   m_ObjectHideFlags: 0
@@ -78034,6 +78058,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3bf1d6614ce17e34d81a8e59e7265756, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  skillDatabase: {fileID: 11400000, guid: e04de4c511e7f41909598a8b343c6c36, type: 2}
 --- !u!4 &1817078520
 Transform:
   m_ObjectHideFlags: 0
@@ -78319,7 +78344,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1859905128}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1859905130}
+        m_TargetAssemblyTypeName: UpgradeButton, Assembly-CSharp
+        m_MethodName: OnUpgrade
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1859905128
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -78370,7 +78407,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9af69ca86196b43578f6fe71f5506e29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  upgradeType: 10
+  upgradeType: 19
 --- !u!1 &1889533135
 GameObject:
   m_ObjectHideFlags: 0

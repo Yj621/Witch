@@ -19,7 +19,8 @@ public class UpgradeDataBase : ScriptableObject
             (!opt.requireUnlockFS || GetOption(UpgradeType.FSSkillLearn).hasLearned) &&
             (!opt.requireUnlockIP || GetOption(UpgradeType.IPSkillLearn).hasLearned) &&
             (!opt.requireUnlockTD || GetOption(UpgradeType.TDSkillLearn).hasLearned) &&
-            (!opt.requireUnlockIF || GetOption(UpgradeType.IFSkillLearn).hasLearned)
+            (!opt.requireUnlockIF || GetOption(UpgradeType.IFSkillLearn).hasLearned)&&
+            (!opt.requireUnlockIF || GetOption(UpgradeType.BHSkillLearn).hasLearned)
         );
 
         if (options.Count == 0)

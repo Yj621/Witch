@@ -10,7 +10,8 @@ public class SkillManager : MonoBehaviour
     //Action 타입은 입력과 출력이 없는 메서드를 가리킬 수 있는 델리게이트
     //각 키에 할당할 스킬
     private Dictionary<KeyCode, Action> skillSlots = new Dictionary<KeyCode, Action>();
-    private List<Action> autoskillSlots = new(); // 오토 스킬용 리스트
+    private List<(string skillName, Action action)> autoskillSlots = new();
+    // 오토 스킬용 리스트
     //스킬 업그레이드 레벨 저장
     private Dictionary<string, int> skillUpgradeLevels = new Dictionary<string, int>();
     //배운 스킬 리스트
@@ -164,7 +165,7 @@ public class SkillManager : MonoBehaviour
 
         if (isAuto)
         {
-            autoskillSlots.Add(skillAction);
+            autoskillSlots.Add((skillName, skillAction));
         }
         else
         {
@@ -196,10 +197,11 @@ public class SkillManager : MonoBehaviour
         return skillSlots.ContainsKey(key) ? skillSlots[key] : null;
     }
 
-    public List<Action> GetAutoSkills()
+    public List<(string skillName, Action action)> GetAutoSkills()
     {
         return autoskillSlots;
     }
+
 
     // Q,E 스킬 데미지 할당
     public float GetSkillDamage(string skillName)

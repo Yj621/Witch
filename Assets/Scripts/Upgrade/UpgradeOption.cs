@@ -13,4 +13,5 @@ public class UpgradeOption
     public bool requireUnlockIP;
     public bool requireUnlockTD;
     public bool requireUnlockIF;
+    public bool requireUnlockBH;
 }

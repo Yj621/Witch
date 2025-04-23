@@ -88,11 +88,6 @@ public class UpgradeButton : MonoBehaviour
                 Debug.Log("강화! 현재: " + PlayerSkill.Instance.defaultSkillCooldown);
                 break;
 
-
-            case UpgradeType.FSSkillLearn:
-                SkillManager.Instance.LearnNewSkill("FireSlashs");
-                UpgradeManager.Instance.data.SetDisabled(UpgradeType.FSSkillLearn, true);
-                break;
             case UpgradeType.FSSkillDamage:
                 UpgradeQESkillDamage("FireSlashs", 10f);
                 break;
@@ -103,6 +98,15 @@ public class UpgradeButton : MonoBehaviour
                 UpgradeQESkillDamage("FireSlashs", 10f);
                 break;
 
+            case UpgradeType.TDSkillDamage:
+                UpgradeQESkillDamage("Thunder", 10f);
+                break;
+            case UpgradeType.TDSkillCooldown:
+                UpgradeQESkillDamage("Thunder", 10f);
+                break;
+            case UpgradeType.TDSkillRange:
+                UpgradeQESkillDamage("Thunder", 10f);
+                break;
 
 
             case UpgradeType.IPSkillLearn:
@@ -117,21 +121,6 @@ public class UpgradeButton : MonoBehaviour
                 break;
             case UpgradeType.IPSkillRange:
                 UpgradePassiveSkill("IcePillar", 10f);
-                break;
-
-
-            case UpgradeType.TDSkillLearn:
-                SkillManager.Instance.LearnNewSkill("Thunder", true);
-                UpgradeManager.Instance.data.SetDisabled(UpgradeType.TDSkillLearn, true);
-                break;
-            case UpgradeType.TDSkillDamage:
-                UpgradeQESkillDamage("Thunder", 10f);
-                break;
-            case UpgradeType.TDSkillCooldown:
-                UpgradeQESkillDamage("Thunder", 10f);
-                break;
-            case UpgradeType.TDSkillRange:
-                UpgradeQESkillDamage("Thunder", 10f);
                 break;
 
 

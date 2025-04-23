@@ -100,7 +100,7 @@ public class UIManager : MonoBehaviour
             case "UseFireSlash":
                 index = 0;
                 break;
-            case "UseInfierno":
+            case "UseThunder":
                 index = 1;
                 break;
             default:
@@ -121,33 +121,34 @@ public class UIManager : MonoBehaviour
 
     private void UpdateSkillIconNonKey(int indexInList, Image image, SkillManager skillManager)
     {
-        List<Action> autoSkills = skillManager.GetAutoSkills();
+        var autoSkills = skillManager.GetAutoSkills(); // List<(string, Action)>
 
-        // 리스트 길이 확인해서 예외 방지
-        if (indexInList >= autoSkills.Count || autoSkills[indexInList] == null)
+        if (indexInList >= autoSkills.Count)
         {
             image.sprite = null;
             image.enabled = false;
             return;
         }
 
-        Action skillAction = autoSkills[indexInList];
-        string methodName = skillAction.Method.Name;
-        int iconIndex = -1;
+        string skillName = autoSkills[indexInList].skillName;
 
-        switch (methodName)
+        int iconIndex = 1;
+        switch (skillName)
         {
-            case "UseIcePillar":
+            case "IcePillar":
                 iconIndex = 2;
+                Debug.Log("A");
                 break;
-            case "UseThunder":
+            case "Infierno":
                 iconIndex = 3;
+                Debug.Log("B");
                 break;
-            case "UseBlackHole":
+            case "Blackhole":
                 iconIndex = 4;
+                Debug.Log("C");
                 break;
-            // 필요 시 추가
-            default: break;
+            default:
+                break;
         }
 
         if (iconIndex >= 0 && iconIndex < skillIcons.Length)
@@ -160,8 +161,9 @@ public class UIManager : MonoBehaviour
             image.sprite = null;
             image.enabled = false;
         }
-        Debug.Log("업뎃");
     }
+
+
 
 
 

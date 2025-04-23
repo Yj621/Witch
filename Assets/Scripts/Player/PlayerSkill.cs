@@ -108,8 +108,9 @@ public class PlayerSkill : MonoBehaviour
             foreach (var skillName in addSkillCooldown.Keys)
             {
                 // 배운 스킬인지 확인
-                if (!learnedSkills.Exists(action => SkillManager.Instance.GetSkillAction(skillName) == action))
+                if (!learnedSkills.Exists(pair => pair.skillName == skillName))
                     continue;
+
 
                 // 스킬 쿨다운이 끝났는지 확인
                 if (Time.time >= skillCooldownTimers[skillName])

@@ -14,20 +14,24 @@ public class UpgradeDataBase : ScriptableObject
     public UpgradeOption GetRandomOption(List<UpgradeType> excludeList = null)
     {
         var options = upgradeOptions.FindAll(opt =>
-            (excludeList == null || !excludeList.Contains(opt.type)) &&
-            !opt.hasLearned &&
-            (!opt.requireUnlockFS || GetOption(UpgradeType.FSSkillLearn).hasLearned) &&
-            (!opt.requireUnlockIP || GetOption(UpgradeType.IPSkillLearn).hasLearned) &&
-            (!opt.requireUnlockTD || GetOption(UpgradeType.TDSkillLearn).hasLearned) &&
-            (!opt.requireUnlockIF || GetOption(UpgradeType.IFSkillLearn).hasLearned)&&
-            (!opt.requireUnlockIF || GetOption(UpgradeType.BHSkillLearn).hasLearned)
+            (excludeList?.Contains(opt.type) != true) &&            // 제외 타입이 아니면서
+            !opt.hasLearned &&                                      // 아직 배우지 않았고
+            (!opt.requireUnlockFS || GetOption(UpgradeType.FSSkillLearn)?.hasLearned == true) &&
+            (!opt.requireUnlockIP || GetOption(UpgradeType.IPSkillLearn)?.hasLearned == true) &&
+            (!opt.requireUnlockTD || GetOption(UpgradeType.TDSkillLearn)?.hasLearned == true) &&
+            (!opt.requireUnlockIF || GetOption(UpgradeType.IFSkillLearn)?.hasLearned == true) &&
+            (!opt.requireUnlockBH || GetOption(UpgradeType.BHSkillLearn)?.hasLearned == true)
         );
 
         if (options.Count == 0)
+        {
+            Debug.LogWarning("[UpgradeDataBase] 조건에 맞는 업그레이드가 없습니다.");
             return null;
+        }
 
         return options[Random.Range(0, options.Count)];
     }
+
 
 
 

@@ -112,7 +112,8 @@ public class SkillManager : MonoBehaviour
             { "FireSlashs", amount => player.skill.fireSlashsDamage += amount },
             { "IcePillar", amount=> player.skill.icePillarDamage+= amount  },
             { "Thunder", amount=> player.skill.thunderDamage+= amount },
-            { "Infierno", amount=> player.skill.infiernoDamage+= amount  }
+            { "Infierno", amount=> player.skill.infiernoDamage+= amount  },
+            { "Blackhole", amount=> player.skill.blackholeDamage+= amount  }
         };
 
         LearnNewSkill("FireSlashs");
@@ -259,10 +260,21 @@ public class SkillManager : MonoBehaviour
         runtimeSkillData[skillName].damage += amount;
     }
 
-        /// <summary>
-        /// 지정한 스킬의 런타임 복제본을 반환합니다.
-        /// </summary>
-        public SkillData GetRuntimeSkillData(string skillName)
+    public void UpgradePassiveCooltime(string skillName, float amount)
+    {
+        if (!runtimeSkillData.TryGetValue(skillName, out var data))
+        {
+            Debug.LogWarning($"Skill '{skillName}' not found in runtime data");
+            return;
+        }
+        skillLevels[skillName]++;           // 레벨 저장
+        runtimeSkillData[skillName].duration -= amount;
+    }
+
+    /// <summary>
+    /// 지정한 스킬의 런타임 복제본을 반환합니다.
+    /// </summary>
+    public SkillData GetRuntimeSkillData(string skillName)
         {
             if (runtimeSkillData.TryGetValue(skillName, out var data))
                 return data;

@@ -117,7 +117,7 @@ public class UpgradeButton : MonoBehaviour
                 UpgradePassiveSkill("IcePillar", 10f);
                 break;
             case UpgradeType.IPSkillCooldown:
-                UpgradePassiveSkill("IcePillar", 10f);
+                UpgradePassiveCooltime("IcePillar", 10f);
                 break;
             case UpgradeType.IPSkillRange:
                 UpgradePassiveSkill("IcePillar", 10f);
@@ -125,14 +125,14 @@ public class UpgradeButton : MonoBehaviour
 
 
             case UpgradeType.IFSkillLearn:
-                SkillManager.Instance.LearnNewSkill("Infierno");
+                SkillManager.Instance.LearnNewSkill("Infierno", true);
                 UpgradeManager.Instance.data.SetDisabled(UpgradeType.IFSkillLearn, true);
                 break;
             case UpgradeType.IFSkillDamage:
                 UpgradePassiveSkill("Infierno", 10f);
                 break;
             case UpgradeType.IFSkillCooldown:
-                UpgradePassiveSkill("Infierno", 10f);
+                UpgradePassiveCooltime("Infierno", 10f);
                 break;
             case UpgradeType.IFSkillRange:
                 UpgradePassiveSkill("Infierno", 10f);
@@ -140,14 +140,14 @@ public class UpgradeButton : MonoBehaviour
 
 
             case UpgradeType.BHSkillLearn:
-                SkillManager.Instance.LearnNewSkill("Blackhole");
+                SkillManager.Instance.LearnNewSkill("Blackhole", true);
                 UpgradeManager.Instance.data.SetDisabled(UpgradeType.BHSkillLearn, true);
                 break;
             case UpgradeType.BHSkillDamage:
                 UpgradePassiveSkill("Blackhole", 10f);
                 break;
             case UpgradeType.BHSkillCooldown:
-                UpgradePassiveSkill("Blackhole", 10f);
+                UpgradePassiveCooltime("Blackhole", 10f);
                 break;
             case UpgradeType.BHSkillRange:
                 UpgradePassiveSkill("Blackhole", 10f);
@@ -167,6 +167,12 @@ public class UpgradeButton : MonoBehaviour
     public void UpgradePassiveSkill(string skillName, float damage)
     {
         SkillManager.Instance.UpgradePassiveSkill(skillName, damage);
+        Debug.Log($"SkillManager.Instance.UpgradePassiveSkill : {SkillManager.Instance}");
+    }
+
+    public void UpgradePassiveCooltime(string skillName, float damage)
+    {
+        SkillManager.Instance.UpgradePassiveCooltime(skillName, damage);
         Debug.Log($"SkillManager.Instance.UpgradePassiveSkill : {SkillManager.Instance}");
     }
 }

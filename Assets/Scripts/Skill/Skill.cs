@@ -6,4 +6,5 @@ public class Skill
     public float icePillarDamage = 10f;
     public float thunderDamage = 10f;
     public float infiernoDamage = 10f;
+    public float blackholeDamage = 10f;
 }

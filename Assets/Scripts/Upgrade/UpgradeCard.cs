@@ -7,6 +7,7 @@ public class UpgradeCard : MonoBehaviour
     [SerializeField] private TextMeshProUGUI titleText;
     [SerializeField] private TextMeshProUGUI descriptionText;
     [SerializeField] private Image iconImage;
+    [SerializeField] private Image[] UpgradeStars;
 
     private UpgradeOption option;
     private UpgradeType type;

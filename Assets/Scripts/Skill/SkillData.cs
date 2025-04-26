@@ -9,4 +9,5 @@ public class SkillData : ScriptableObject
     public float duration;   //지속시간
     public float force;      // 블랙홀 전용
     public float lifetime;   // 아이스필라 전용
+    public float cooltime;   // 쿨타임
 }

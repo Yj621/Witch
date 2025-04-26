@@ -13,6 +13,8 @@ public class UIManager : MonoBehaviour
     public Slider ExpSlider;
     public Slider CleanSlider;
     public GameObject LevelUpPanel;
+    public GameObject EscPanel;
+    private bool isEscOpen = false;
     Player player;
     [SerializeField] private Image Qskill;
     [SerializeField] private Image Eskill;
@@ -63,6 +65,10 @@ public class UIManager : MonoBehaviour
         ExpSlider.value = player.Exp;
         CleanSlider.value = GameManager.Instance.currentClean;
         LvText.text = "Lv " + player.level;
+        if (Keyboard.current.escapeKey.wasPressedThisFrame)
+        {
+            ToggleEscapePanel();
+        }
     }
 
     //스킬 아이콘 업데이트
@@ -243,4 +249,20 @@ public class UIManager : MonoBehaviour
         player.LevelUp();
     }
 
+    private void ToggleEscapePanel()
+    {
+        isEscOpen = !isEscOpen;
+        EscPanel.SetActive(isEscOpen);
+
+        if (isEscOpen)
+        {
+            // 일시정지 하고 싶으면
+            Time.timeScale = 0f;
+        }
+        else
+        {
+            // 다시 게임 재개
+            Time.timeScale = 1f;
+        }
+    }
 }

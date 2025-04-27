@@ -9,6 +9,8 @@ public class PlayerController : MonoBehaviour
     public StateMachine stateMachine { get; private set; }
     private PlayerSkill playerSkill;
 
+    private bool isDie = false;
+
     private void Awake()
     {
         stateMachine = new StateMachine(this);
@@ -31,17 +33,38 @@ public class PlayerController : MonoBehaviour
     // 적에게 부딪혔을때
     private void Hurt(int damage)
     {
-        if (!isHurt)
+        if (isDie || isHurt) return;
+
+        player.Hurt(damage);
+        Debug.Log($"player.hp : {player.hp}");
+
+        // 사망 체크
+        if (player.hp <= 0)
         {
-            isHurt = true;
-            player.Hurt(damage);
-            Debug.Log($"player.hp : {player.hp}");
-            StartCoroutine(HurtRoutine());
+            Die();
+            return;
         }
+
+        isHurt = true;
+        StartCoroutine(HurtRoutine());
+    }
+
+    private void Die()
+    {
+        isDie = true;
+
+        var col = GetComponent<Collider2D>();
+        if (col != null)
+        {
+            col.enabled = false;
+        }
+        enabled = false;
+        player.Die();
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
+        if (isDie) return;
         Debug.Log("맞음");
         if (other.CompareTag("Enemy"))
         {

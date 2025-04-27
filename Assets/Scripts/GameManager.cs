@@ -26,4 +26,9 @@ public class GameManager : MonoBehaviour
             maxHp : 100
         );
     }
+
+    public void Exit()
+    {
+        Application.Quit(); 
+    }
 }

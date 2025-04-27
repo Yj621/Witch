@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SocialPlatforms;
 
 public class Player
 {
@@ -69,7 +70,8 @@ public class Player
     }
     public void Die()
     {
-        Debug.Log("주금");
+        UIManager.Instance.GameOverPanelOpen();
+        Time.timeScale = 0;
     }
 
     public void Heal(int amount)

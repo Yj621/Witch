@@ -14,6 +14,7 @@ public class UIManager : MonoBehaviour
     public Slider CleanSlider;
     public GameObject LevelUpPanel;
     public GameObject EscPanel;
+    public GameObject GameOverPanel;
     private bool isEscOpen = false;
     Player player;
     [SerializeField] private Image Qskill;
@@ -264,5 +265,10 @@ public class UIManager : MonoBehaviour
             // 다시 게임 재개
             Time.timeScale = 1f;
         }
+    }
+
+    public void GameOverPanelOpen()
+    {
+        GameOverPanel.SetActive(true);
     }
 }

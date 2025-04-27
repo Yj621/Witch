@@ -47,7 +47,6 @@ public class UpgradeButton : MonoBehaviour
 {
     private Player player;
     [SerializeField] private UpgradeType upgradeType;
-    public UpgradeLevel upgradeLevel;
     
     void Start()
     {
@@ -167,12 +166,10 @@ public class UpgradeButton : MonoBehaviour
     public void UpgradePassiveSkill(string skillName, float damage)
     {
         SkillManager.Instance.UpgradePassiveSkill(skillName, damage);
-        Debug.Log($"SkillManager.Instance.UpgradePassiveSkill : {SkillManager.Instance}");
     }
 
     public void UpgradePassiveCooltime(string skillName, float damage)
     {
         SkillManager.Instance.UpgradePassiveCooltime(skillName, damage);
-        Debug.Log($"SkillManager.Instance.UpgradePassiveSkill : {SkillManager.Instance}");
     }
 }

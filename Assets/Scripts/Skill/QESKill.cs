@@ -1,11 +1,11 @@
 using UnityEngine;
 
-public class QESKill : MonoBehaviour
+public class QESkill : MonoBehaviour
 {
     private Animator animator; // Player의 Animator
     private string currentSkillAnimation;
 
-    public static QESKill Instance { get; private set; }
+    public static QESkill Instance { get; private set; }
 
     private void Awake()
     {
@@ -46,6 +46,7 @@ public class QESKill : MonoBehaviour
         {
             case "FireSlashs":
                 damage = SkillManager.Instance.GetSkillDamage("FireSlashs");
+                Debug.Log($"damage : {damage}");
                 break;
             case "Thunder":
                 damage = SkillManager.Instance.GetSkillDamage("Thunder");
@@ -63,6 +64,7 @@ public class QESKill : MonoBehaviour
     {
         // 애니메이터에서 현재 재생 중인 애니메이션 상태 이름 반환
         string triggerName = PlayerInput.Instance.GetCurrentTriggerName();
+
         // 트리거 이름에 따라 현재 스킬 애니메이션 결정
         if (triggerName == "FireSlashs")
         {

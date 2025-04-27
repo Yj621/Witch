@@ -25,8 +25,7 @@ public class SkillManager : MonoBehaviour
     private Dictionary<string, Action> skillActionMap; // 스킬 이름 -> 발동 함수
     private Dictionary<string, Func<float>> skillDamageMap;
     private Dictionary<string, Action<float>> skillUpgradeMap;
-    private float autoSkillCooldown = 3f;
-    private float autoSkillTimer = 0f;
+
     Player player;
 
     //SkillDatabase가져오기
@@ -50,6 +49,19 @@ public class SkillManager : MonoBehaviour
             Instance = this;
             DontDestroyOnLoad(gameObject);
         }
+
+
+        runtimeSkillData = new Dictionary<string, SkillData>();
+        skillLevels = new Dictionary<string, int>();
+        //  Database에 등록된 스킬마다 복제본을 만들어 둔다
+        foreach (var data in skillDatabase.allSkills)
+        {
+            // Instantiate 하면 메모리 상에만 존재하는 복제본이 만들어진다
+            var clone = Instantiate(data);
+            clone.name = data.skillName;    // 구분용
+            runtimeSkillData[data.skillName] = clone;
+            skillLevels[data.skillName] = 1;
+        }
     }
 
     void Start()
@@ -62,15 +74,6 @@ public class SkillManager : MonoBehaviour
             skillSlots[key] = null;
         }
 
-        //  Database에 등록된 스킬마다 복제본을 만들어 둔다
-        foreach (var data in skillDatabase.allSkills)
-        {
-            // Instantiate 하면 메모리 상에만 존재하는 복제본이 만들어진다
-            var clone = Instantiate(data);
-            clone.name = data.skillName;    // 구분용
-            runtimeSkillData[data.skillName] = clone;
-            skillLevels[data.skillName] = 1;
-        }
 
         // 스킬 발동 액션 설정
         skillActionMap = new()
@@ -120,22 +123,13 @@ public class SkillManager : MonoBehaviour
         UpgradeManager.Instance.data.SetDisabled(UpgradeType.FSSkillLearn, true);
         LearnNewSkill("Thunder");
         UpgradeManager.Instance.data.SetDisabled(UpgradeType.TDSkillLearn, true);
-        // 복제본 할당 (한 번만)
-        SetupAutoSkillPrefabs();
+
 
         // 스킬 액션·데미지 맵 구성
         ConfigureSkillActions();
 
     }
-    private void SetupAutoSkillPrefabs()
-    {
-        // 예: 블랙홀 프리팹을 꺼내서, 그 컴포넌트에 복제본을 넣어 준다
-        var proto = GameManager.Instance.autoSkillPool.GetSkillObject("Blackhole");
-        proto.GetComponent<Blackhole>().skillData = runtimeSkillData["Blackhole"];
-        // 다시 풀에 돌려넣기
-        GameManager.Instance.autoSkillPool.ReturnSkillObject(proto);
 
-    }
     void Update()
     {
         // Q, E에 대해 입력 확인
@@ -237,13 +231,13 @@ public class SkillManager : MonoBehaviour
                 PlayerSkill.Instance.SpawnSkillNearEnemy(obj);
             }},
         };
-        // 2) 데미지 조회 맵: 클론된 SkillData.damage 읽도록
-        skillDamageMap = new Dictionary<string, Func<float>>()
+      /*  // 2) 데미지 조회 맵: 클론된 SkillData.damage 읽도록
+        skilladdDamageMap = new Dictionary<string, Func<float>>()
             {
                 { "IcePillar", () => runtimeSkillData["IcePillar"].damage },
                 { "Blackhole", () => runtimeSkillData["Blackhole"].damage },
                 { "Infierno",  () => runtimeSkillData["Infierno"].damage },
-            };
+            };*/
     }
 
 
@@ -258,6 +252,9 @@ public class SkillManager : MonoBehaviour
         }
         skillLevels[skillName]++;           // 레벨 저장
         runtimeSkillData[skillName].damage += amount;
+        
+        Debug.Log($"스킬 레벨  : {skillLevels[skillName]}+ {skillName}");
+        Debug.Log($"스킬 데미지 : {runtimeSkillData[skillName].damage}");
     }
 
     public void UpgradePassiveCooltime(string skillName, float amount)

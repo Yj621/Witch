@@ -7,6 +7,9 @@ public class Infierno : MonoBehaviour
 
     private void OnEnable()
     {
+        if (SkillManager.Instance == null)
+            return;              // 아직 준비 안 됐으면 그냥 스킵
+
         //  SkillManager에 있는 최신 클론으로 덮어쓰기
         skillData = SkillManager.Instance.GetRuntimeSkillData("Infierno");
 

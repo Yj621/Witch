@@ -27,7 +27,6 @@ public class SkillObjectPool : MonoBehaviour
     
     void Start()
     {
-        Debug.Log("AutoSkillPool 존재 확인: " + (GameManager.Instance.autoSkillPool != null));
 
     }
 

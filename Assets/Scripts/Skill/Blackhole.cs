@@ -6,14 +6,15 @@ public class Blackhole : MonoBehaviour
 {
     public SkillData skillData;
 
-    private List<Rigidbody2D> affectedEnemies = new();
-
 
     private void OnEnable()
     {
+        if (SkillManager.Instance == null)
+            return;              // 아직 준비 안 됐으면 그냥 스킵
+
         //  SkillManager에 있는 최신 클론으로 덮어쓰기
         skillData = SkillManager.Instance.GetRuntimeSkillData("Blackhole");
-
+        Debug.Log($"[Blackhole] duration={skillData.duration}, radius={skillData.radius}, force={skillData.force}");
 
         StartCoroutine(BlackholeRoutine());
     }
@@ -22,6 +23,7 @@ public class Blackhole : MonoBehaviour
     {
         float timer = 0f;
 
+        // 끌어당김
         while (timer < skillData.duration)
         {
             PullEnemies();
@@ -29,54 +31,53 @@ public class Blackhole : MonoBehaviour
             yield return null;
         }
 
-        // 데미지 줄 수도 있음
-        foreach (var rb in affectedEnemies)
-        {
-            if (rb != null)
-            {
-                var enemy = rb.GetComponent<EnemyMove>();
-                if (enemy != null)
-                {
-                    enemy.EnemyHurt(skillData.damage);
-                    Debug.Log($"[Blackhole] {enemy.name}에게 {skillData.damage} 데미지");
-                }
-            }
-        }
+        DealAreaDamage();
+        SkillEnd();
+    }
 
-        affectedEnemies.Clear();
+    private void PullEnemies()
+    {
+        var cols = Physics2D.OverlapCircleAll(
+            transform.position,
+            skillData.radius,
+            LayerMask.GetMask("Monster")
+        );
+        foreach (var col in cols)
+        {
+            var rb = col.GetComponent<Rigidbody2D>();
+            if (rb == null) continue;
+            Vector2 dir = (transform.position - rb.transform.position).normalized;
+            rb.AddForce(dir * skillData.force * Time.deltaTime, ForceMode2D.Impulse);
+        }
+    }
+    private void DealAreaDamage()
+    {
+        var cols = Physics2D.OverlapCircleAll(
+            transform.position,
+            skillData.radius,
+            LayerMask.GetMask("Monster")
+        );
+        foreach (var col in cols)
+        {
+            col.GetComponent<EnemyMove>()
+               .EnemyHurt(skillData.damage);
+        }
+        Debug.Log($"[Blackhole] 범위:{skillData.radius}, 데미지:{skillData.damage}");
     }
 
     public void SkillEnd()
     {
         gameObject.SetActive(false);
-        AutoSKillPool.Instance.ReturnSkillObject(gameObject);
-    }
-    private void PullEnemies()
-    {
-        Collider2D[] enemies = Physics2D.OverlapCircleAll(transform.position, skillData.radius, LayerMask.GetMask("Monster"));
-
-        foreach (Collider2D col in enemies)
-        {
-            Rigidbody2D rb = col.GetComponent<Rigidbody2D>();
-            if (rb != null)
-            {
-                Vector2 dir = (transform.position - rb.transform.position).normalized;
-                rb.AddForce(dir * skillData.force * Time.deltaTime, ForceMode2D.Force);
-
-                if (!affectedEnemies.Contains(rb))
-                    affectedEnemies.Add(rb);
-            }
-        }
+        GameManager.Instance.autoSkillPool.ReturnSkillObject(gameObject);
     }
 
-    // 개발용 시각화
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.magenta;
         Gizmos.DrawWireSphere(transform.position, skillData.radius);
     }
 
-        private void OnTriggerEnter2D(Collider2D other)
+    private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Enemy"))
         {

@@ -46,7 +46,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -126,23 +126,23 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: ComboAtk(FX)22_0
+      name: ComboAtk(FX)1_0
       rect:
         serializedVersion: 2
-        x: 5
-        y: 7
-        width: 122
-        height: 72
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 0
+        y: 0
+        width: 146
+        height: 80
+      alignment: 9
+      pivot: {x: 0.3, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 5c70a093626761d80800000000000000
-      internalID: -8280300958336284731
+      spriteID: 25d403b8b41ea8dd0800000000000000
+      internalID: -2482924529967411886
       vertices: []
       indices: 
       edges: []
@@ -161,7 +161,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      ComboAtk(FX)22_0: -8280300958336284731
+      ComboAtk(FX)1_0: -2482924529967411886
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

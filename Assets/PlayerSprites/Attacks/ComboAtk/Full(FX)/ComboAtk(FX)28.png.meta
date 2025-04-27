@@ -52,7 +52,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -132,67 +132,23 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: ComboAtk(FX)28_0
+      name: ComboAtk(FX)1_0
       rect:
         serializedVersion: 2
-        x: 23
-        y: 15
-        width: 31
-        height: 50
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 0
+        y: 0
+        width: 146
+        height: 80
+      alignment: 9
+      pivot: {x: 0.3, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: e90777fc21b2f7df0800000000000000
-      internalID: -180378100281413474
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ComboAtk(FX)28_1
-      rect:
-        serializedVersion: 2
-        x: 50
-        y: 31
-        width: 14
-        height: 15
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 1a86ccd0f17f00110800000000000000
-      internalID: 1225250811392321697
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ComboAtk(FX)28_2
-      rect:
-        serializedVersion: 2
-        x: 92
-        y: 9
-        width: 17
-        height: 17
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 572739c3da14fe130800000000000000
-      internalID: 3598166839593759349
+      spriteID: 25d403b8b41ea8dd0800000000000000
+      internalID: -2482924529967411886
       vertices: []
       indices: 
       edges: []
@@ -211,9 +167,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      ComboAtk(FX)28_0: -180378100281413474
-      ComboAtk(FX)28_1: 1225250811392321697
-      ComboAtk(FX)28_2: 3598166839593759349
+      ComboAtk(FX)1_0: -2482924529967411886
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

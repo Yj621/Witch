@@ -35773,7 +35773,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9af69ca86196b43578f6fe71f5506e29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  upgradeType: 13
+  upgradeType: 16
 --- !u!1 &1155315344
 GameObject:
   m_ObjectHideFlags: 0
@@ -37790,8 +37790,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1412542198}
   - component: {fileID: 1412542199}
-  - component: {fileID: 1412542200}
   - component: {fileID: 1412542201}
+  - component: {fileID: 1412542202}
   m_Layer: 9
   m_Name: SkillRange
   m_TagString: Skill
@@ -37860,18 +37860,6 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &1412542200
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1412542197}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 62b1e1db52506ce42884d80b11b0d98d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!50 &1412542201
 Rigidbody2D:
   serializedVersion: 5
@@ -37899,6 +37887,18 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &1412542202
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1412542197}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62b1e1db52506ce42884d80b11b0d98d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1417950658
 GameObject:
   m_ObjectHideFlags: 0
@@ -38058,7 +38058,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1152390406}
+      - m_Target: {fileID: 1419798826}
         m_TargetAssemblyTypeName: UpgradeButton, Assembly-CSharp
         m_MethodName: OnUpgrade
         m_Mode: 1

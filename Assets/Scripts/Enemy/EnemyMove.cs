@@ -47,9 +47,9 @@ public class EnemyMove : MonoBehaviour
     {
         if (other.CompareTag("Skill"))
         { 
-            QESKill qESKill = other.GetComponent<QESKill>();
+            QESkill qESKill = other.GetComponent<QESkill>();
 
-            QESKill.Instance.Attack(this.GetComponent<Collider2D>());
+            QESkill.Instance.Attack(gameObject.GetComponent<Collider2D>());
         }
     }
     public void EnemyHurt(float Damage)

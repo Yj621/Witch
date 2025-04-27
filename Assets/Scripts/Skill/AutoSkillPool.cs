@@ -27,10 +27,12 @@ public class AutoSKillPool : MonoBehaviour
             Instance = this;
             DontDestroyOnLoad(gameObject);
         }
-
-        InitializePools();    // 스킬 풀 초기화
     }
 
+    private void Start()
+    {
+        InitializePools();    // 스킬 풀 초기화
+    }
     // 모든 스킬 풀 초기화
     private void InitializePools()
     {
@@ -76,20 +78,17 @@ public class AutoSKillPool : MonoBehaviour
 
             if (skill == null)
             {
-                Debug.Log("null 오브젝트 발견, 제거");
                 pool.RemoveAt(i);
                 continue;
             }
 
             if (!skill.activeSelf)
             {
-                Debug.Log("풀에서 재사용되는 오브젝트 활성화");
                 skill.SetActive(true);
                 return skill;
             }
         }
 
-        Debug.Log("새 오브젝트 인스턴스 생성");
         GameObject newSkill = Instantiate(prefab, transform);
         newSkill.SetActive(true);
         pool.Add(newSkill);

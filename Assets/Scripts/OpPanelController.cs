@@ -3,6 +3,14 @@ using UnityEngine.UI;
 
 public class OpPanelController : MonoBehaviour
 {
+    [System.Serializable]
+    public class SoundOption
+    {
+        public Image[] volumeSteps; // 5개 이미지nt
+        public int currentVolumeStep = 2; // 초기 2단계
+    }
+
+
     public Image[] TopButtons;
     public Image[] OptionButtons;
     public Image[] SoundButtons;
@@ -15,13 +23,7 @@ public class OpPanelController : MonoBehaviour
     private int selectedOpIndex = 0;
     private int selectedSoundIndex = 0;
     private int selectedTopIndex = 0;
-
-    [System.Serializable]
-    public class SoundOption
-    {
-        public Image[] volumeSteps; // 5개 이미지
-        public int currentVolumeStep = 2; // 초기 2단계
-    }
+    public SoundOption[] SoundOptions;
 
     void Start()
     {
@@ -36,6 +38,11 @@ public class OpPanelController : MonoBehaviour
 
         for (int i = 0; i < OptionButtons.Length; i++)
             OptionButtons[i].enabled = false;
+
+        foreach (var option in SoundOptions)
+        {
+            UpdateVolUI(option);
+        }
 
         selectedOpIndex = -1;
         selectedSoundIndex = -1;
@@ -52,6 +59,8 @@ public class OpPanelController : MonoBehaviour
         {
             HandleMenuInput();
         }
+        SoundButtonControll();
+        HandleMenuSelection();
     }
 
     void HandleTopMenu()
@@ -64,13 +73,13 @@ public class OpPanelController : MonoBehaviour
         {
             ChangeTopSelection(1);
         }
+        Debug.Log("Top = " + selectedTopIndex);
     }
 
     void HandleMenuInput()
     {
         if (Input.GetKeyDown(KeyCode.DownArrow))
         {
-            Debug.Log(selectedOpIndex);
             if (isOption)
             {
                 if (selectedOpIndex < 0)
@@ -84,6 +93,7 @@ public class OpPanelController : MonoBehaviour
                     selectedOpIndex++;
                     OptionButtons[selectedOpIndex].enabled = true;
                 }
+                Debug.Log("Op = " + selectedOpIndex);
             }
             else if (isSound)
             {
@@ -98,6 +108,7 @@ public class OpPanelController : MonoBehaviour
                     selectedSoundIndex++;
                     SoundButtons[selectedSoundIndex].enabled = true;
                 }
+                Debug.Log("Sound = " + selectedSoundIndex);
             }
         }
         else if (Input.GetKeyDown(KeyCode.UpArrow))
@@ -110,6 +121,7 @@ public class OpPanelController : MonoBehaviour
                     selectedOpIndex--;
                     OptionButtons[selectedOpIndex].enabled = true;
                 }
+                Debug.Log("Op = " + selectedOpIndex);
             }
             else if (isSound)
             {
@@ -119,6 +131,7 @@ public class OpPanelController : MonoBehaviour
                     selectedSoundIndex--;
                     SoundButtons[selectedSoundIndex].enabled = true;
                 }
+                Debug.Log("Sound = " + selectedSoundIndex);
             }
         }
     }
@@ -189,6 +202,11 @@ public class OpPanelController : MonoBehaviour
         {
             isOption = false;
             isSound = true;
+
+            foreach (var option in SoundOptions)
+            {
+                UpdateVolUI(option);
+            }
         }
     }
 
@@ -224,8 +242,71 @@ public class OpPanelController : MonoBehaviour
             SoundButtons[i].enabled = false;
     }
 
-    void SoundButtonControll(int index, int direction)
+    void SoundButtonControll()
     {
+        if(!isTopSelectMode && isSound)
+        {
+            if (Input.GetKeyDown(KeyCode.RightArrow))
+            {
+                IncreaseVol(selectedSoundIndex);
+                Debug.Log("A");
+            }
+            else if (Input.GetKeyDown(KeyCode.LeftArrow))
+            {
+                DecreaseVol(selectedSoundIndex);
+                Debug.Log("A");
+            }
+        }
+    }
 
+    void IncreaseVol(int index)
+    {
+        var option = SoundOptions[index];
+        if(option.currentVolumeStep < option.volumeSteps.Length - 1)
+        {
+            option.currentVolumeStep++;
+            UpdateVolUI(option);
+            //SoundManager.Instance.ChangeVol(index, 1);
+            Debug.Log(index + "Sound Lev = " + option.currentVolumeStep);
+        }
+    }
+
+    void DecreaseVol(int index)
+    {
+        var option = SoundOptions[index];
+        if (option.currentVolumeStep > 0)
+        {
+            option.currentVolumeStep--;
+            UpdateVolUI(option);
+            //SoundManager.Instance.ChangeVol(index, 1);
+            Debug.Log(index + "Sound Lev = " + option.currentVolumeStep);
+        }
+    }
+
+    void UpdateVolUI(SoundOption option)
+    {
+        for(int i = 0; i < option.volumeSteps.Length; i++)
+        {
+            option.volumeSteps[i].enabled = (i <= option.currentVolumeStep);
+        }
+    }
+
+    void HandleMenuSelection()
+    {
+        if (Input.GetKeyDown(KeyCode.Return))
+        {
+            switch (selectedOpIndex)
+            {
+                case 0:
+                    GameManager.Instance.ReStartGame();
+                    break;
+                case 1:
+                    GameManager.Instance.GoTitle();
+                    break;
+                case 2:
+                    GameManager.Instance.Exit();
+                    break;
+            }
+        }
     }
 }

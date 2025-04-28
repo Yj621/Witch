@@ -4,7 +4,20 @@ using UnityEngine.UI;
 
 public class Opening : MonoBehaviour
 {
+    [System.Serializable]
+    public class SoundOption
+    {
+        public Image[] volumeSteps; // 5개 이미지nt
+        public int currentVolumeStep = 2; // 초기 2단계
+    }
+
+    public bool isSound = false;
+    public Image[] SoundButtons;
+    private int selectedSoundIndex = 0;
+    public SoundOption[] SoundOptions;
+
     public GameObject OptionPanel;
+    public GameObject HowToPanel;
     public Image[] buttonpickimages;
 
     private int selectedIndex = 0;
@@ -15,6 +28,14 @@ public class Opening : MonoBehaviour
         for (int i = 0; i < buttonpickimages.Length; i++)
         {
             buttonpickimages[i].enabled = (i == 0);
+        }
+
+        for (int i = 0; i < SoundButtons.Length; i++)
+            SoundButtons[i].enabled = false;
+
+        foreach (var option in SoundOptions)
+        {
+            UpdateVolUI(option);
         }
     }
 
@@ -27,22 +48,12 @@ public class Opening : MonoBehaviour
         }
         else
         {
+            HandleSoundInput();
+            SoundButtonControll();
             if (Input.GetKeyDown(KeyCode.Escape))
             {
                 CloseOptionPanel();
             }
-        }
-    }
-
-    void HandleMenuInput()
-    {
-        if (Input.GetKeyDown(KeyCode.DownArrow))
-        {
-            ChangeSelection(1);
-        }
-        else if (Input.GetKeyDown(KeyCode.UpArrow))
-        {
-            ChangeSelection(-1);
         }
     }
 
@@ -54,6 +65,98 @@ public class Opening : MonoBehaviour
         if (selectedIndex < 0) selectedIndex = buttonpickimages.Length - 1;
         if (selectedIndex >= buttonpickimages.Length) selectedIndex = 0;
         buttonpickimages[selectedIndex].enabled = true;
+    }
+
+    void HandleMenuInput()
+    {
+        if (Input.GetKeyDown(KeyCode.DownArrow)) ChangeSelection(1);
+        if (Input.GetKeyDown(KeyCode.UpArrow)) ChangeSelection(-1);
+    }
+
+    void HandleSoundInput()
+    {
+        if (Input.GetKeyDown(KeyCode.DownArrow))
+        {
+                if (selectedSoundIndex < 0)
+                {
+                    selectedSoundIndex = 0;
+                    SoundButtons[selectedSoundIndex].enabled = true;
+                }
+                else if (selectedSoundIndex < SoundButtons.Length - 1)
+                {
+                    SoundButtons[selectedSoundIndex].enabled = false;
+                    selectedSoundIndex++;
+                    SoundButtons[selectedSoundIndex].enabled = true;
+                }
+                Debug.Log("Sound = " + selectedSoundIndex);
+        }
+        else if (Input.GetKeyDown(KeyCode.UpArrow))
+        {
+                if (selectedSoundIndex > 0)
+                {
+                    SoundButtons[selectedSoundIndex].enabled = false;
+                    selectedSoundIndex--;
+                    SoundButtons[selectedSoundIndex].enabled = true;
+                }
+                Debug.Log("Sound = " + selectedSoundIndex);
+            }
+        
+    }
+
+    void ChangeSoundSelection(int direction)
+    {
+        SoundButtons[selectedSoundIndex].enabled = false;
+
+        selectedSoundIndex += direction;
+        selectedSoundIndex = Mathf.Clamp(selectedSoundIndex, 0, SoundButtons.Length - 1);
+
+        SoundButtons[selectedSoundIndex].enabled = true;
+    }
+
+    void SoundButtonControll()
+    {
+            if (Input.GetKeyDown(KeyCode.RightArrow))
+            {
+                IncreaseVol(selectedSoundIndex);
+                Debug.Log("A");
+            }
+            else if (Input.GetKeyDown(KeyCode.LeftArrow))
+            {
+                DecreaseVol(selectedSoundIndex);
+                Debug.Log("A");
+            }
+    }
+
+    void IncreaseVol(int index)
+    {
+        var option = SoundOptions[index];
+        if (option.currentVolumeStep < option.volumeSteps.Length - 1)
+        {
+            option.currentVolumeStep++;
+            UpdateVolUI(option);
+            //SoundManager.Instance.ChangeVol(index, 1);
+            Debug.Log(index + "Sound Lev = " + option.currentVolumeStep);
+        }
+    }
+
+    void DecreaseVol(int index)
+    {
+        var option = SoundOptions[index];
+        if (option.currentVolumeStep > 0)
+        {
+            option.currentVolumeStep--;
+            UpdateVolUI(option);
+            //SoundManager.Instance.ChangeVol(index, 1);
+            Debug.Log(index + "Sound Lev = " + option.currentVolumeStep);
+        }
+    }
+
+    void UpdateVolUI(SoundOption option)
+    {
+        for (int i = 0; i < option.volumeSteps.Length; i++)
+        {
+            option.volumeSteps[i].enabled = (i <= option.currentVolumeStep);
+        }
     }
 
     void HandleMenuSelection()
@@ -69,6 +172,9 @@ public class Opening : MonoBehaviour
                     OpenOptionPanel();
                     break;
                 case 2:
+                    OpenHowToPanel();
+                    break;
+                case 3:
                     GameEnd();
                     break;
             }
@@ -84,11 +190,20 @@ public class Opening : MonoBehaviour
     {
         OptionPanel.SetActive(true);
         isOptionPanelOpen = true;
+        selectedSoundIndex = 0; // 첫 번째 버튼 선택
+        for (int i = 0; i < SoundButtons.Length; i++)
+            SoundButtons[i].enabled = (i == selectedSoundIndex);
+    }
+
+    void OpenHowToPanel()
+    {
+        HowToPanel.SetActive(true);
     }
 
     void CloseOptionPanel()
     {
         OptionPanel.SetActive(false);
+        HowToPanel.SetActive(false);
         isOptionPanelOpen = false;
     }
 

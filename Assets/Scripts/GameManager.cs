@@ -37,4 +37,9 @@ public class GameManager : MonoBehaviour
     {
         SceneManager.LoadScene("MapScene");
     }
+
+    public void GoTitle()
+    {
+        SceneManager.LoadScene("Opening");
+    }
 }

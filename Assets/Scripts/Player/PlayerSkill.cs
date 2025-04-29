@@ -11,12 +11,6 @@ public class PlayerSkill : MonoBehaviour
 
     // 스킬 쿨다운 타이머 관리
     private Dictionary<string, float> skillCooldownTimers = new Dictionary<string, float>();
-    public Dictionary<string, float> addSkillCooldown = new Dictionary<string, float>()
-    {
-        { "IcePillar", 7f },
-        { "Blackhole", 8f },
-        { "Infierno", 6f }
-    };
 
     [SerializeField] private Transform skillSpawnPoint;
     [SerializeField] private Transform playerTransform;
@@ -36,23 +30,24 @@ public class PlayerSkill : MonoBehaviour
         }
         skillAnimator = GetComponent<Animator>();
     }
-
     private void Start()
     {
         skillManager = SkillManager.Instance;
         playerInput = PlayerInput.Instance;
 
-        // 기본 스킬 자동 발사 시작
+        // 기본 스킬 자동 발사
         StartCoroutine(AutoFireDefaultSkill());
 
-        // 추가 스킬 자동 발사 시작
-        StartCoroutine(AutoAddSkills()); // 자동 발사 코루틴 시작
-        // 추가 스킬 쿨다운 타이머 초기화
-        foreach (var skill in addSkillCooldown)
+        // 자동 발사 타이머 초기화: 지금은 사전 없이, LearnNewSkill 시점에 세팅해도 됩니다.
+        foreach (var auto in skillManager.GetAutoSkills())
         {
-            skillCooldownTimers[skill.Key] = 0f;
+            skillCooldownTimers[auto.skillName] = 0f;
         }
+
+        // 추가 스킬 자동 발사 시작
+        StartCoroutine(AutoAddSkills());
     }
+
 
     // 기본 스킬 자동 발사
     private IEnumerator AutoFireDefaultSkill()
@@ -102,29 +97,27 @@ public class PlayerSkill : MonoBehaviour
     {
         while (true)
         {
-            // SkillManager에서 현재 배운 오토 스킬 목록 가져오기
-            var learnedSkills = SkillManager.Instance.GetAutoSkills();
+            // 배운 오토 스킬 목록
+            var learned = skillManager.GetAutoSkills();
 
-            foreach (var skillName in addSkillCooldown.Keys)
+            foreach (var (skillName, action) in learned)
             {
-                // 배운 스킬인지 확인
-                if (!learnedSkills.Exists(pair => pair.skillName == skillName))
-                    continue;
+                // 스킬 데이터에서 쿨타임을 가져옴
+                var data = skillManager.GetRuntimeSkillData(skillName);
+                if (data == null) continue;
 
-
-                // 스킬 쿨다운이 끝났는지 확인
+                // 타이머가 만료되면 발사
                 if (Time.time >= skillCooldownTimers[skillName])
                 {
-                    skillCooldownTimers[skillName] = Time.time + addSkillCooldown[skillName]; // 쿨다운 갱신
-                    AddSkill(skillName); // 스킬 발사
-                    Debug.Log($"[Auto Skill Fired] {skillName}");
+                    skillCooldownTimers[skillName] = Time.time + data.cooltime;
+                    AddSkill(skillName);
+                    Debug.Log($"[Auto Skill Fired] {skillName}, next in {data.cooltime}s");
                 }
             }
 
-            yield return new WaitForSeconds(1f); // 1초마다 쿨다운 확인
+            yield return new WaitForSeconds(0.1f);
         }
     }
-
 
     // 추가 스킬 발사
     public void AddSkill(string skillName)
@@ -133,7 +126,7 @@ public class PlayerSkill : MonoBehaviour
 
         if (skillPrefab == null) return;
 
-        if (skillName == "IcePillar" || skillName == "Infierno" || skillName == "Blackhole")
+        if (skillName == "IcePillar" || skillName == "Infierno" || skillName == "Blackhole" || skillName == "ThunderStrike")
         {
             SpawnSkillNearEnemy(skillPrefab); //생성 위치 설정
         }

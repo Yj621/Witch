@@ -15,8 +15,8 @@ public class AutoSkillManager : MonoBehaviour
     {
         SkillManager.Instance.LearnNewSkill("IcePillar", true);
     }
-    public void LearnThunderSkrikeAuto()
+    public void LearnThunderStrikeAuto()
     {
-        SkillManager.Instance.LearnNewSkill("ThunderSkrike", true);
+        SkillManager.Instance.LearnNewSkill("ThunderStrike", true);
     }
 }

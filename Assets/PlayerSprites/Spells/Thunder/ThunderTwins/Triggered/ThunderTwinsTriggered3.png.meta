@@ -37,7 +37,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -129,20 +129,20 @@ TextureImporter:
       name: ThunderTwinsTriggered3_0
       rect:
         serializedVersion: 2
-        x: 15
-        y: 1
-        width: 68
-        height: 61
+        x: 0
+        y: 0
+        width: 96
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: f3ed1fa7a085bdf40800000000000000
-      internalID: 5754289750931529279
+      spriteID: 2fcb9dc7bc21f314cbb765732fdabf65
+      internalID: -952142449
       vertices: []
       indices: 
       edges: []
@@ -151,7 +151,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: aad2b0acd223ac540900821e6a094c07
     internalID: 0
     vertices: []
     indices: 
@@ -161,7 +161,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      ThunderTwinsTriggered3_0: 5754289750931529279
+      ThunderTwinsTriggered3_0: -952142449
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -154,6 +154,10 @@ public class UIManager : MonoBehaviour
                 iconIndex = 4;
                 Debug.Log("C");
                 break;
+            case "ThunderStrike":
+                iconIndex = 4;
+                Debug.Log("D");
+                break;
             default:
                 break;
         }

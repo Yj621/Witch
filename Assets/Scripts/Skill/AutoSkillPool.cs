@@ -5,14 +5,16 @@ using UnityEngine;
 public class AutoSKillPool : MonoBehaviour
 {
     [Header("Skill Prefabs")]
-    [SerializeField] private GameObject icePrefab;       // IcePillar 스킬 프리팹
-    [SerializeField] private GameObject blackholePrefab; // Blackhole 스킬 프리팹
-    [SerializeField] private GameObject infiernoPrefab;  // Infierno 스킬 프리팹
+    [SerializeField] private GameObject icePrefab;              // IcePillar 스킬 프리팹
+    [SerializeField] private GameObject blackholePrefab;        // Blackhole 스킬 프리팹
+    [SerializeField] private GameObject infiernoPrefab;         // Infierno 스킬 프리팹
+    [SerializeField] private GameObject thunderStrikePrefab;    // thunderStrike 스킬 프리팹
 
     [SerializeField] private int initialCount = 20;      // 초기 개수
     private List<GameObject> icePool;                    // IcePillar 스킬 풀
     private List<GameObject> blackholePool;              // Blackhole 스킬 풀
     private List<GameObject> infiernoPool;               // Infierno 스킬 풀
+    private List<GameObject> thunderStrikePool;          // thunderStrike 스킬 풀
 
     public static AutoSKillPool Instance { get; private set; }
 
@@ -39,11 +41,13 @@ public class AutoSKillPool : MonoBehaviour
         icePool = new List<GameObject>();
         blackholePool = new List<GameObject>();
         infiernoPool = new List<GameObject>();
+        thunderStrikePool = new List<GameObject>();
 
         // 각 스킬 풀에 대해 프리팹을 초기화
         InitializePool(icePrefab, icePool);
         InitializePool(blackholePrefab, blackholePool);
         InitializePool(infiernoPrefab, infiernoPool);
+        InitializePool(thunderStrikePrefab, thunderStrikePool);
     }
 
     // 특정 스킬의 풀 초기화
@@ -65,6 +69,7 @@ public class AutoSKillPool : MonoBehaviour
             "IcePillar" => GetFromPool(icePool, icePrefab),
             "Blackhole" => GetFromPool(blackholePool, blackholePrefab),
             "Infierno" => GetFromPool(infiernoPool, infiernoPrefab),
+            "ThunderStrike" => GetFromPool(thunderStrikePool, thunderStrikePrefab),
             _ => null
         };
     }

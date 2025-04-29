@@ -65,7 +65,6 @@ public class PlayerController : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (isDie) return;
-        Debug.Log("맞음");
         if (other.CompareTag("Enemy"))
         {
             Hurt(10);

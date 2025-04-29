@@ -40,7 +40,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -132,42 +132,20 @@ TextureImporter:
       name: ThunderTwinsDissipate4_0
       rect:
         serializedVersion: 2
-        x: 13
-        y: 38
-        width: 23
-        height: 22
+        x: 0
+        y: 0
+        width: 128
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 3bfd57ef6f40aaa30800000000000000
-      internalID: 4227196659118235571
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ThunderTwinsDissipate4_1
-      rect:
-        serializedVersion: 2
-        x: 38
-        y: 1
-        width: 77
-        height: 63
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: cef54994cfd0e9190800000000000000
-      internalID: -7953904514672336916
+      spriteID: 2deba9672c28404408e7684f6aa1bdf1
+      internalID: -1914403698
       vertices: []
       indices: 
       edges: []
@@ -176,7 +154,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: aad2b0acd223ac540900821e6a094c07
     internalID: 0
     vertices: []
     indices: 
@@ -186,8 +164,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      ThunderTwinsDissipate4_0: 4227196659118235571
-      ThunderTwinsDissipate4_1: -7953904514672336916
+      ThunderTwinsDissipate4_0: -1914403698
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -18,3 +18,4 @@ MonoBehaviour:
   duration: 6
   force: 0
   lifetime: 0
+  cooltime: 8

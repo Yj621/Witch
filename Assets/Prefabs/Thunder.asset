@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skillName: Thunder
   damage: 10
-  radius: 0
+  radius: 3
   duration: 3
   force: 0
   lifetime: 0

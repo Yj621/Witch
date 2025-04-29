@@ -11,7 +11,6 @@ public class Player
 
     public float playerSpeed; 
     public float dashSpeed;
-    public Skill skill;
     public int Level
     {
         get { return level; }
@@ -49,7 +48,6 @@ public class Player
 
     public Player(int level, int exp, float playerSpeed, float dashSpeed, int maxHp)
     {
-        skill = new Skill();
         Level = level;
         Exp = exp;
         this.hp = maxHp;

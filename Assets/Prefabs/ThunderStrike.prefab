@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 339489906334517705}
   - component: {fileID: 7884280136060379848}
   - component: {fileID: 1783171699411989851}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: ThunderStrike
   m_TagString: Skill
   m_Icon: {fileID: 0}
@@ -198,4 +198,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 827befadcfd580b4bacaf5a9644fa772, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  skillData: {fileID: 11400000, guid: 98d8f2b83cdbf234680b45f42f9d75f6, type: 2}

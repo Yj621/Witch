@@ -31,16 +31,22 @@ public enum UpgradeType
     IFSkillRange,
     IFSkillCooldown,
     IFSkillDamage,
+
     BHSkillRange,
     BHSkillCooldown,
     BHSkillDamage,
+
+    TSSkillRange,
+    TSSkillCooldown,
+    TSSkillDamage,
 
     //스킬 습득
     FSSkillLearn,
     IPSkillLearn,
     TDSkillLearn,
     IFSkillLearn,
-    BHSkillLearn
+    BHSkillLearn,
+    TSSkillLearn
 }
 
 public class UpgradeButton : MonoBehaviour
@@ -62,94 +68,67 @@ public class UpgradeButton : MonoBehaviour
     {
         switch (upgradeType)
         {
-            case UpgradeType.CharacterMoveSpeed:
-                player.playerSpeed += 0.5f;
-                Debug.Log("강화! 현재: " +  player.playerSpeed);
+            // QE 스킬
+            case UpgradeType.FSSkillRange:
+                UpgradeSkillRange("FireSlashs", 1f);
                 break;
-            case UpgradeType.DashSpeed:
-                player.dashSpeed += 0.5f;
-                Debug.Log("강화! 현재: " + player.dashSpeed);
+            case UpgradeType.FSSkillCooldown:
+                UpgradePassiveCooltime("FireSlashs", 0.5f);
                 break;
-            case UpgradeType.DashCooldown:
-                PlayerInput.Instance.dashCoolTime -= 0.5f;
-                Debug.Log("강화! 현재: " + PlayerInput.Instance.dashCoolTime);
-                break;
-            case UpgradeType.MaxHPIncrease:
-                player.maxHp += 10;
-                Debug.Log("강화! 현재: " + player.maxHp);
-                break;
-            case UpgradeType.DefaultSkillDamage:
-                DefaultSkill.Instance.defaultDamage += 2;
-                Debug.Log("강화! 현재: " + DefaultSkill.Instance.defaultDamage);
-                break;
-            case UpgradeType.DefaultSkillCooldown:
-               PlayerSkill.Instance.defaultSkillCooldown -= 0.5f;
-                Debug.Log("강화! 현재: " + PlayerSkill.Instance.defaultSkillCooldown);
-                break;
-
             case UpgradeType.FSSkillDamage:
                 UpgradeQESkillDamage("FireSlashs", 10f);
                 break;
-            case UpgradeType.FSSkillCooldown:
-                UpgradeQESkillDamage("FireSlashs", 10f);
-                break;
-            case UpgradeType.FSSkillRange:
-                UpgradeQESkillDamage("FireSlashs", 10f);
-                break;
 
+            case UpgradeType.TDSkillRange:
+               UpgradeSkillRange("Thunder", 1f);
+                break;
+            case UpgradeType.TDSkillCooldown:
+                UpgradePassiveCooltime("Thunder", 0.5f);
+                break;
             case UpgradeType.TDSkillDamage:
                 UpgradeQESkillDamage("Thunder", 10f);
                 break;
-            case UpgradeType.TDSkillCooldown:
-                UpgradeQESkillDamage("Thunder", 10f);
-                break;
-            case UpgradeType.TDSkillRange:
-                UpgradeQESkillDamage("Thunder", 10f);
-                break;
 
-
-            case UpgradeType.IPSkillLearn:
-                SkillManager.Instance.LearnNewSkill("IcePillar", true);
-                UpgradeManager.Instance.data.SetDisabled(UpgradeType.IPSkillLearn, true);
+            // 패시브 스킬
+            case UpgradeType.IPSkillRange:
+                UpgradeSkillRange("IcePillar", 1f);
+                break;
+            case UpgradeType.IPSkillCooldown:
+                UpgradePassiveCooltime("IcePillar", 0.5f);
                 break;
             case UpgradeType.IPSkillDamage:
                 UpgradePassiveSkill("IcePillar", 10f);
                 break;
-            case UpgradeType.IPSkillCooldown:
-                UpgradePassiveCooltime("IcePillar", 10f);
-                break;
-            case UpgradeType.IPSkillRange:
-                UpgradePassiveSkill("IcePillar", 10f);
-                break;
 
-
-            case UpgradeType.IFSkillLearn:
-                SkillManager.Instance.LearnNewSkill("Infierno", true);
-                UpgradeManager.Instance.data.SetDisabled(UpgradeType.IFSkillLearn, true);
+            case UpgradeType.IFSkillRange:
+               UpgradeSkillRange("Infierno", 1f);
+                break;
+            case UpgradeType.IFSkillCooldown:
+                UpgradePassiveCooltime("Infierno", 0.5f);
                 break;
             case UpgradeType.IFSkillDamage:
                 UpgradePassiveSkill("Infierno", 10f);
                 break;
-            case UpgradeType.IFSkillCooldown:
-                UpgradePassiveCooltime("Infierno", 10f);
-                break;
-            case UpgradeType.IFSkillRange:
-                UpgradePassiveSkill("Infierno", 10f);
-                break;
 
-
-            case UpgradeType.BHSkillLearn:
-                SkillManager.Instance.LearnNewSkill("Blackhole", true);
-                UpgradeManager.Instance.data.SetDisabled(UpgradeType.BHSkillLearn, true);
+            case UpgradeType.BHSkillRange:
+               UpgradeSkillRange("Blackhole", 1f);
+                break;
+            case UpgradeType.BHSkillCooldown:
+                UpgradePassiveCooltime("Blackhole", 0.5f);
                 break;
             case UpgradeType.BHSkillDamage:
                 UpgradePassiveSkill("Blackhole", 10f);
                 break;
-            case UpgradeType.BHSkillCooldown:
-                UpgradePassiveCooltime("Blackhole", 10f);
+
+
+            case UpgradeType.TSSkillRange:
+                UpgradeSkillRange("ThunderStrike", 1f);
                 break;
-            case UpgradeType.BHSkillRange:
-                UpgradePassiveSkill("Blackhole", 10f);
+            case UpgradeType.TSSkillCooldown:
+                UpgradePassiveCooltime("ThunderStrike", 0.5f);
+                break;
+            case UpgradeType.TSSkillDamage:
+                UpgradeQESkillDamage("ThunderStrike", 10f);
                 break;
         }
 
@@ -171,5 +150,9 @@ public class UpgradeButton : MonoBehaviour
     public void UpgradePassiveCooltime(string skillName, float damage)
     {
         SkillManager.Instance.UpgradePassiveCooltime(skillName, damage);
+    }
+    public void UpgradeSkillRange(string skillName, float damage)
+    {
+        SkillManager.Instance.UpgradeSkillRange(skillName, damage);
     }
 }

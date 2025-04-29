@@ -228,12 +228,28 @@ public class SkillManager : MonoBehaviour
     {
         if (runtimeSkillData.TryGetValue(skillName, out var data))
         {
-            data.duration = Mathf.Max(0f, data.duration - amount);
+            data.cooltime = Mathf.Max(0f, data.cooltime - amount);
             skillLevels[skillName]++;
         }
         else
         {
             Debug.LogWarning($"쿨타임 업그레이드 대상 스킬 없음: {skillName}");
+        }
+    }
+
+    /// <summary>
+    /// 스킬 범위(radius) 업그레이드
+    /// </summary>
+    public void UpgradeSkillRange(string skillName, float amount)
+    {
+        if (runtimeSkillData.TryGetValue(skillName, out var data))
+        {
+            data.radius += amount;
+            skillLevels[skillName]++;
+        }
+        else
+        {
+            Debug.LogWarning($"업그레이드 대상 스킬 없음: {skillName}");
         }
     }
 }

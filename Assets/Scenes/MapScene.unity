@@ -81258,6 +81258,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dashCoolTime: 5
   dashDuration: 0.5
+  actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
 --- !u!61 &1685004372
 BoxCollider2D:
   m_ObjectHideFlags: 0

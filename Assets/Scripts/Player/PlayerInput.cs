@@ -18,6 +18,10 @@ public class PlayerInput : MonoBehaviour
     private PlayerController playerController;
     private PlayerSkill playerSkill;
     private SkillManager skillManager;
+    // PlayerInput 컴포넌트 참조
+    [SerializeField] private InputActionAsset actions;
+
+    private InputActionMap playerMap;
 
     public static PlayerInput Instance { get; private set; }
 
@@ -45,6 +49,9 @@ public class PlayerInput : MonoBehaviour
         stateMachine.Initialize(stateMachine.idleState);
         // PlayerSkill 가져오기
         playerSkill = PlayerSkill.Instance;
+
+        playerMap = actions.FindActionMap("Player");
+
 
     }
 
@@ -128,22 +135,31 @@ public class PlayerInput : MonoBehaviour
         skill?.Invoke();
     }
 
-    //E 스킬
+    // E 스킬
     public void OnSecondSkill(InputValue value)
     {
         Action skill = skillManager.GetSkill(KeyCode.E);
         skill?.Invoke();
     }
 
+    // 스킬 애니메이션 끝나는 시점에 호출 (StateMachine Exit 등에서)
+    public void OnSkillEnd()
+    {
+        playerMap.Enable();              // 다시 켜서 입력 가능
+    }
+
+
     // 스킬 실행 함수
     public void UseFireSlash()
     {
         stateMachine.TransitionTo(stateMachine.skillFireSlashState);
+        playerMap.Disable();             // 스킬 시작하자마자 꺼버림
     }
 
     public void UseThunder()
     {
         stateMachine.TransitionTo(stateMachine.skillThunderState);
+        playerMap.Disable();
     }
 
 

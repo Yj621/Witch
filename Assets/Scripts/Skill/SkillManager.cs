@@ -1,299 +1,239 @@
 using System;
 using System.Collections.Generic;
-using UnityEngine;
-using System.Collections;
-using UnityEditor.Experimental.GraphView;
 using System.Linq;
+using UnityEngine;
 
+/// <summary>
+/// 스킬 관리 및 호출을 담당하는 싱글톤 매니저 클래스
+/// </summary>
 public class SkillManager : MonoBehaviour
 {
-    //Action 타입은 입력과 출력이 없는 메서드를 가리킬 수 있는 델리게이트
-    //각 키에 할당할 스킬
-    private Dictionary<KeyCode, Action> skillSlots = new Dictionary<KeyCode, Action>();
-    private List<(string skillName, Action action)> autoskillSlots = new();
-    // 오토 스킬용 리스트
-    //스킬 업그레이드 레벨 저장
-    private Dictionary<string, int> skillUpgradeLevels = new Dictionary<string, int>();
-    //배운 스킬 리스트
-    private List<Action> skillList = new List<Action>();
-    PlayerInput playerInput;
-
-    // 등록 가능한 슬롯 리스트 
-    private readonly KeyCode[] slotKeys = { KeyCode.Q, KeyCode.E };
-
-    //스킬 매핑 및 관련 함수 딕셔너리
-    private Dictionary<string, Action> skillActionMap; // 스킬 이름 -> 발동 함수
-    private Dictionary<string, Func<float>> skillDamageMap;
-    private Dictionary<string, Action<float>> skillUpgradeMap;
-
-    Player player;
-
-    //SkillDatabase가져오기
-    [SerializeField] private SkillDatabase skillDatabase;
-    // 런타임에 쓸 SkillData 복제본
-    private Dictionary<string, SkillData> runtimeSkillData = new();
-
-    // 업그레이드 레벨 저장
-    private Dictionary<string, int> skillLevels = new();
-
+    // 싱글톤 인스턴스
     public static SkillManager Instance { get; private set; }
+
+    // 스킬 데이터베이스 에셋
+    [SerializeField] private SkillDatabase skillDatabase;
+
+    // Q/E 키 슬롯에 바인딩된 스킬 액션
+    private Dictionary<KeyCode, Action> skillSlots = new Dictionary<KeyCode, Action>(2);
+
+    // 런타임 복제된 스킬 데이터
+    private Dictionary<string, SkillData> runtimeSkillData;
+
+    // 스킬 레벨 저장
+    private Dictionary<string, int> skillLevels;
+
+    // 수동 스킬 실행 액션 맵
+    private Dictionary<string, Action> internalSkillActions;
+
+    // 자동 스킬 슬롯(이름, 액션)
+    private List<(string skillName, Action action)> autoskillSlots = new List<(string, Action)>();
+
+    // 플레이어 및 입력 참조
+    private PlayerInput playerInput;
+    private Player player;
 
     private void Awake()
     {
+        // 싱글톤 초기화
         if (Instance != null && Instance != this)
         {
             Destroy(gameObject);
+            return;
         }
-        else
-        {
-            Instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
+        Instance = this;
+        DontDestroyOnLoad(gameObject);
 
+        // 자료구조 초기화
+        runtimeSkillData = new Dictionary<string, SkillData>(skillDatabase.allSkills.Length);
+        skillLevels = new Dictionary<string, int>(skillDatabase.allSkills.Length);
+        internalSkillActions = new Dictionary<string, Action>();
 
-        runtimeSkillData = new Dictionary<string, SkillData>();
-        skillLevels = new Dictionary<string, int>();
-        //  Database에 등록된 스킬마다 복제본을 만들어 둔다
+        // Q/E 슬롯 초기화
+        skillSlots[KeyCode.Q] = null;
+        skillSlots[KeyCode.E] = null;
+
+        // 데이터베이스에 등록된 스킬 복제
         foreach (var data in skillDatabase.allSkills)
         {
-            // Instantiate 하면 메모리 상에만 존재하는 복제본이 만들어진다
             var clone = Instantiate(data);
-            clone.name = data.skillName;    // 구분용
-            runtimeSkillData[data.skillName] = clone;
-            skillLevels[data.skillName] = 1;
+            clone.name = data.skillName;
+            runtimeSkillData[clone.name] = clone;
+            skillLevels[clone.name] = 1;
         }
     }
 
-    void Start()
+    private void Start()
     {
+        // 게임 매니저에서 플레이어 정보 가져오기
         player = GameManager.Instance.player;
         playerInput = PlayerInput.Instance;
 
-        foreach (var key in slotKeys)
-        {
-            skillSlots[key] = null;
-        }
+        // 수동 스킬 등록
+        RegisterInternalSkill("FireSlashs", () => playerInput.UseFireSlash());
+        RegisterInternalSkill("Thunder", () => playerInput.UseThunder());
 
-
-        // 스킬 발동 액션 설정
-        skillActionMap = new()
-        {
-            { "FireSlashs", playerInput.UseFireSlash },
-            { "Thunder", playerInput.UseThunder },
-            { "IcePillar", () =>
-                {
-                    var obj = GameManager.Instance.autoSkillPool.GetSkillObject("IcePillar");
-                    PlayerSkill.Instance.SpawnSkillNearEnemy(obj); // 가까운 적 위치에 생성
-                }
-            },
-            { "Infierno", () =>
-                {
-                    var obj = GameManager.Instance.autoSkillPool.GetSkillObject("Infierno");
-                    PlayerSkill.Instance.SpawnSkillNearEnemy(obj);
-                }
-            },
-            { "Blackhole", () =>
-                {
-                    var obj = GameManager.Instance.autoSkillPool.GetSkillObject("Blackhole");
-                    PlayerSkill.Instance.SpawnSkillNearEnemy(obj);
-                }
-
-}
-
-        };
-
-
-        // 스킬 데미지 조회 딕셔너리
-        skillDamageMap = new Dictionary<string, Func<float>>()
-        {
-            { "FireSlashs", ()=> player.skill.fireSlashsDamage },
-            { "Thunder", ()=> player.skill.thunderDamage}
-        };
-
-        skillUpgradeMap = new Dictionary<string, Action<float>>()
-        {
-            { "FireSlashs", amount => player.skill.fireSlashsDamage += amount },
-            { "IcePillar", amount=> player.skill.icePillarDamage+= amount  },
-            { "Thunder", amount=> player.skill.thunderDamage+= amount },
-            { "Infierno", amount=> player.skill.infiernoDamage+= amount  },
-            { "Blackhole", amount=> player.skill.blackholeDamage+= amount  }
-        };
-
+        // 초기 스킬 학습 및 UI 업데이트
         LearnNewSkill("FireSlashs");
         UpgradeManager.Instance.data.SetDisabled(UpgradeType.FSSkillLearn, true);
         LearnNewSkill("Thunder");
         UpgradeManager.Instance.data.SetDisabled(UpgradeType.TDSkillLearn, true);
-
-
-        // 스킬 액션·데미지 맵 구성
-        ConfigureSkillActions();
-
     }
 
-    void Update()
+    private void Update()
     {
-        // Q, E에 대해 입력 확인
-        foreach (var key in slotKeys)
+        // Q/E 키 입력 처리
+        foreach (var kv in skillSlots)
         {
-            if (Input.GetKeyDown(key) && skillSlots[key] != null)
+            if (kv.Value != null && Input.GetKeyDown(kv.Key))
             {
-                skillSlots[key]?.Invoke();
+                kv.Value.Invoke();
             }
         }
     }
 
-    // 배운 스킬을 순서대로 슬롯에 등록
+    /// <summary>
+    /// 수동 스킬 실행 액션 등록
+    /// </summary>
+    private void RegisterInternalSkill(string skillName, Action useAction)
+    {
+        internalSkillActions[skillName] = useAction;
+    }
+
+    /// <summary>
+    /// 새로운 스킬을 슬롯에 배치하고, 자동 여부 옵션 처리
+    /// </summary>
     public void LearnNewSkill(string skillName, bool isAuto = false)
     {
-        Action skillAction = GetSkillAction(skillName);
-        // 스킬 기본 레벨 설정
-        if (!skillUpgradeLevels.ContainsKey(skillName))
+        if (!runtimeSkillData.ContainsKey(skillName))
         {
-            skillUpgradeLevels[skillName] = 1;
-        }
-        if (skillAction == null)
-        {
-            Debug.LogWarning($"알 수 없는 스킬 : {skillName}");
+            Debug.LogWarning($"스킬 '{skillName}'이(가) 존재하지 않습니다.");
             return;
         }
-        skillList.Add(skillAction);
+
+        Action invokeAction = () => InvokeSkill(skillName);
 
         if (isAuto)
         {
-            autoskillSlots.Add((skillName, skillAction));
+            autoskillSlots.Add((skillName, invokeAction));
         }
         else
         {
-            foreach (var key in slotKeys)
+            // 빈 슬롯(Q -> E) 찾기
+            foreach (var key in new[] { KeyCode.Q, KeyCode.E })
             {
                 if (skillSlots[key] == null)
                 {
-                    skillSlots[key] = skillAction;
-                    break;
+                    skillSlots[key] = invokeAction;
+                    UIManager.Instance.UpdateSkillIcons();
+                    return;
                 }
             }
-            UIManager.Instance.UpdateSkillIcons(); // 수동 스킬만 UI 반영
+            Debug.LogWarning("빈 스킬 슬롯이 없습니다.");
         }
     }
 
-    // 스킬 이름에 따라 PlayerInput의 메서드 반환
-    public Action GetSkillAction(string skillName)
-    {
-        if (skillActionMap.TryGetValue(skillName, out Action action))
-        {
-            return action;
-        }
-        return null;
-    }
-
-    // 키에 맞는 스킬 가져오기
+    /// <summary>
+    /// 슬롯 키에 매핑된 수동 스킬 반환
+    /// </summary>
     public Action GetSkill(KeyCode key)
     {
-        return skillSlots.ContainsKey(key) ? skillSlots[key] : null;
+        return skillSlots.TryGetValue(key, out var action) ? action : null;
     }
 
+    /// <summary>
+    /// 자동 스킬 리스트 반환
+    /// </summary>
     public List<(string skillName, Action action)> GetAutoSkills()
     {
         return autoskillSlots;
     }
 
-
-    // Q,E 스킬 데미지 할당
-    public float GetSkillDamage(string skillName)
+    /// <summary>
+    /// 런타임 복제된 SkillData 반환
+    /// </summary>
+    public SkillData GetRuntimeSkillData(string skillName)
     {
-        if (skillDamageMap.TryGetValue(skillName, out Func<float> getDamage))
-        {
-            return getDamage();
-        }
-        return 0f;
-    }
-
-    private void ConfigureSkillActions()
-    {
-        skillActionMap = new Dictionary<string, Action>()
-        {
-            { "IcePillar", () => {
-                var obj = GameManager.Instance.autoSkillPool.GetSkillObject("IcePillar");
-                // 프리팹에 붙은 IcePillar 컴포넌트의 skillData를 복제본으로 교체
-                obj.GetComponent<IcePillar>().skillData = runtimeSkillData["IcePillar"];
-                PlayerSkill.Instance.SpawnSkillNearEnemy(obj);
-            }},
-            { "Blackhole", () => {
-                var obj = GameManager.Instance.autoSkillPool.GetSkillObject("Blackhole");
-                // 프리팹에 붙은 Blackhole 컴포넌트의 skillData를 복제본으로 교체
-                obj.GetComponent<Blackhole>().skillData = runtimeSkillData["Blackhole"];
-                PlayerSkill.Instance.SpawnSkillNearEnemy(obj);
-            }},
-            { "Infierno", () => {
-                var obj = GameManager.Instance.autoSkillPool.GetSkillObject("Infierno");
-                // 프리팹에 붙은 Infierno 컴포넌트의 skillData를 복제본으로 교체
-                obj.GetComponent<Infierno>().skillData = runtimeSkillData["Infierno"];
-                PlayerSkill.Instance.SpawnSkillNearEnemy(obj);
-            }},
-        };
-      /*  // 2) 데미지 조회 맵: 클론된 SkillData.damage 읽도록
-        skilladdDamageMap = new Dictionary<string, Func<float>>()
-            {
-                { "IcePillar", () => runtimeSkillData["IcePillar"].damage },
-                { "Blackhole", () => runtimeSkillData["Blackhole"].damage },
-                { "Infierno",  () => runtimeSkillData["Infierno"].damage },
-            };*/
-    }
-
-
-    // Passive Skill 데미지 업그레이드 함수
-    // skillName 스킬을 amountPerLevel 만큼 올려준다
-    public void UpgradePassiveSkill(string skillName, float amount)
-    {
-        if (!runtimeSkillData.TryGetValue(skillName, out var data))
-        {
-            Debug.LogWarning($"Skill '{skillName}' not found in runtime data");
-            return;
-        }
-        skillLevels[skillName]++;           // 레벨 저장
-        runtimeSkillData[skillName].damage += amount;
-        
-        Debug.Log($"스킬 레벨  : {skillLevels[skillName]}+ {skillName}");
-        Debug.Log($"스킬 데미지 : {runtimeSkillData[skillName].damage}");
-    }
-
-    public void UpgradePassiveCooltime(string skillName, float amount)
-    {
-        if (!runtimeSkillData.TryGetValue(skillName, out var data))
-        {
-            Debug.LogWarning($"Skill '{skillName}' not found in runtime data");
-            return;
-        }
-        skillLevels[skillName]++;           // 레벨 저장
-        runtimeSkillData[skillName].duration -= amount;
+        if (runtimeSkillData.TryGetValue(skillName, out var data))
+            return data;
+        Debug.LogWarning($"런타임 스킬 데이터가 없습니다: {skillName}");
+        return null;
     }
 
     /// <summary>
-    /// 지정한 스킬의 런타임 복제본을 반환합니다.
+    /// 스킬 실행: 수동/자동 분기 처리
     /// </summary>
-    public SkillData GetRuntimeSkillData(string skillName)
-        {
-            if (runtimeSkillData.TryGetValue(skillName, out var data))
-                return data;
-            Debug.LogWarning($"[SkillManager] '{skillName}' 런타임 데이터 없음");
-            return null;
-        }
-        
-    // 스킬 데미지 업그레이드 함수
-    public void UpgradeQESkillDamage(string skillName, float amountPerLevel)
+    private void InvokeSkill(string skillName)
     {
-        // skillName이 맞지 않으면
-        if (!skillUpgradeLevels.ContainsKey(skillName))
+        // 수동 스킬 실행
+        if (internalSkillActions.TryGetValue(skillName, out var manualAction))
         {
-            Debug.LogWarning($"업그레이드 레벨 정보 없음: {skillName}");
+            manualAction.Invoke();
             return;
         }
-        skillUpgradeLevels[skillName]++;
-        int level = skillUpgradeLevels[skillName];
 
-        if (skillUpgradeMap.TryGetValue(skillName, out Action<float> upgrade))
+        // 자동 스킬 실행
+        var autoNames = new[] { "IcePillar", "Blackhole", "Infierno", "ThunderStrike" };
+        if (autoNames.Contains(skillName))
         {
-            upgrade(amountPerLevel);
+            var obj = GameManager.Instance.autoSkillPool.GetSkillObject(skillName);
+            obj.GetComponent<MonoBehaviour>().Invoke("StartSkill", 0f);
+        }
+    }
+
+    /// <summary>
+    /// 스킬 데미지 반환
+    /// </summary>
+    public float GetSkillDamage(string skillName)
+    {
+        return runtimeSkillData.TryGetValue(skillName, out var data) ? data.damage : 0f;
+    }
+
+    /// <summary>
+    /// Q/E 스킬 데미지 업그레이드
+    /// </summary>
+    public void UpgradeQESkillDamage(string skillName, float amountPerLevel)
+    {
+        if (runtimeSkillData.TryGetValue(skillName, out var data))
+        {
+            data.damage += amountPerLevel;
+            skillLevels[skillName]++;
+        }
+        else
+        {
+            Debug.LogWarning($"업그레이드 대상 스킬 없음: {skillName}");
+        }
+    }
+
+    /// <summary>
+    /// 패시브 스킬 데미지 업그레이드
+    /// </summary>
+    public void UpgradePassiveSkill(string skillName, float amount)
+    {
+        if (runtimeSkillData.TryGetValue(skillName, out var data))
+        {
+            data.damage += amount;
+            skillLevels[skillName]++;
+        }
+        else
+        {
+            Debug.LogWarning($"패시브 업그레이드 대상 스킬 없음: {skillName}");
+        }
+    }
+
+    /// <summary>
+    /// 패시브 스킬 쿨타임 감소 업그레이드
+    /// </summary>
+    public void UpgradePassiveCooltime(string skillName, float amount)
+    {
+        if (runtimeSkillData.TryGetValue(skillName, out var data))
+        {
+            data.duration = Mathf.Max(0f, data.duration - amount);
+            skillLevels[skillName]++;
+        }
+        else
+        {
+            Debug.LogWarning($"쿨타임 업그레이드 대상 스킬 없음: {skillName}");
         }
     }
 }

@@ -37,12 +37,12 @@ public class PlayerSkill : MonoBehaviour
 
         // 기본 스킬 자동 발사
         StartCoroutine(AutoFireDefaultSkill());
+        // 자동 스킬 타이머 초기화
+        foreach (var auto in skillManager.GetAutoSkills())
+            skillCooldownTimers[auto.skillName] = 0f;
 
-        // 추가 스킬 자동 발사: 각 스킬별로 코루틴 실행
-        foreach (var (skillName, _) in skillManager.GetAutoSkills())
-        {
-            StartCoroutine(AutoFireSkill(skillName));
-        }
+        // 자동 스킬 발사 코루틴
+        StartCoroutine(AutoAddSkills());
     }
 
 
@@ -90,18 +90,24 @@ public class PlayerSkill : MonoBehaviour
     }
 
 
-    // 스킬별 독립 쿨다운 코루틴
-    private IEnumerator AutoFireSkill(string skillName)
+    private IEnumerator AutoAddSkills()
     {
         while (true)
         {
-            // 현재 쿨타임을 스킬 데이터에서 가져와 대기
-            var data = skillManager.GetRuntimeSkillData(skillName);
-            yield return new WaitForSeconds(data.cooltime);
+            float now = Time.time;
+            foreach (var (skillName, _) in skillManager.GetAutoSkills())
+            {
+                var data = skillManager.GetRuntimeSkillData(skillName);
+                if (!skillCooldownTimers.ContainsKey(skillName))
+                    skillCooldownTimers[skillName] = 0f;
 
-            // 발사
-            AddSkill(skillName);
-            Debug.Log($"[Auto Skill] {skillName} (쿨다운 {data.cooltime:F2}s)");
+                if (now >= skillCooldownTimers[skillName])
+                {
+                    skillCooldownTimers[skillName] = now + data.cooltime;
+                    AddSkill(skillName);
+                }
+            }
+            yield return new WaitForSeconds(0.1f);
         }
     }
 

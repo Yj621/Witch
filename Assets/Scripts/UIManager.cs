@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
@@ -174,7 +175,74 @@ public class UIManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// 스킬 쿨타임을 아이콘에 표시하고 감소
+    /// </summary>
+    /// <param name="skillName">쿨타임을 표시할 스킬 이름</param>
+    /// <param name="duration">쿨타임 시간(초)</param>
+    public void StartCooldownUI(string skillName, float duration)
+    {
+        // 해당 스킬에 대응하는 Image 컴포넌트를 찾기
+        Image icon = GetSkillIconImage(skillName);
+        if (icon == null)
+            return;
 
+        // fillAmount를 1(쿨타임 시작)로 설정하고 코루틴 실행
+        icon.type = Image.Type.Filled;
+        icon.fillMethod = Image.FillMethod.Radial360;
+        icon.fillOrigin = (int)Image.Origin360.Top;
+        icon.fillAmount = 1f;
+        StartCoroutine(CooldownCoroutine(icon, duration));
+    }
+
+    /// <summary>
+    /// skillName에 맞는 Image 컴포넌트를 반환
+    /// Q/E 스킬은 Qskill/Eskill, 자동 스킬은 P1~P3Skill 중 하나를 리턴
+    /// </summary>
+    private Image GetSkillIconImage(string skillName)
+    {
+        // 수동(Q/E) 스킬 매핑
+        switch (skillName)
+        {
+            case "FireSlashs":
+                return Qskill;
+            case "Thunder":
+                return Eskill;
+        }
+
+        // 자동 스킬 슬롯 매핑
+        var autos = skillManager.GetAutoSkills(); // List<(string, Action)>
+        for (int i = 0; i < autos.Count; i++)
+        {
+            if (autos[i].skillName == skillName)
+            {
+                switch (i)
+                {
+                    case 0: return P1Skill;
+                    case 1: return P2Skill;
+                    case 2: return P3Skill;
+                }
+            }
+        }
+
+        return null;
+    }
+
+
+    /// <summary>
+    /// 아이콘의 fillAmount를 duration초에 걸쳐 1→0으로 감소시킵니다.
+    /// </summary>
+    private IEnumerator CooldownCoroutine(Image icon, float duration)
+    {
+        float elapsed = 0f;
+        while (elapsed < duration)
+        {
+            elapsed += Time.deltaTime;
+            icon.fillAmount = Mathf.Clamp01(1f - (elapsed / duration));
+            yield return null;
+        }
+        icon.fillAmount = 0f;
+    }
 
 
 
@@ -275,4 +343,5 @@ public class UIManager : MonoBehaviour
     {
         GameOverPanel.SetActive(true);
     }
+
 }

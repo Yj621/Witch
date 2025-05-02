@@ -38,14 +38,11 @@ public class PlayerSkill : MonoBehaviour
         // 기본 스킬 자동 발사
         StartCoroutine(AutoFireDefaultSkill());
 
-        // 자동 발사 타이머 초기화: 지금은 사전 없이, LearnNewSkill 시점에 세팅해도 됩니다.
-        foreach (var auto in skillManager.GetAutoSkills())
+        // 추가 스킬 자동 발사: 각 스킬별로 코루틴 실행
+        foreach (var (skillName, _) in skillManager.GetAutoSkills())
         {
-            skillCooldownTimers[auto.skillName] = 0f;
+            StartCoroutine(AutoFireSkill(skillName));
         }
-
-        // 추가 스킬 자동 발사 시작
-        StartCoroutine(AutoAddSkills());
     }
 
 
@@ -92,30 +89,19 @@ public class PlayerSkill : MonoBehaviour
         FireSkill(GameManager.Instance.skillObjectPool.GetFireObject(), 4f); // SkillObjectPool에서 가져오기
     }
 
-    // 추가 스킬 자동 발사
-    private IEnumerator AutoAddSkills()
+
+    // 스킬별 독립 쿨다운 코루틴
+    private IEnumerator AutoFireSkill(string skillName)
     {
         while (true)
         {
-            // 배운 오토 스킬 목록
-            var learned = skillManager.GetAutoSkills();
+            // 현재 쿨타임을 스킬 데이터에서 가져와 대기
+            var data = skillManager.GetRuntimeSkillData(skillName);
+            yield return new WaitForSeconds(data.cooltime);
 
-            foreach (var (skillName, action) in learned)
-            {
-                // 스킬 데이터에서 쿨타임을 가져옴
-                var data = skillManager.GetRuntimeSkillData(skillName);
-                if (data == null) continue;
-
-                // 타이머가 만료되면 발사
-                if (Time.time >= skillCooldownTimers[skillName])
-                {
-                    skillCooldownTimers[skillName] = Time.time + data.cooltime;
-                    AddSkill(skillName);
-                    Debug.Log($"[Auto Skill Fired] {skillName}, next in {data.cooltime}s");
-                }
-            }
-
-            yield return new WaitForSeconds(0.1f);
+            // 발사
+            AddSkill(skillName);
+            Debug.Log($"[Auto Skill] {skillName} (쿨다운 {data.cooltime:F2}s)");
         }
     }
 

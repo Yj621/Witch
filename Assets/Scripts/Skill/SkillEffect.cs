@@ -1,8 +1,8 @@
-
-// 공통 스킬 동작을 정의한 추상 클래스
 using System.Collections;
 using UnityEngine;
-public abstract class SkillEffect : MonoBehaviour
+
+[RequireComponent(typeof(CircleCollider2D))]
+public abstract class SkillEffect : MonoBehaviour, ISkill
 {
     protected SkillData skillData;
 
@@ -14,22 +14,20 @@ public abstract class SkillEffect : MonoBehaviour
     protected virtual string TargetLayer => "Enemy";
     // 기즈모 색상
     protected abstract Color GizmoColor { get; }
-    // 스킬 지속 시간 (lifetime 또는 duration)
-    protected virtual float Duration => skillData.lifetime > 0 ? skillData.lifetime : skillData.duration;
-
-    // 원본 반경/스케일 저장
+    // 원본 데이터
     private float originalRadius;
     private Vector3 originalScale;
+    private CircleCollider2D cc;
 
     // 최초 Awake 시 스케일 저장
     protected virtual void Awake()
     {
         originalScale = transform.localScale;
+        cc = GetComponent<CircleCollider2D>(); 
     }
 
     private void OnEnable()
     {
-        if (SkillManager.Instance == null) return;
         // 런타임 데이터 갱신
         skillData = SkillManager.Instance.GetRuntimeSkillData(SkillName);
         // 반경 기반 시각/충돌 크기 설정
@@ -42,7 +40,6 @@ public abstract class SkillEffect : MonoBehaviour
     private IEnumerator SkillRoutineWrapper()
     {
         yield return StartCoroutine(SkillRoutine());
-        Cleanup();
     }
 
     // 각 스킬 고유의 동작을 구현
@@ -54,26 +51,9 @@ public abstract class SkillEffect : MonoBehaviour
         var mask = LayerMask.GetMask(layerName ?? TargetLayer);
         var hits = Physics2D.OverlapCircleAll(transform.position, skillData.radius, mask);
         foreach (var hit in hits)
-        {
-            var mover = hit.GetComponent<EnemyMove>();
-            if (mover != null)
-                mover.EnemyHurt(skillData.damage);
-        }
+            hit.GetComponent<EnemyMove>()?.EnemyHurt(skillData.damage);
     }
 
-    // 끌어당김이 필요한 스킬용 헬퍼
-    protected void PullEnemies()
-    {
-        var mask = LayerMask.GetMask(TargetLayer);
-        var cols = Physics2D.OverlapCircleAll(transform.position, skillData.radius, mask);
-        foreach (var col in cols)
-        {
-            var rb = col.GetComponent<Rigidbody2D>();
-            if (rb == null) continue;
-            Vector2 dir = (transform.position - rb.transform.position).normalized;
-            rb.AddForce(dir * skillData.force * Time.deltaTime, ForceMode2D.Impulse);
-        }
-    }
 
     // 스킬 사용 후 정리
     protected virtual void Cleanup()
@@ -122,5 +102,15 @@ public abstract class SkillEffect : MonoBehaviour
         var cc = GetComponent<CircleCollider2D>();
         if (cc != null)
             cc.radius = skillData.radius;
+    }
+
+    public void InitializeRange(float radius)
+    {
+        skillData.radius = radius;
+        UpdateRangeVisual();
+    }
+
+    public void StartSkill()
+    {
     }
 }

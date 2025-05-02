@@ -29,9 +29,15 @@ public class SkillManager : MonoBehaviour
     // 자동 스킬 슬롯(이름, 액션)
     private List<(string skillName, Action action)> autoskillSlots = new List<(string, Action)>();
 
+    // 스킬 쿨타임
+    private Dictionary<string, float> nextUseTime = new Dictionary<string, float>();
+
+
     // 플레이어 및 입력 참조
     private PlayerInput playerInput;
     private Player player;
+
+    public GameObject playerGo;
 
     private void Awake()
     {
@@ -44,22 +50,38 @@ public class SkillManager : MonoBehaviour
         Instance = this;
         DontDestroyOnLoad(gameObject);
 
-        // 자료구조 초기화
-        runtimeSkillData = new Dictionary<string, SkillData>(skillDatabase.allSkills.Length);
-        skillLevels = new Dictionary<string, int>(skillDatabase.allSkills.Length);
+        // 딕셔너리/리스트 초기화
+        // Q/E 슬롯
+        skillSlots = new Dictionary<KeyCode, Action>(2)
+        {
+            [KeyCode.Q] = null,
+            [KeyCode.E] = null
+        };
+
+        // 수동 스킬 맵
         internalSkillActions = new Dictionary<string, Action>();
 
-        // Q/E 슬롯 초기화
-        skillSlots[KeyCode.Q] = null;
-        skillSlots[KeyCode.E] = null;
+        // 스킬 레벨 저장
+        skillLevels = new Dictionary<string, int>(skillDatabase.allSkills.Length);
 
-        // 데이터베이스에 등록된 스킬 복제
-        foreach (var data in skillDatabase.allSkills)
+        // 런타임 스킬 데이터
+        runtimeSkillData = new Dictionary<string, SkillData>(skillDatabase.allSkills.Length);
+
+        // 쿨타임 맵
+        nextUseTime = new Dictionary<string, float>(skillDatabase.allSkills.Length);
+
+        // 자동 스킬 슬롯 리스트
+        autoskillSlots = new List<(string, Action)>();
+
+        // 데이터베이스에서 클론 떠서 각종 맵에 채우기
+        foreach (var d in skillDatabase.allSkills)
         {
-            var clone = Instantiate(data);
-            clone.name = data.skillName;
-            runtimeSkillData[clone.name] = clone;
-            skillLevels[clone.name] = 1;
+            var clone = Instantiate(d);
+            clone.name = d.skillName;
+
+            runtimeSkillData[d.skillName] = clone;
+            skillLevels[d.skillName] = 1;
+            nextUseTime[d.skillName] = 0f;
         }
     }
 
@@ -165,20 +187,50 @@ public class SkillManager : MonoBehaviour
     /// </summary>
     private void InvokeSkill(string skillName)
     {
-        // 수동 스킬 실행
-        if (internalSkillActions.TryGetValue(skillName, out var manualAction))
+        var data = runtimeSkillData[skillName];
+        float now = Time.time;
+        if (now < nextUseTime[skillName]) return;
+
+        // 스킬 오브젝트 꺼내오기
+        var obj = GameManager.Instance.autoSkillPool.GetSkillObject(skillName);
+
+        // 스폰 위치 결정: 플레이어 근처의 가장 가까운 적
+        Vector3 spawnPos = playerGo.transform.position;
+        var hits = Physics2D.OverlapCircleAll(playerGo.transform.position, 10f, LayerMask.GetMask("Enemy"));
+        if (hits.Length > 0)
         {
-            manualAction.Invoke();
-            return;
+            // 가장 가까운 적
+            var nearest = System.Linq.Enumerable.OrderBy(hits,
+                h => Vector2.Distance(playerGo.transform.position, h.transform.position))
+                .First();
+            spawnPos = nearest.transform.position;
+        }
+        obj.transform.position = spawnPos;
+
+        // 플레이어와 충돌 무시
+        var playerCol = playerGo.GetComponent<Collider2D>();
+        var skillCol = obj.GetComponent<CircleCollider2D>();
+        if (playerCol != null && skillCol != null)
+            Physics2D.IgnoreCollision(playerCol, skillCol);
+
+        // 범위 반영 (ISkill 인터페이스 또는 fallback)
+        if (obj.TryGetComponent<ISkill>(out var skillComp))
+        {
+            skillComp.InitializeRange(data.radius);
+        }
+        else
+        {
+            obj.transform.localScale = Vector3.one * data.radius;
+            if (skillCol != null)
+                skillCol.radius = data.radius;
         }
 
-        // 자동 스킬 실행
-        var autoNames = new[] { "IcePillar", "Blackhole", "Infierno", "ThunderStrike" };
-        if (autoNames.Contains(skillName))
-        {
-            var obj = GameManager.Instance.autoSkillPool.GetSkillObject(skillName);
-            obj.GetComponent<MonoBehaviour>().Invoke("StartSkill", 0f);
-        }
+        // 이펙트 실행
+        obj.SetActive(true);
+
+        // 쿨타임 갱신 & UI
+        nextUseTime[skillName] = now + data.cooltime;
+        UIManager.Instance.StartCooldownUI(skillName, data.cooltime);
     }
 
     /// <summary>

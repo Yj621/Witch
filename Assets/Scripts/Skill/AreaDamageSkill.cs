@@ -6,6 +6,6 @@ public abstract class AreaDamageSkill : SkillEffect
     protected override IEnumerator SkillRoutine()
     {
         DealAreaDamage();
-        yield return new WaitForSeconds(Duration);
+        yield break;
     }
 }

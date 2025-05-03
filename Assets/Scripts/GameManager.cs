@@ -40,6 +40,6 @@ public class GameManager : MonoBehaviour
 
     public void GoTitle()
     {
-        SceneManager.LoadScene("Opening");
+        SceneManager.LoadScene("OpeningScene");
     }
 }

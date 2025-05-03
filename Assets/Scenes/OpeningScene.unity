@@ -19598,10 +19598,10 @@ MonoBehaviour:
   BgmLevel: 0
   SfxLevel: 0
   audioMixer: {fileID: 24100000, guid: bea7c9d4c3207e54c97b7eb7f5f547e6, type: 2}
-  bgmSource: {fileID: 0}
-  sfxSource: {fileID: 0}
-  sfxClips: []
+  bgmSource: {fileID: 818931151}
+  sfxSource: {fileID: 212480831}
   bgmClips: []
+  sfxClips: []
 --- !u!4 &248150080
 Transform:
   m_ObjectHideFlags: 0

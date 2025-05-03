@@ -39,6 +39,10 @@ public class OpPanelController : MonoBehaviour
         for (int i = 0; i < OptionButtons.Length; i++)
             OptionButtons[i].enabled = false;
 
+        SoundOptions[0].currentVolumeStep = SoundManager.Instance.MasterSoundLevel;
+        SoundOptions[1].currentVolumeStep = SoundManager.Instance.BgmLevel;
+        SoundOptions[2].currentVolumeStep = SoundManager.Instance.SfxLevel;
+
         foreach (var option in SoundOptions)
         {
             UpdateVolUI(option);
@@ -149,13 +153,13 @@ public class OpPanelController : MonoBehaviour
 
                 if (isOption)
                 {
-                    selectedOpIndex = -1; // << 이거 꼭 해줘야 해
+                    selectedOpIndex = -1;
                     for (int i = 0; i < OptionButtons.Length; i++)
                         OptionButtons[i].enabled = false;
                 }
                 else if (isSound)
                 {
-                    selectedSoundIndex = -1; // << 사운드 쪽도 똑같이
+                    selectedSoundIndex = -1;
                     for (int i = 0; i < SoundButtons.Length; i++)
                         SoundButtons[i].enabled = false;
                 }
@@ -266,7 +270,7 @@ public class OpPanelController : MonoBehaviour
         {
             option.currentVolumeStep++;
             UpdateVolUI(option);
-            //SoundManager.Instance.ChangeVol(index, 1);
+            SoundManager.Instance.ChangeVol(index, 1);
             Debug.Log(index + "Sound Lev = " + option.currentVolumeStep);
         }
     }
@@ -278,7 +282,7 @@ public class OpPanelController : MonoBehaviour
         {
             option.currentVolumeStep--;
             UpdateVolUI(option);
-            //SoundManager.Instance.ChangeVol(index, 1);
+            SoundManager.Instance.ChangeVol(index, -1);
             Debug.Log(index + "Sound Lev = " + option.currentVolumeStep);
         }
     }

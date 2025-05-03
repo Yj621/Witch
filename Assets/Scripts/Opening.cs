@@ -33,10 +33,20 @@ public class Opening : MonoBehaviour
         for (int i = 0; i < SoundButtons.Length; i++)
             SoundButtons[i].enabled = false;
 
+        SoundOptions[0].currentVolumeStep = SoundManager.Instance.MasterSoundLevel;
+        SoundOptions[1].currentVolumeStep = SoundManager.Instance.BgmLevel;
+        SoundOptions[2].currentVolumeStep = SoundManager.Instance.SfxLevel;
+
         foreach (var option in SoundOptions)
         {
             UpdateVolUI(option);
         }
+
+
+        SoundManager.Instance.MasterSoundLevel = 2;
+        SoundManager.Instance.BgmLevel = 2;
+        SoundManager.Instance.SfxLevel = 2;
+
     }
 
     void Update()
@@ -134,7 +144,7 @@ public class Opening : MonoBehaviour
         {
             option.currentVolumeStep++;
             UpdateVolUI(option);
-            //SoundManager.Instance.ChangeVol(index, 1);
+            SoundManager.Instance.ChangeVol(index, 1);
             Debug.Log(index + "Sound Lev = " + option.currentVolumeStep);
         }
     }
@@ -146,7 +156,7 @@ public class Opening : MonoBehaviour
         {
             option.currentVolumeStep--;
             UpdateVolUI(option);
-            //SoundManager.Instance.ChangeVol(index, 1);
+            SoundManager.Instance.ChangeVol(index, -1);
             Debug.Log(index + "Sound Lev = " + option.currentVolumeStep);
         }
     }
@@ -197,6 +207,7 @@ public class Opening : MonoBehaviour
 
     void OpenHowToPanel()
     {
+        isOptionPanelOpen = true;
         HowToPanel.SetActive(true);
     }
 

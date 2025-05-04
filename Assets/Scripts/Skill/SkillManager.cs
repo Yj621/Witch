@@ -96,9 +96,9 @@ public class SkillManager : MonoBehaviour
         RegisterInternalSkill("Thunder", () => playerInput.UseThunder());
 
         // 초기 스킬 학습 및 UI 업데이트
-        LearnNewSkill("FireSlashs");
+        LearnNewSkill("FireSlashs", false);
         UpgradeManager.Instance.data.SetDisabled(UpgradeType.FSSkillLearn, true);
-        LearnNewSkill("Thunder");
+        LearnNewSkill("Thunder", false);
         UpgradeManager.Instance.data.SetDisabled(UpgradeType.TDSkillLearn, true);
     }
 
@@ -134,7 +134,7 @@ public class SkillManager : MonoBehaviour
         }
 
         Action invokeAction = () => InvokeSkill(skillName);
-
+        
         if (isAuto)
         {
             autoskillSlots.Add((skillName, invokeAction));

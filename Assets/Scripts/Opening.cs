@@ -193,7 +193,7 @@ public class Opening : MonoBehaviour
 
     void StartGame()
     {
-        SceneManager.LoadScene("MapScene");
+        SceneManager.LoadScene("StoryScene");
     }
 
     void OpenOptionPanel()

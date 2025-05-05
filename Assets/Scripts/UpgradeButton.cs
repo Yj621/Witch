@@ -68,6 +68,20 @@ public class UpgradeButton : MonoBehaviour
     {
         switch (upgradeType)
         {
+            //스킬 습득
+            case UpgradeType.IPSkillLearn:
+                SkillManager.Instance.LearnNewSkill("IcePillar", true);
+                break;
+            case UpgradeType.IFSkillLearn:
+                SkillManager.Instance.LearnNewSkill("Infierno", true);
+                break;
+            case UpgradeType.BHSkillLearn:
+                SkillManager.Instance.LearnNewSkill("Blackhole", true);
+                break;
+            case UpgradeType.TSSkillLearn:
+                SkillManager.Instance.LearnNewSkill("ThunderStrike", true);
+                break;
+
             // QE 스킬
             case UpgradeType.FSSkillRange:
                 UpgradeSkillRange("FireSlashs", 1f);

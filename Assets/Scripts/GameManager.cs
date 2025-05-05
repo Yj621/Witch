@@ -7,7 +7,7 @@ public class GameManager : MonoBehaviour
 
     public Player player;
     public SkillObjectPool skillObjectPool;
-    public AutoSKillPool autoSkillPool;
+    public AutoSkillPool autoSkillPool;
     public float currentClean;
 
     void Awake()
@@ -15,9 +15,12 @@ public class GameManager : MonoBehaviour
         if (Instance != null && Instance != this)
         {
             Destroy(gameObject);
-            return;
         }
-        Instance = this;
+        else
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
         
         player = new Player(
             exp: 0,

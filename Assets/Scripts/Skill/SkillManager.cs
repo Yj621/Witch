@@ -132,8 +132,9 @@ public class SkillManager : MonoBehaviour
             Debug.LogWarning($"스킬 '{skillName}'이(가) 존재하지 않습니다.");
             return;
         }
-
+        Debug.Log($"skillName : {skillName}");
         Action invokeAction = () => InvokeSkill(skillName);
+        
         
         if (isAuto)
         {
@@ -182,56 +183,57 @@ public class SkillManager : MonoBehaviour
         return null;
     }
 
-    /// <summary>
-    /// 스킬 실행: 수동/자동 분기 처리
+   /// <summary>
+    /// 스킬 실행: 수동 스킬인지 먼저 확인 후, 그렇지 않으면 자동 풀 이용
     /// </summary>
     private void InvokeSkill(string skillName)
     {
+        // 1) 수동 스킬 처리
+        if (internalSkillActions.TryGetValue(skillName, out var manualAction))
+        {
+            manualAction();
+            return;
+        }
+
+        // 2) 자동 스킬 처리
         var data = runtimeSkillData[skillName];
         float now = Time.time;
         if (now < nextUseTime[skillName]) return;
 
-        // 스킬 오브젝트 꺼내오기
         var obj = GameManager.Instance.autoSkillPool.GetSkillObject(skillName);
+        if (obj == null)
+        {
+            Debug.LogError($"AutoSkillPool에 '{skillName}' 케이스가 없습니다.");
+            return;
+        }
 
-        // 스폰 위치 결정: 플레이어 근처의 가장 가까운 적
+        // 스폰 위치 계산
         Vector3 spawnPos = playerGo.transform.position;
         var hits = Physics2D.OverlapCircleAll(playerGo.transform.position, 10f, LayerMask.GetMask("Enemy"));
         if (hits.Length > 0)
         {
-            // 가장 가까운 적
-            var nearest = System.Linq.Enumerable.OrderBy(hits,
-                h => Vector2.Distance(playerGo.transform.position, h.transform.position))
-                .First();
+            var nearest = hits.OrderBy(h => Vector2.Distance(playerGo.transform.position, h.transform.position)).First();
             spawnPos = nearest.transform.position;
         }
         obj.transform.position = spawnPos;
 
-        // 플레이어와 충돌 무시
+        // 충돌 무시
         var playerCol = playerGo.GetComponent<Collider2D>();
-        var skillCol = obj.GetComponent<CircleCollider2D>();
+        var skillCol  = obj.GetComponent<CircleCollider2D>();
         if (playerCol != null && skillCol != null)
             Physics2D.IgnoreCollision(playerCol, skillCol);
 
-        // 범위 반영 (ISkill 인터페이스 또는 fallback)
+        // 범위 설정
         if (obj.TryGetComponent<ISkill>(out var skillComp))
-        {
             skillComp.InitializeRange(data.radius);
-        }
         else
-        {
             obj.transform.localScale = Vector3.one * data.radius;
-            if (skillCol != null)
-                skillCol.radius = data.radius;
-        }
 
-        // 이펙트 실행
         obj.SetActive(true);
-
-        // 쿨타임 갱신 & UI
         nextUseTime[skillName] = now + data.cooltime;
         UIManager.Instance.StartCooldownUI(skillName, data.cooltime);
     }
+
 
     /// <summary>
     /// 스킬 데미지 반환

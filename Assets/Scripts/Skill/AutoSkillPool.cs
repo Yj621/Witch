@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AutoSKillPool : MonoBehaviour
+public class AutoSkillPool : MonoBehaviour
 {
     [Header("Skill Prefabs")]
     [SerializeField] private GameObject icePrefab;              // IcePillar 스킬 프리팹
@@ -16,19 +16,9 @@ public class AutoSKillPool : MonoBehaviour
     private List<GameObject> infiernoPool;               // Infierno 스킬 풀
     private List<GameObject> thunderStrikePool;          // thunderStrike 스킬 풀
 
-    public static AutoSKillPool Instance { get; private set; }
-
     void Awake()
     {
-        if (Instance != null && Instance != this)
-        {
-            Destroy(gameObject);
-        }
-        else
-        {
-            Instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
+
     }
 
     private void Start()

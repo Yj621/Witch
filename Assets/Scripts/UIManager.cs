@@ -101,7 +101,6 @@ public class UIManager : MonoBehaviour
 
         int index = -1;
 
-        Debug.Log($"methodName : {skillName}");
 
         switch(skillName)
         {
@@ -246,7 +245,6 @@ public class UIManager : MonoBehaviour
 
 
     //스킬 레벨, 데미지 갱신
-
     public void LevelUpPanelPop()
     {
         LevelUpPanel.SetActive(true);

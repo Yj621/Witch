@@ -162,6 +162,7 @@ public class SkillManager : MonoBehaviour
             }
             Debug.LogWarning("빈 스킬 슬롯이 없습니다.");
         }
+        UIManager.Instance.UpdateSkillIcons();
     }
 
     // 스킬 이름 리턴

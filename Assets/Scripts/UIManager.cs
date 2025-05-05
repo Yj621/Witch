@@ -185,13 +185,29 @@ public class UIManager : MonoBehaviour
         if (icon == null)
             return;
 
-        // fillAmount를 1(쿨타임 시작)로 설정하고 코루틴 실행
-        icon.type = Image.Type.Filled;
-        icon.fillMethod = Image.FillMethod.Radial360;
-        icon.fillOrigin = (int)Image.Origin360.Top;
-        icon.fillAmount = 1f;
-        StartCoroutine(CooldownCoroutine(icon, duration));
+        Transform maskT = icon.transform.GetChild(0);
+
+        Image maskImage = maskT.GetComponent<Image>();
+
+        maskImage.enabled = true;
+        StartCoroutine(CooldownCoroutine(maskImage, duration));
     }
+
+    /// <summary>
+    /// 아이콘의 fillAmount를 duration초에 걸쳐 1→0으로 감소시킵니다.
+    /// </summary>
+    private IEnumerator CooldownCoroutine(Image maskImage, float duration)
+    {
+        float elapsed = 0f;
+        while (elapsed < duration)
+        {
+            elapsed += Time.deltaTime;
+            maskImage.fillAmount = Mathf.Clamp01(1f - (elapsed / duration));
+            yield return null;
+        }
+        maskImage.fillAmount = 0f;
+    }
+
 
     /// <summary>
     /// skillName에 맞는 Image 컴포넌트를 반환
@@ -226,21 +242,6 @@ public class UIManager : MonoBehaviour
         return null;
     }
 
-
-    /// <summary>
-    /// 아이콘의 fillAmount를 duration초에 걸쳐 1→0으로 감소시킵니다.
-    /// </summary>
-    private IEnumerator CooldownCoroutine(Image icon, float duration)
-    {
-        float elapsed = 0f;
-        while (elapsed < duration)
-        {
-            elapsed += Time.deltaTime;
-            icon.fillAmount = Mathf.Clamp01(1f - (elapsed / duration));
-            yield return null;
-        }
-        icon.fillAmount = 0f;
-    }
 
 
 

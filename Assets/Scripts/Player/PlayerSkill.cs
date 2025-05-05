@@ -105,6 +105,9 @@ public class PlayerSkill : MonoBehaviour
                 {
                     skillCooldownTimers[skillName] = now + data.cooltime;
                     AddSkill(skillName);
+
+                    //쿨타임 UI
+                    UIManager.Instance.StartCooldownUI(skillName, data.cooltime);
                 }
             }
             yield return new WaitForSeconds(0.1f);

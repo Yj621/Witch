@@ -52,7 +52,8 @@ public class PlayerInput : MonoBehaviour
 
         playerMap = actions.FindActionMap("Player");
 
-
+        playerMap.Enable();
+        
     }
 
     private void Update()
@@ -129,37 +130,55 @@ public class PlayerInput : MonoBehaviour
     }
 
     // Q 스킬
-    public void OnFirstSkill(InputValue value)
-    {
-        Action skill = skillManager.GetSkill(KeyCode.Q);
-        skill?.Invoke();
-    }
+public void OnFirstSkill(InputValue value)
+{
+    // 버튼을 떼는 순간에는 아무것도 하지 않음
+    if (!value.isPressed)  
+        return;
+
+    // 눌림(Pressed) 시에만 스킬 실행
+    skillManager.GetSkill(KeyCode.Q)?.Invoke();
+}
 
     // E 스킬
-    public void OnSecondSkill(InputValue value)
-    {
-        Action skill = skillManager.GetSkill(KeyCode.E);
-        skill?.Invoke();
-    }
 
-    // 스킬 애니메이션 끝나는 시점에 호출 (StateMachine Exit 등에서)
-    public void OnSkillEnd()
-    {
-        playerMap.Enable();              // 다시 켜서 입력 가능
-    }
+public void OnSecondSkill(InputValue value)
+{
+    if (!value.isPressed)
+        return;
 
+    skillManager.GetSkill(KeyCode.E)?.Invoke();
+}
 
-    // 스킬 실행 함수
     public void UseFireSlash()
     {
         stateMachine.TransitionTo(stateMachine.skillFireSlashState);
-        playerMap.Disable();             // 스킬 시작하자마자 꺼버림
+
+        // 이동 액션만 끄기
+        actions.FindActionMap("Player")
+               .FindAction("Move").Disable();
+        actions.FindActionMap("Player")
+               .FindAction("Dash").Disable();
     }
 
     public void UseThunder()
     {
         stateMachine.TransitionTo(stateMachine.skillThunderState);
-        playerMap.Disable();
+        // 이동 액션만 끄기
+        actions.FindActionMap("Player")
+               .FindAction("Move").Disable();
+        actions.FindActionMap("Player")
+               .FindAction("Dash").Disable();
+    }
+
+    // 애니메이션 끝 이벤트에서
+    public void OnSkillEnd()
+    {
+        // 이동 액션만 다시 켜기
+        actions.FindActionMap("Player")
+               .FindAction("Move").Enable();
+        actions.FindActionMap("Player")
+               .FindAction("Dash").Enable();
     }
 
 

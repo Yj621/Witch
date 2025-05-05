@@ -84,10 +84,11 @@ public class SkillManager : MonoBehaviour
             skillLevels[d.skillName] = 1;
             nextUseTime[d.skillName] = 0f;
         }
-            skillSlotNames = new Dictionary<KeyCode,string>() {
-        [KeyCode.Q] = null,
-        [KeyCode.E] = null
-    };
+        skillSlotNames = new Dictionary<KeyCode, string>()
+        {
+            [KeyCode.Q] = null,
+            [KeyCode.E] = null
+        };
     }
 
     private void Start()
@@ -112,14 +113,6 @@ public class SkillManager : MonoBehaviour
 
     private void Update()
     {
-        // Q/E 키 입력 처리
-        foreach (var kv in skillSlots)
-        {
-            if (kv.Value != null && Input.GetKeyDown(kv.Key))
-            {
-                kv.Value.Invoke();
-            }
-        }
     }
 
     /// <summary>
@@ -141,8 +134,8 @@ public class SkillManager : MonoBehaviour
             return;
         }
         Action invokeAction = () => InvokeSkill(skillName);
-        
-        
+
+
         if (isAuto)
         {
             autoskillSlots.Add((skillName, invokeAction));
@@ -177,6 +170,7 @@ public class SkillManager : MonoBehaviour
     {
         return skillSlots.TryGetValue(key, out var action) ? action : null;
     }
+    
 
     /// <summary>
     /// 자동 스킬 리스트 반환
@@ -194,27 +188,57 @@ public class SkillManager : MonoBehaviour
         if (runtimeSkillData.TryGetValue(skillName, out var data))
             return data;
         Debug.LogWarning($"런타임 스킬 데이터가 없습니다: {skillName}");
-        
+
         return null;
     }
 
-   /// <summary>
+    /// <summary>
     /// 스킬 실행: 수동 스킬인지 먼저 확인 후, 그렇지 않으면 자동 풀 이용
     /// </summary>
     private void InvokeSkill(string skillName)
     {
-        // 1) 수동 스킬 처리
-        if (internalSkillActions.TryGetValue(skillName, out var manualAction))
+        float now = Time.time;
+        // 스킬 데이터 가져오기
+        if (!runtimeSkillData.TryGetValue(skillName, out var data))
         {
-            manualAction();
+            Debug.LogWarning($"런타임 스킬 데이터가 없습니다: {skillName}");
             return;
         }
 
-        // 2) 자동 스킬 처리
-        var data = runtimeSkillData[skillName];
-        float now = Time.time;
-        if (now < nextUseTime[skillName]) return;
+        // 쿨타임 체크
+        if (now < nextUseTime[skillName])
+        {
+            // 아직 쿨타임이 남아있으면 그냥 무시
+            return;
+        }
 
+        // 쿨타임 시작 (다음 사용 가능 시간 설정)
+        nextUseTime[skillName] = now + data.cooltime;
+
+        // 쿨다운 UI 시작
+        UIManager.Instance.StartCooldownUI(skillName, data.cooltime);
+
+        // 실제 스킬 실행 (내부 액션 또는 오토 스킬 분기)
+        if (internalSkillActions.TryGetValue(skillName, out var manualAction))
+        {
+            manualAction();  // UseFireSlash() 또는 UseThunder() 호출
+        }
+        else
+        {
+            SpawnAutoSkill(skillName);
+        }
+    }
+
+
+    /// <summary>
+    /// 자동 스킬 오브젝트를 풀에서 꺼내어 설정 후 활성화합니다.
+    /// </summary>
+    private void SpawnAutoSkill(string skillName)
+    {
+        // 스킬 데이터 가져오기
+        var data = runtimeSkillData[skillName];
+
+        // 풀에서 오브젝트 꺼내기
         var obj = GameManager.Instance.autoSkillPool.GetSkillObject(skillName);
         if (obj == null)
         {
@@ -222,40 +246,40 @@ public class SkillManager : MonoBehaviour
             return;
         }
 
-        // 스폰 위치 계산
+        // 스폰 위치 계산 (플레이어 위치 혹은 가장 가까운 적 위치)
         Vector3 spawnPos = playerGo.transform.position;
         var hits = Physics2D.OverlapCircleAll(playerGo.transform.position, 10f, LayerMask.GetMask("Enemy"));
         if (hits.Length > 0)
         {
-            var nearest = hits.OrderBy(h => Vector2.Distance(playerGo.transform.position, h.transform.position)).First();
+            var nearest = hits
+                .OrderBy(h => Vector2.Distance(playerGo.transform.position, h.transform.position))
+                .First();
             spawnPos = nearest.transform.position;
         }
         obj.transform.position = spawnPos;
 
-        // 충돌 무시
+        // 플레이어와 충돌 무시
         var playerCol = playerGo.GetComponent<Collider2D>();
-        var skillCol  = obj.GetComponent<CircleCollider2D>();
+        var skillCol = obj.GetComponent<Collider2D>();
         if (playerCol != null && skillCol != null)
             Physics2D.IgnoreCollision(playerCol, skillCol);
 
-        // 범위 설정
+        // 범위(radio) 설정
         if (obj.TryGetComponent<ISkill>(out var skillComp))
             skillComp.InitializeRange(data.radius);
         else
             obj.transform.localScale = Vector3.one * data.radius;
 
+        // 오브젝트 활성화
         obj.SetActive(true);
-        nextUseTime[skillName] = now + data.cooltime;
-        UIManager.Instance.StartCooldownUI(skillName, data.cooltime);
     }
 
-
-    /// <summary>
-    /// 스킬 데미지 반환
-    /// </summary>
-    public float GetSkillDamage(string skillName)
+    public void SetNextUseTime(string skillName, float time)
     {
-        return runtimeSkillData.TryGetValue(skillName, out var data) ? data.damage : 0f;
+        if (nextUseTime.ContainsKey(skillName))
+            nextUseTime[skillName] = time;
+        else
+            Debug.LogWarning($"쿨타임 설정 대상 스킬이 없습니다: {skillName}");
     }
 
     /// <summary>
@@ -322,5 +346,5 @@ public class SkillManager : MonoBehaviour
         }
     }
 
-    
+
 }

@@ -38,27 +38,23 @@ public class QESkill : MonoBehaviour
 
         SkillAttack(currentSkillAnimation, enemyCollider);
     }
-
-    public void SkillAttack(string skillAnimation, Collider2D enemyCollider)
+    public void SkillAttack(string skillName, Collider2D enemyCollider)
     {
-        float damage = 0;
-        switch (skillAnimation)
+        var data = SkillManager.Instance.GetRuntimeSkillData(skillName);
+        if (data == null)
         {
-            case "FireSlashs":
-                damage = SkillManager.Instance.GetSkillDamage("FireSlashs");
-                Debug.Log($"damage : {damage}");
-                break;
-            case "Thunder":
-                damage = SkillManager.Instance.GetSkillDamage("Thunder");
-                break;
-            
+            Debug.LogWarning($"SkillData를 찾을 수 없습니다: {skillName}");
+            return;
         }
+
+        float damage = data.damage;
         if (damage > 0)
         {
             enemyCollider.GetComponent<EnemyMove>().EnemyHurt(damage);
-            Debug.Log($"{enemyCollider.gameObject}에게 {damage}만큼 데미지 입히기");
+            Debug.Log($"{enemyCollider.gameObject.name}에게 {damage}만큼 데미지 입힘");
         }
     }
+
 
     private string GetCurrentSkillAnimation()
     {

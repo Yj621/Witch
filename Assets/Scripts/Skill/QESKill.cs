@@ -40,12 +40,11 @@ public class QESkill : MonoBehaviour
     }
     public void SkillAttack(string skillName, Collider2D enemyCollider)
     {
+        if (string.IsNullOrEmpty(skillName))
+            return;  // None, null 은 무시
+
         var data = SkillManager.Instance.GetRuntimeSkillData(skillName);
-        if (data == null)
-        {
-            Debug.LogWarning($"SkillData를 찾을 수 없습니다: {skillName}");
-            return;
-        }
+        if (data == null) return;
 
         float damage = data.damage;
         if (damage > 0)

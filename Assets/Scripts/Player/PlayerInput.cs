@@ -53,7 +53,7 @@ public class PlayerInput : MonoBehaviour
         playerMap = actions.FindActionMap("Player");
 
         playerMap.Enable();
-        
+
     }
 
     private void Update()
@@ -130,25 +130,25 @@ public class PlayerInput : MonoBehaviour
     }
 
     // Q 스킬
-public void OnFirstSkill(InputValue value)
-{
-    // 버튼을 떼는 순간에는 아무것도 하지 않음
-    if (!value.isPressed)  
-        return;
+    public void OnFirstSkill(InputValue value)
+    {
+        // 버튼을 떼는 순간에는 아무것도 하지 않음
+        if (!value.isPressed)
+            return;
 
-    // 눌림(Pressed) 시에만 스킬 실행
-    skillManager.GetSkill(KeyCode.Q)?.Invoke();
-}
+        // 눌림(Pressed) 시에만 스킬 실행
+        skillManager.GetSkill(KeyCode.Q)?.Invoke();
+    }
 
     // E 스킬
 
-public void OnSecondSkill(InputValue value)
-{
-    if (!value.isPressed)
-        return;
+    public void OnSecondSkill(InputValue value)
+    {
+        if (!value.isPressed)
+            return;
 
-    skillManager.GetSkill(KeyCode.E)?.Invoke();
-}
+        skillManager.GetSkill(KeyCode.E)?.Invoke();
+    }
 
     public void UseFireSlash()
     {

@@ -3,9 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-/// <summary>
-/// 스킬 관리 및 호출을 담당하는 싱글톤 매니저 클래스
-/// </summary>
+public enum UpgradeStat
+{
+    Damage,
+    Cooltime,
+    Range
+}
+
 public class SkillManager : MonoBehaviour
 {
     // 싱글톤 인스턴스
@@ -135,7 +139,7 @@ public class SkillManager : MonoBehaviour
         }
         Action invokeAction = () => InvokeSkill(skillName);
 
-
+        //자동 스킬은 다른 슬롯에 배치
         if (isAuto)
         {
             autoskillSlots.Add((skillName, invokeAction));
@@ -187,7 +191,6 @@ public class SkillManager : MonoBehaviour
     {
         if (runtimeSkillData.TryGetValue(skillName, out var data))
             return data;
-        Debug.LogWarning($"런타임 스킬 데이터가 없습니다: {skillName}");
 
         return null;
     }
@@ -201,7 +204,6 @@ public class SkillManager : MonoBehaviour
         // 스킬 데이터 가져오기
         if (!runtimeSkillData.TryGetValue(skillName, out var data))
         {
-            Debug.LogWarning($"런타임 스킬 데이터가 없습니다: {skillName}");
             return;
         }
 
@@ -231,7 +233,7 @@ public class SkillManager : MonoBehaviour
 
 
     /// <summary>
-    /// 자동 스킬 오브젝트를 풀에서 꺼내어 설정 후 활성화합니다.
+    /// 자동 스킬 오브젝트를 풀에서 꺼내어 설정 후 활성화
     /// </summary>
     private void SpawnAutoSkill(string skillName)
     {
@@ -282,69 +284,116 @@ public class SkillManager : MonoBehaviour
             Debug.LogWarning($"쿨타임 설정 대상 스킬이 없습니다: {skillName}");
     }
 
-    /// <summary>
-    /// Q/E 스킬 데미지 업그레이드
-    /// </summary>
-    public void UpgradeQESkillDamage(string skillName, float amountPerLevel)
+    // 스킬의 특정 스탯(데미지, 쿨타임, 범위) 강화 함수
+    public void UpgradeSkillStat(string skillName, UpgradeStat stat, float amount)
     {
-        if (runtimeSkillData.TryGetValue(skillName, out var data))
+        if(!runtimeSkillData.TryGetValue(skillName, out var data))
         {
-            data.damage += amountPerLevel;
+            Debug.LogWarning($"업그레이드 대상 스킬이 없음 : {skillName}");
+            return;
+        }
+        switch (stat)
+        {
+            case UpgradeStat.Damage:
+                data.damage += amount;
+                break;
+
+            case UpgradeStat.Cooltime:
+                data.cooltime += amount;
+                break;
+
+            case UpgradeStat.Range:
+                data.radius += amount;
+                break;
+
+        }
+        //레벨 저장/카운트업
+        if (skillLevels.ContainsKey(skillName))
             skillLevels[skillName]++;
-        }
-        else
-        {
-            Debug.LogWarning($"업그레이드 대상 스킬 없음: {skillName}");
-        }
+
     }
 
-    /// <summary>
-    /// 패시브 스킬 데미지 업그레이드
-    /// </summary>
-    public void UpgradePassiveSkill(string skillName, float amount)
-    {
-        if (runtimeSkillData.TryGetValue(skillName, out var data))
+    /*
+        /// <summary>
+        /// Q/E 스킬 데미지 업그레이드
+        /// </summary>
+        public void UpgradeQESkillDamage(string skillName, float amountPerLevel)
         {
-            data.damage += amount;
-            skillLevels[skillName]++;
+            if (runtimeSkillData.TryGetValue(skillName, out var data))
+            {
+                data.damage += amountPerLevel;
+                skillLevels[skillName]++;
+            }
+            else
+            {
+                Debug.LogWarning($"업그레이드 대상 스킬 없음: {skillName}");
+            }
         }
-        else
+        /// <summary>
+        /// Q/E 스킬(수동 스킬)의 쿨타임 감소 업그레이드
+        /// </summary>
+        public void ReduceQESkillCooltime(string skillName, float amount)
         {
-            Debug.LogWarning($"패시브 업그레이드 대상 스킬 없음: {skillName}");
-        }
-    }
-
-    /// <summary>
-    /// 패시브 스킬 쿨타임 감소 업그레이드
-    /// </summary>
-    public void UpgradePassiveCooltime(string skillName, float amount)
-    {
-        if (runtimeSkillData.TryGetValue(skillName, out var data))
-        {
+            if (!runtimeSkillData.TryGetValue(skillName, out var data))
+            {
+                Debug.LogWarning($"쿨타임 감소 대상 스킬이 없습니다: {skillName}");
+                return;
+            }
+            // 최소 0초가 되지 않도록 clamp
             data.cooltime = Mathf.Max(0f, data.cooltime - amount);
+            // 필요하다면 레벨 카운트 업
             skillLevels[skillName]++;
+            Debug.Log($"[{skillName}] 쿨타임이 {amount}초 감소하여, 이제 {data.cooltime}초 입니다.");
         }
-        else
-        {
-            Debug.LogWarning($"쿨타임 업그레이드 대상 스킬 없음: {skillName}");
-        }
-    }
 
-    /// <summary>
-    /// 스킬 범위(radius) 업그레이드
-    /// </summary>
-    public void UpgradeSkillRange(string skillName, float amount)
-    {
-        if (runtimeSkillData.TryGetValue(skillName, out var data))
+        /// <summary>
+        /// 패시브 스킬 데미지 업그레이드
+        /// </summary>
+        public void UpgradePassiveSkill(string skillName, float amount)
         {
-            data.radius += amount;
-            skillLevels[skillName]++;
+            if (runtimeSkillData.TryGetValue(skillName, out var data))
+            {
+                data.damage += amount;
+                skillLevels[skillName]++;
+            }
+            else
+            {
+                Debug.LogWarning($"패시브 업그레이드 대상 스킬 없음: {skillName}");
+            }
         }
-        else
+
+        /// <summary>
+        /// 패시브 스킬 쿨타임 감소 업그레이드
+        /// </summary>
+        public void UpgradePassiveCooltime(string skillName, float amount)
         {
-            Debug.LogWarning($"업그레이드 대상 스킬 없음: {skillName}");
+            if (runtimeSkillData.TryGetValue(skillName, out var data))
+            {
+                data.cooltime = Mathf.Max(0f, data.cooltime - amount);
+                skillLevels[skillName]++;
+                Debug.Log($"data.cooltime : {data.cooltime}");
+            }
+            else
+            {
+                Debug.LogWarning($"쿨타임 업그레이드 대상 스킬 없음: {skillName}");
+            }
         }
-    }
+
+        /// <summary>
+        /// 스킬 범위(radius) 업그레이드
+        /// </summary>
+        public void UpgradeSkillRange(string skillName, float amount)
+        {
+            if (runtimeSkillData.TryGetValue(skillName, out var data))
+            {
+                data.radius += amount;
+                skillLevels[skillName]++;
+            }
+            else
+            {
+                Debug.LogWarning($"업그레이드 대상 스킬 없음: {skillName}");
+            }
+        }*/
 
 
 }

@@ -84,65 +84,65 @@ public class UpgradeButton : MonoBehaviour
 
             // QE 스킬
             case UpgradeType.FSSkillRange:
-                UpgradeSkillRange("FireSlashs", 1f);
+                SkillManager.Instance.UpgradeSkillStat("FireSlashs", UpgradeStat.Range, 1f);
                 break;
             case UpgradeType.FSSkillCooldown:
-                UpgradePassiveCooltime("FireSlashs", 0.5f);
+                SkillManager.Instance.UpgradeSkillStat("FireSlashs", UpgradeStat.Cooltime, 0.5f);
                 break;
             case UpgradeType.FSSkillDamage:
-                UpgradeQESkillDamage("FireSlashs", 10f);
+                SkillManager.Instance.UpgradeSkillStat("FireSlashs", UpgradeStat.Damage, 5f);
                 break;
 
             case UpgradeType.TDSkillRange:
-               UpgradeSkillRange("Thunder", 1f);
+                SkillManager.Instance.UpgradeSkillStat("Thunder", UpgradeStat.Range, 1f);
                 break;
             case UpgradeType.TDSkillCooldown:
-                UpgradePassiveCooltime("Thunder", 0.5f);
+                SkillManager.Instance.UpgradeSkillStat("Thunder", UpgradeStat.Cooltime, 0.5f);
                 break;
             case UpgradeType.TDSkillDamage:
-                UpgradeQESkillDamage("Thunder", 10f);
+                SkillManager.Instance.UpgradeSkillStat("Thunder", UpgradeStat.Damage, 5f);
                 break;
 
             // 패시브 스킬
             case UpgradeType.IPSkillRange:
-                UpgradeSkillRange("IcePillar", 1f);
+                SkillManager.Instance.UpgradeSkillStat("IcePillar", UpgradeStat.Range, 1f);
                 break;
             case UpgradeType.IPSkillCooldown:
-                UpgradePassiveCooltime("IcePillar", 0.5f);
+                SkillManager.Instance.UpgradeSkillStat("IcePillar", UpgradeStat.Cooltime, 0.5f);
                 break;
             case UpgradeType.IPSkillDamage:
-                UpgradePassiveSkill("IcePillar", 10f);
+                SkillManager.Instance.UpgradeSkillStat("IcePillar", UpgradeStat.Damage, 5f);
                 break;
 
             case UpgradeType.IFSkillRange:
-               UpgradeSkillRange("Infierno", 1f);
+                SkillManager.Instance.UpgradeSkillStat("Infierno", UpgradeStat.Range, 1f);
                 break;
             case UpgradeType.IFSkillCooldown:
-                UpgradePassiveCooltime("Infierno", 0.5f);
+                SkillManager.Instance.UpgradeSkillStat("Infierno", UpgradeStat.Cooltime, 0.5f);
                 break;
             case UpgradeType.IFSkillDamage:
-                UpgradePassiveSkill("Infierno", 10f);
+                SkillManager.Instance.UpgradeSkillStat("Infierno", UpgradeStat.Damage, 5f);
                 break;
 
             case UpgradeType.BHSkillRange:
-               UpgradeSkillRange("Blackhole", 1f);
+               SkillManager.Instance.UpgradeSkillStat("Blackhole", UpgradeStat.Range, 1f);
                 break;
             case UpgradeType.BHSkillCooldown:
-                UpgradePassiveCooltime("Blackhole", 0.5f);
+                SkillManager.Instance.UpgradeSkillStat("Blackhole", UpgradeStat.Cooltime, 0.5f);
                 break;
             case UpgradeType.BHSkillDamage:
-                UpgradePassiveSkill("Blackhole", 10f);
+                SkillManager.Instance.UpgradeSkillStat("Blackhole", UpgradeStat.Damage, 5f);
                 break;
 
 
             case UpgradeType.TSSkillRange:
-                UpgradeSkillRange("ThunderStrike", 1f);
+                SkillManager.Instance.UpgradeSkillStat("ThunderStrike", UpgradeStat.Damage, 5f);
                 break;
             case UpgradeType.TSSkillCooldown:
-                UpgradePassiveCooltime("ThunderStrike", 0.5f);
+                SkillManager.Instance.UpgradeSkillStat("ThunderStrike", UpgradeStat.Cooltime, 0.5f);
                 break;
             case UpgradeType.TSSkillDamage:
-                UpgradeQESkillDamage("ThunderStrike", 10f);
+                SkillManager.Instance.UpgradeSkillStat("ThunderStrike", UpgradeStat.Damage, 5f);
                 break;
         }
 
@@ -150,23 +150,5 @@ public class UpgradeButton : MonoBehaviour
         Time.timeScale = 1f;
         UIManager.Instance.UpdateStatNum();
         UIManager.Instance.UpdateSkillIcons();
-    }
-    public void UpgradeQESkillDamage(string skillName, float damage)
-    {
-        SkillManager.Instance.UpgradeQESkillDamage(skillName, damage);
-    }
-
-    public void UpgradePassiveSkill(string skillName, float damage)
-    {
-        SkillManager.Instance.UpgradePassiveSkill(skillName, damage);
-    }
-
-    public void UpgradePassiveCooltime(string skillName, float damage)
-    {
-        SkillManager.Instance.UpgradePassiveCooltime(skillName, damage);
-    }
-    public void UpgradeSkillRange(string skillName, float damage)
-    {
-        SkillManager.Instance.UpgradeSkillRange(skillName, damage);
     }
 }

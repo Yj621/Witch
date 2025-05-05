@@ -5,7 +5,6 @@ public enum UpgradeType
     DashCooldown,
     ExpIncrease,
     MaxHPIncrease,
-    DefaultSkillRange,
     DefaultSkillCooldown,
     DefaultSkillDamage,
     FSSkillRange,

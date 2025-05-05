@@ -284,7 +284,7 @@ public class SkillManager : MonoBehaviour
             Debug.LogWarning($"쿨타임 설정 대상 스킬이 없습니다: {skillName}");
     }
 
-    // 스킬의 특정 스탯(데미지, 쿨타임, 범위) 강화 함수
+    // 패시브/QE 스킬의 특정 스탯(데미지, 쿨타임, 범위) 강화 함수
     public void UpgradeSkillStat(string skillName, UpgradeStat stat, float amount)
     {
         if(!runtimeSkillData.TryGetValue(skillName, out var data))
@@ -292,6 +292,16 @@ public class SkillManager : MonoBehaviour
             Debug.LogWarning($"업그레이드 대상 스킬이 없음 : {skillName}");
             return;
         }
+
+        // 업그레이드 전 값 저장
+        float oldValue = stat switch
+        {
+            UpgradeStat.Damage => data.damage,
+            UpgradeStat.Cooltime => data.cooltime,
+            UpgradeStat.Range => data.radius,
+            _ => 0f
+        };
+
         switch (stat)
         {
             case UpgradeStat.Damage:
@@ -307,93 +317,65 @@ public class SkillManager : MonoBehaviour
                 break;
 
         }
+
+        
+        // 업그레이드 후 값
+        float newValue = stat switch
+        {
+            UpgradeStat.Damage => data.damage,
+            UpgradeStat.Cooltime => data.cooltime,
+            UpgradeStat.Range => data.radius,
+            _ => 0f
+        };
+
+        // 로그 출력
+        Debug.Log($"[{skillName}] {stat} 업그레이드: {oldValue} -> {newValue} (증감 {newValue - oldValue})");
+
+
         //레벨 저장/카운트업
         if (skillLevels.ContainsKey(skillName))
             skillLevels[skillName]++;
 
     }
 
-    /*
-        /// <summary>
-        /// Q/E 스킬 데미지 업그레이드
-        /// </summary>
-        public void UpgradeQESkillDamage(string skillName, float amountPerLevel)
+    /// <summary>
+    /// 기본 스킬(DefaultSkill)의 스탯을 업그레이드
+    /// </summary>
+    public void UpgradeDefaultSkillStat(UpgradeStat stat, float amount)
+    {
+        // 업그레이드 전 값 저장
+        float oldValue = stat switch
         {
-            if (runtimeSkillData.TryGetValue(skillName, out var data))
-            {
-                data.damage += amountPerLevel;
-                skillLevels[skillName]++;
-            }
-            else
-            {
-                Debug.LogWarning($"업그레이드 대상 스킬 없음: {skillName}");
-            }
-        }
-        /// <summary>
-        /// Q/E 스킬(수동 스킬)의 쿨타임 감소 업그레이드
-        /// </summary>
-        public void ReduceQESkillCooltime(string skillName, float amount)
+            UpgradeStat.Damage => DefaultSkill.Instance.defaultDamage,
+            UpgradeStat.Cooltime => PlayerSkill.Instance.defaultSkillCooldown,
+            UpgradeStat.Range => 0f,  // DefaultSkill에 Range가 없으면 0으로
+            _ => 0f
+        };
+
+        // 실제 적용
+        switch (stat)
         {
-            if (!runtimeSkillData.TryGetValue(skillName, out var data))
-            {
-                Debug.LogWarning($"쿨타임 감소 대상 스킬이 없습니다: {skillName}");
-                return;
-            }
-            // 최소 0초가 되지 않도록 clamp
-            data.cooltime = Mathf.Max(0f, data.cooltime - amount);
-            // 필요하다면 레벨 카운트 업
-            skillLevels[skillName]++;
-            Debug.Log($"[{skillName}] 쿨타임이 {amount}초 감소하여, 이제 {data.cooltime}초 입니다.");
+            case UpgradeStat.Damage:
+                DefaultSkill.Instance.defaultDamage += amount;
+                break;
+            case UpgradeStat.Cooltime:
+                PlayerSkill.Instance.defaultSkillCooldown += amount;
+                break;
+            case UpgradeStat.Range:
+                // Range가 필요하면 DefaultSkill 쪽에 radius 개념을 추가하세요.
+                break;
         }
 
-        /// <summary>
-        /// 패시브 스킬 데미지 업그레이드
-        /// </summary>
-        public void UpgradePassiveSkill(string skillName, float amount)
+        // 업그레이드 후 값
+        float newValue = stat switch
         {
-            if (runtimeSkillData.TryGetValue(skillName, out var data))
-            {
-                data.damage += amount;
-                skillLevels[skillName]++;
-            }
-            else
-            {
-                Debug.LogWarning($"패시브 업그레이드 대상 스킬 없음: {skillName}");
-            }
-        }
+            UpgradeStat.Damage => DefaultSkill.Instance.defaultDamage,
+            UpgradeStat.Cooltime => PlayerSkill.Instance.defaultSkillCooldown,
+            UpgradeStat.Range => 0f,
+            _ => 0f
+        };
 
-        /// <summary>
-        /// 패시브 스킬 쿨타임 감소 업그레이드
-        /// </summary>
-        public void UpgradePassiveCooltime(string skillName, float amount)
-        {
-            if (runtimeSkillData.TryGetValue(skillName, out var data))
-            {
-                data.cooltime = Mathf.Max(0f, data.cooltime - amount);
-                skillLevels[skillName]++;
-                Debug.Log($"data.cooltime : {data.cooltime}");
-            }
-            else
-            {
-                Debug.LogWarning($"쿨타임 업그레이드 대상 스킬 없음: {skillName}");
-            }
-        }
-
-        /// <summary>
-        /// 스킬 범위(radius) 업그레이드
-        /// </summary>
-        public void UpgradeSkillRange(string skillName, float amount)
-        {
-            if (runtimeSkillData.TryGetValue(skillName, out var data))
-            {
-                data.radius += amount;
-                skillLevels[skillName]++;
-            }
-            else
-            {
-                Debug.LogWarning($"업그레이드 대상 스킬 없음: {skillName}");
-            }
-        }*/
-
-
+        Debug.Log($"[DefaultSkill] {stat} 업그레이드: {oldValue} -> {newValue} (증감 {newValue - oldValue})");
+        // 레벨 카운트업(원한다면 skillLevels에 DefaultSkill 키도 추가해두세요)
+    }
 }

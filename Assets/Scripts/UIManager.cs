@@ -154,7 +154,7 @@ public class UIManager : MonoBehaviour
                 Debug.Log("C");
                 break;
             case "ThunderStrike":
-                iconIndex = 4;
+                iconIndex = 5;
                 Debug.Log("D");
                 break;
             default:
@@ -282,10 +282,10 @@ public class UIManager : MonoBehaviour
             ? "Max"
             : "Lv " + UpgradeManager.Instance.GetLevel(UpgradeType.DefaultSkillCooldown);
 
-        DSText.text = UpgradeManager.Instance.IsMaxLevel(UpgradeType.DefaultSkillRange)
+/*        DSText.text = UpgradeManager.Instance.IsMaxLevel(UpgradeType.DefaultSkillRange)
             ? "Max"
             : "Lv " + UpgradeManager.Instance.GetLevel(UpgradeType.DefaultSkillRange);
-
+*/
         PSText.text = UpgradeManager.Instance.IsMaxLevel(UpgradeType.CharacterMoveSpeed)
             ? "Max"
             : "Lv " + UpgradeManager.Instance.GetLevel(UpgradeType.CharacterMoveSpeed);

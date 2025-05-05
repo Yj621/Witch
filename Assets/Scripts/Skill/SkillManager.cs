@@ -32,6 +32,7 @@ public class SkillManager : MonoBehaviour
     // 스킬 쿨타임
     private Dictionary<string, float> nextUseTime = new Dictionary<string, float>();
 
+    private Dictionary<KeyCode, string> skillSlotNames = new Dictionary<KeyCode, string>(2);
 
     // 플레이어 및 입력 참조
     private PlayerInput playerInput;
@@ -83,6 +84,10 @@ public class SkillManager : MonoBehaviour
             skillLevels[d.skillName] = 1;
             nextUseTime[d.skillName] = 0f;
         }
+            skillSlotNames = new Dictionary<KeyCode,string>() {
+        [KeyCode.Q] = null,
+        [KeyCode.E] = null
+    };
     }
 
     private void Start()
@@ -100,6 +105,9 @@ public class SkillManager : MonoBehaviour
         UpgradeManager.Instance.data.SetDisabled(UpgradeType.FSSkillLearn, true);
         LearnNewSkill("Thunder", false);
         UpgradeManager.Instance.data.SetDisabled(UpgradeType.TDSkillLearn, true);
+
+
+        UIManager.Instance.UpdateSkillIcons();
     }
 
     private void Update()
@@ -132,7 +140,6 @@ public class SkillManager : MonoBehaviour
             Debug.LogWarning($"스킬 '{skillName}'이(가) 존재하지 않습니다.");
             return;
         }
-        Debug.Log($"skillName : {skillName}");
         Action invokeAction = () => InvokeSkill(skillName);
         
         
@@ -148,13 +155,19 @@ public class SkillManager : MonoBehaviour
                 if (skillSlots[key] == null)
                 {
                     skillSlots[key] = invokeAction;
-                    UIManager.Instance.UpdateSkillIcons();
+                    skillSlotNames[key] = skillName;
+
                     return;
                 }
             }
             Debug.LogWarning("빈 스킬 슬롯이 없습니다.");
         }
     }
+
+    // 스킬 이름 리턴
+    public string GetSkillName(KeyCode key)
+        => skillSlotNames.TryGetValue(key, out var name) ? name : null;
+
 
     /// <summary>
     /// 슬롯 키에 매핑된 수동 스킬 반환
@@ -180,6 +193,7 @@ public class SkillManager : MonoBehaviour
         if (runtimeSkillData.TryGetValue(skillName, out var data))
             return data;
         Debug.LogWarning($"런타임 스킬 데이터가 없습니다: {skillName}");
+        
         return null;
     }
 
@@ -306,4 +320,6 @@ public class SkillManager : MonoBehaviour
             Debug.LogWarning($"업그레이드 대상 스킬 없음: {skillName}");
         }
     }
+
+    
 }

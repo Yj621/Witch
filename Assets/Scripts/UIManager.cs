@@ -88,43 +88,42 @@ public class UIManager : MonoBehaviour
 
     private void UpdateSkillIconKey(KeyCode key, Image image, SkillManager skillManager)
     {
-        Action skillAction = skillManager.GetSkill(key);
+        string skillName = skillManager.GetSkillName(key);
 
         //스킬이 없으면
-        if(skillAction == null)
+        if(skillName == null)
         {
             image.sprite = null;
             image.enabled = false;
             return;
         }
 
-        
 
-        string methodName = skillAction.Method.Name;
         int index = -1;
 
-        switch(methodName)
+        Debug.Log($"methodName : {skillName}");
+
+        switch(skillName)
         {
-            case "UseFireSlash":
+            case "FireSlashs":
                 index = 0;
                 break;
-            case "UseThunder":
+            case "Thunder":
                 index = 1;
                 break;
             default:
                 break;
         }
+
         if (index >= 0 && index < skillIcons.Length)
         {
-            image.sprite = skillIcons[index];
-            image.enabled = true;
+            image.sprite   = skillIcons[index];
+            image.enabled  = true;
         }
         else
         {
-            image.sprite = null;
             image.enabled = false;
         }
-
     }
 
     private void UpdateSkillIconNonKey(int indexInList, Image image, SkillManager skillManager)

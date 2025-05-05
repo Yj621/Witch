@@ -8,19 +8,9 @@ public class SkillObjectPool : MonoBehaviour
     [SerializeField] private GameObject firePrefab;      // 기본 스킬 프리팹
     [SerializeField] private int fireInitialCount = 20;  // 기본 스킬 초기 개수
     private List<GameObject> firePool;                   // 기본 스킬 풀
-    public static SkillObjectPool Instance { get; private set; }
 
     void Awake()
     {
-        if (Instance != null && Instance != this)
-        {
-            Destroy(gameObject);
-        }
-        else
-        {
-            Instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
 
         InitializeFirePool();    // 기본 스킬 풀 초기화
     }

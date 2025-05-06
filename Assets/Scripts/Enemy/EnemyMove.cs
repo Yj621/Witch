@@ -56,6 +56,12 @@ public class EnemyMove : MonoBehaviour
     {
         CurrentHp -= Damage;
 
+        // 데미지 텍스트 띄우기
+        DamageManager.Instance.Show(
+            Damage,
+            transform.position + Vector3.up * 0.5f  // 살짝 위쪽으로 띄우기
+        );
+
         if (CurrentHp <= 0)
         {
             Die();

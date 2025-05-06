@@ -107,10 +107,12 @@ public class SkillManager : MonoBehaviour
 
         // 초기 스킬 학습 및 UI 업데이트
         LearnNewSkill("FireSlashs", false);
-        UpgradeManager.Instance.data.SetDisabled(UpgradeType.FSSkillLearn, true);
         LearnNewSkill("Thunder", false);
+        UpgradeManager.Instance.data.SetDisabled(UpgradeType.FSSkillLearn, true);
         UpgradeManager.Instance.data.SetDisabled(UpgradeType.TDSkillLearn, true);
-
+        UpgradeManager.Instance.data.SetDisabled(UpgradeType.IPSkillLearn, false);
+        UpgradeManager.Instance.data.SetDisabled(UpgradeType.IFSkillLearn, false);
+        UpgradeManager.Instance.data.SetDisabled(UpgradeType.BHSkillLearn, false);
 
         UIManager.Instance.UpdateSkillIcons();
     }
@@ -159,6 +161,18 @@ public class SkillManager : MonoBehaviour
             }
             Debug.LogWarning("빈 스킬 슬롯이 없습니다.");
         }
+
+        if(skillName == "FireSlashs") 
+        UpgradeManager.Instance.data.SetDisabled(UpgradeType.FSSkillLearn, true);
+        else if (skillName == "Thunder")
+            UpgradeManager.Instance.data.SetDisabled(UpgradeType.TDSkillLearn, true);
+        else if (skillName == "IcePillar")
+            UpgradeManager.Instance.data.SetDisabled(UpgradeType.IPSkillLearn, true);
+        else if (skillName == "Infierno")
+            UpgradeManager.Instance.data.SetDisabled(UpgradeType.IFSkillLearn, true);
+        else if (skillName == "Blackhole")
+            UpgradeManager.Instance.data.SetDisabled(UpgradeType.BHSkillLearn, true);
+
         UIManager.Instance.UpdateSkillIcons();
     }
 

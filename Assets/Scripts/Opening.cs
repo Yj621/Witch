@@ -47,6 +47,7 @@ public class Opening : MonoBehaviour
         SoundManager.Instance.BgmLevel = 2;
         SoundManager.Instance.SfxLevel = 2;
 
+        SoundManager.Instance.PlayBGM("OpeningSceneBGM");
     }
 
     void Update()

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Audio;
 
@@ -55,12 +56,12 @@ public class SoundManager : MonoBehaviour
 
     public void SetBGMVolume(float value)
     {
-        audioMixer.SetFloat("BGM", Mathf.Log10(value) * 20);
+        audioMixer.SetFloat("Bgm", Mathf.Log10(value) * 20);
     }
 
     public void SetSFXVolume(float value)
     {
-        audioMixer.SetFloat("SFX", Mathf.Log10(value) * 20);
+        audioMixer.SetFloat("Sfx", Mathf.Log10(value) * 20);
     }
 
     public void PlaySFX(string name)
@@ -83,23 +84,34 @@ public class SoundManager : MonoBehaviour
 
     public void ChangeVol(int index, int vol)
     {
+        int[] dBLevels = { -80, -60, -40, -20, 0 }; // 5단계 볼륨
+
         switch (index)
         {
             case 0:
                 MasterSoundLevel += vol;
                 MasterSoundLevel = Mathf.Clamp(MasterSoundLevel, 0, 4);
-                audioMixer.SetFloat("Master", Mathf.Lerp(-80, 0, MasterSoundLevel / 4f));
+                audioMixer.SetFloat("Master", dBLevels[MasterSoundLevel]);
                 break;
             case 1:
                 BgmLevel += vol;
-                BgmLevel = Mathf.Clamp(MasterSoundLevel, 0, 4);
-                audioMixer.SetFloat("Bgm", Mathf.Lerp(-80, 0, BgmLevel/ 4f));
+                BgmLevel = Mathf.Clamp(BgmLevel, 0, 4);
+                audioMixer.SetFloat("Bgm", dBLevels[BgmLevel]);
                 break;
             case 2:
                 SfxLevel += vol;
                 SfxLevel = Mathf.Clamp(SfxLevel, 0, 4);
-                audioMixer.SetFloat("Sfx", Mathf.Lerp(-80, 0, SfxLevel / 4f));
+                audioMixer.SetFloat("Sfx", dBLevels[SfxLevel]);
                 break;
         }
+    }
+
+
+    private void Update()
+    {
+        Debug.Log($"clip: {bgmSource.clip?.name}");
+        Debug.Log($"isPlaying: {bgmSource.isPlaying}");
+        Debug.Log($"mute: {bgmSource.mute}");
+        Debug.Log($"volume: {bgmSource.volume}");
     }
 }

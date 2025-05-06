@@ -44,6 +44,8 @@ public class UpgradeDataBase : ScriptableObject
         }
     }
 
+    
+
     public void ResetAllLearned()
     {
         foreach (var opt in upgradeOptions)

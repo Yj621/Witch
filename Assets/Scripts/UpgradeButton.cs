@@ -5,6 +5,13 @@ public class UpgradeButton : MonoBehaviour
 {
     [SerializeField] private UpgradeType upgradeType;
 
+    private Player player;
+
+    private void Start()
+    {
+        player = GameManager.Instance.player;
+    }
+
     /// <summary>
     /// 스킬 업그레이드/습득 정보를 담는 구조체
     /// </summary>
@@ -82,26 +89,52 @@ public class UpgradeButton : MonoBehaviour
     /// </summary>
     public void OnUpgrade()
     {
-        if (actionMap.TryGetValue(upgradeType, out var info))
+        // 캐릭터 스탯 업그레이드 처리
+        switch (upgradeType)
         {
-            if (info.SkillName == "DefaultSkill")
-            {
-                // 기본 스킬 전용 처리
-                SkillManager.Instance.UpgradeDefaultSkillStat(info.Stat, info.Amount);
-            }
-            else if (info.IsLearn)
-            {
-                SkillManager.Instance.LearnNewSkill(info.SkillName, true);
-            }
-            else
-            {
-                // 패시브/QE 스킬
-                SkillManager.Instance.UpgradeSkillStat(info.SkillName, info.Stat, info.Amount);
-            }
-        }
-        else
-        {
-            Debug.LogWarning($"업그레이드 액션이 없습니다: {upgradeType}");
+            case UpgradeType.CharacterMoveSpeed:
+                player.playerSpeed += 0.5f;
+                Debug.Log($"player.playerSpeed : {player.playerSpeed}");
+                break;
+            case UpgradeType.DashSpeed:
+                player.dashSpeed += 0.5f;
+                Debug.Log($"player.dashSpeed : {player.dashSpeed}");
+                break;
+            case UpgradeType.DashCooldown:
+                PlayerInput.Instance.dashCoolTime -= 0.5f;
+                Debug.Log($"PlayerInput.Instance.dashCoolTime : {PlayerInput.Instance.dashCoolTime}");
+                break;
+            case UpgradeType.MaxHPIncrease:
+                player.maxHp += 10;
+                Debug.Log($"player.maxHp  : {player.maxHp}");
+                break;
+            // 경험치 증가도 해야됨
+            default:
+
+                //  스킬 업그레이드/습득 처리
+                if (actionMap.TryGetValue(upgradeType, out var info))
+                {
+                    if (info.SkillName == "DefaultSkill")
+                    {
+                        // 기본 스킬 전용 처리
+                        SkillManager.Instance.UpgradeDefaultSkillStat(info.Stat, info.Amount);
+                    }
+                    else if (info.IsLearn)
+                    {
+                        // 스킬 습득
+                        SkillManager.Instance.LearnNewSkill(info.SkillName, true);
+                    }
+                    else
+                    {
+                        // 패시브/QE 스킬 업그레이드
+                        SkillManager.Instance.UpgradeSkillStat(info.SkillName, info.Stat, info.Amount);
+                    }
+                }
+                else
+                {
+                    Debug.LogWarning($"업그레이드 액션이 없습니다: {upgradeType}");
+                }
+                break;
         }
 
         UpgradeManager.Instance.LevelUp(upgradeType);

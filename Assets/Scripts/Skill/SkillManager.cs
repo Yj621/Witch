@@ -162,8 +162,8 @@ public class SkillManager : MonoBehaviour
             Debug.LogWarning("빈 스킬 슬롯이 없습니다.");
         }
 
-        if(skillName == "FireSlashs") 
-        UpgradeManager.Instance.data.SetDisabled(UpgradeType.FSSkillLearn, true);
+        if (skillName == "FireSlashs") 
+            UpgradeManager.Instance.data.SetDisabled(UpgradeType.FSSkillLearn, true);
         else if (skillName == "Thunder")
             UpgradeManager.Instance.data.SetDisabled(UpgradeType.TDSkillLearn, true);
         else if (skillName == "IcePillar")

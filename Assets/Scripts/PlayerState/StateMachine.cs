@@ -1,7 +1,6 @@
 public class StateMachine
 {
     public IState CurrentState { get; private set; }
-    PlayerController playerController;
     public IdleState idleState;
     public WalkState walkState;
     public DieState dieState;
@@ -17,7 +16,6 @@ public class StateMachine
 
     public StateMachine(PlayerController player)
     {
-        playerController = player;
         idleState = new IdleState(player);
         walkState = new WalkState(player);
         hurtState = new HurtState(player);
@@ -35,7 +33,6 @@ public class StateMachine
     public void Initialize(IState state)
     {
         CurrentState = state;
-        state.Enter();
     }
 
     //바뀔 state를 받아 현재 state에 대해서는 Exit를 수행하고 CurrentState를 바꾸며 

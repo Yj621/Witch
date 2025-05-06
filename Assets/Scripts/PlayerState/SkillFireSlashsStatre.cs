@@ -10,6 +10,7 @@ public class SkillFireSlashState : IState
     public void Enter()
     {
         player.GetComponent<Animator>().SetTrigger("FireSlashs");
+        Debug.Log("FireSlahs");
     }
     public void Exit()
     {

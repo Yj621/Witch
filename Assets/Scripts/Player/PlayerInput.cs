@@ -131,7 +131,17 @@ public class PlayerInput : MonoBehaviour
         yield return new WaitForSeconds(dashDuration);
         isDash = false;
         dashCooldownTimer = dashCoolTime;
-        stateMachine.TransitionTo(stateMachine.idleState);
+        // 대쉬가 끝난 뒤, 입력이 남아 있으면 바로 Walk 상태로
+        if (moveInput.sqrMagnitude > 0.01f)
+        {
+            stateMachine.TransitionTo(stateMachine.walkState);
+            isWalk = true;
+        }
+        else
+        {
+            stateMachine.TransitionTo(stateMachine.idleState);
+            isWalk = false;
+        }
     }
 
     // Q 스킬

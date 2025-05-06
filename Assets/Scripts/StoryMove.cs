@@ -15,6 +15,7 @@ public class StoryMove : MonoBehaviour
 
     void Start()
     {
+        SoundManager.Instance.PlayBGM("StorySceneBGM");
         story.StartDialouge();
     }
     private void Update()

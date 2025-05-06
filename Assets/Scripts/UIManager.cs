@@ -58,6 +58,7 @@ public class UIManager : MonoBehaviour
         LevelUpPanel.SetActive(false);
         UpdateStatNum();
         upgradeDB.ResetAllLearned();
+        SoundManager.Instance.PlayBGM("GameSceneBGM");
     }
 
     void Update()
@@ -322,6 +323,7 @@ public class UIManager : MonoBehaviour
 
     private void ToggleEscapePanel()
     {
+        SoundManager.Instance.PlaySFX("ButtonClickSfx");
         isEscOpen = !isEscOpen;
         EscPanel.SetActive(isEscOpen);
 

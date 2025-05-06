@@ -5,9 +5,9 @@ using UnityEngine.Audio;
 
 public class SoundManager : MonoBehaviour
 {
-    public int MasterSoundLevel;
-    public int BgmLevel;
-    public int SfxLevel;
+    public int MasterSoundLevel = 2;
+    public int BgmLevel = 2;
+    public int SfxLevel = 2;
 
     public AudioMixer audioMixer;
 
@@ -26,8 +26,19 @@ public class SoundManager : MonoBehaviour
 
 
     public static SoundManager Instance { get; private set; }
-
-    void Start()
+    void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+     }
+        void Start()
     {
         foreach (var clip in sfxClips)
         {
@@ -39,31 +50,7 @@ public class SoundManager : MonoBehaviour
             bgmDict[clip.name] = clip;
         }
     }
-
-    void Awake()
-    {
-        if (Instance != null && Instance != this)
-        {
-            Destroy(gameObject);
-            return;
-        }
-        Instance = this;
-    }
-    public void SetMasterVolume(float value)
-    {
-        audioMixer.SetFloat("Master", Mathf.Log10(value) * 20);
-    }
-
-    public void SetBGMVolume(float value)
-    {
-        audioMixer.SetFloat("Bgm", Mathf.Log10(value) * 20);
-    }
-
-    public void SetSFXVolume(float value)
-    {
-        audioMixer.SetFloat("Sfx", Mathf.Log10(value) * 20);
-    }
-
+ 
     public void PlaySFX(string name)
     {
         if (sfxDict.TryGetValue(name, out var clip))
@@ -82,36 +69,36 @@ public class SoundManager : MonoBehaviour
         }
     }
 
-    public void ChangeVol(int index, int vol)
+    public void ChangeVol(int index, int stepDelta) // stepDelta는 그냥 +1, -1
     {
-        int[] dBLevels = { -80, -60, -40, -20, 0 }; // 5단계 볼륨
-
         switch (index)
         {
             case 0:
-                MasterSoundLevel += vol;
+                MasterSoundLevel += stepDelta;
                 MasterSoundLevel = Mathf.Clamp(MasterSoundLevel, 0, 4);
-                audioMixer.SetFloat("Master", dBLevels[MasterSoundLevel]);
+                if (MasterSoundLevel == 0)
+                    audioMixer.SetFloat("Master", -80);
+                else
+                audioMixer.SetFloat("Master", Mathf.Lerp(-40f, 10f, MasterSoundLevel - 1 / 3f));
                 break;
             case 1:
-                BgmLevel += vol;
+                BgmLevel += stepDelta;
                 BgmLevel = Mathf.Clamp(BgmLevel, 0, 4);
-                audioMixer.SetFloat("Bgm", dBLevels[BgmLevel]);
+                if (MasterSoundLevel == 0)
+                    audioMixer.SetFloat("Bgm", -80);
+                else
+                audioMixer.SetFloat("Bgm", Mathf.Lerp(-40f, 10f, BgmLevel - 1 / 3f));
                 break;
             case 2:
-                SfxLevel += vol;
+                SfxLevel += stepDelta;
                 SfxLevel = Mathf.Clamp(SfxLevel, 0, 4);
-                audioMixer.SetFloat("Sfx", dBLevels[SfxLevel]);
+                if (MasterSoundLevel == 0)
+                    audioMixer.SetFloat("Sfx", -80);
+                else
+                audioMixer.SetFloat("Sfx", Mathf.Lerp(-40f, 10f, SfxLevel - 1 / 3f));
                 break;
         }
+        Debug.Log($"[Master:{MasterSoundLevel}] → {Mathf.Lerp(-80f, 0f, MasterSoundLevel / 4f)} dB");
     }
 
-
-    private void Update()
-    {
-        Debug.Log($"clip: {bgmSource.clip?.name}");
-        Debug.Log($"isPlaying: {bgmSource.isPlaying}");
-        Debug.Log($"mute: {bgmSource.mute}");
-        Debug.Log($"volume: {bgmSource.volume}");
-    }
 }

@@ -72,10 +72,12 @@ public class OpPanelController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.LeftArrow))
         {
             ChangeTopSelection(-1);
+            SoundManager.Instance.PlaySFX("ButtonFlipSfx");
         }
         else if (Input.GetKeyDown(KeyCode.RightArrow))
         {
             ChangeTopSelection(1);
+            SoundManager.Instance.PlaySFX("ButtonFlipSfx");
         }
         Debug.Log("Top = " + selectedTopIndex);
     }
@@ -114,6 +116,7 @@ public class OpPanelController : MonoBehaviour
                 }
                 Debug.Log("Sound = " + selectedSoundIndex);
             }
+            SoundManager.Instance.PlaySFX("ButtonFlipSfx");
         }
         else if (Input.GetKeyDown(KeyCode.UpArrow))
         {
@@ -137,6 +140,7 @@ public class OpPanelController : MonoBehaviour
                 }
                 Debug.Log("Sound = " + selectedSoundIndex);
             }
+            SoundManager.Instance.PlaySFX("ButtonFlipSfx");
         }
     }
 
@@ -148,6 +152,7 @@ public class OpPanelController : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.DownArrow))
             {
+                SoundManager.Instance.PlaySFX("ButtonFlipSfx");
                 TopButtons[selectedTopIndex].enabled = false;
                 isTopSelectMode = false;
 
@@ -169,6 +174,7 @@ public class OpPanelController : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.UpArrow))
             {
+                SoundManager.Instance.PlaySFX("ButtonFlipSfx");
                 bool isAtTopOfList = (isOption && selectedOpIndex == 0) || (isSound && selectedSoundIndex == 0);
 
                 if (isAtTopOfList)
@@ -253,12 +259,12 @@ public class OpPanelController : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.RightArrow))
             {
                 IncreaseVol(selectedSoundIndex);
-                Debug.Log("A");
+                SoundManager.Instance.PlaySFX("ButtonFlipSfx");
             }
             else if (Input.GetKeyDown(KeyCode.LeftArrow))
             {
                 DecreaseVol(selectedSoundIndex);
-                Debug.Log("A");
+                SoundManager.Instance.PlaySFX("ButtonFlipSfx");
             }
         }
     }
@@ -299,6 +305,7 @@ public class OpPanelController : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Return))
         {
+            SoundManager.Instance.PlaySFX("ButtonClickSfx");
             switch (selectedOpIndex)
             {
                 case 0:

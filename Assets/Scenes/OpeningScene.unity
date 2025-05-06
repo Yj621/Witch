@@ -19744,6 +19744,7 @@ MonoBehaviour:
   sfxClips:
   - {fileID: 8300000, guid: 1e9ed550b5d588046b06f2cbbfa5097d, type: 3}
   - {fileID: 8300000, guid: c2c19e4cfdc3c104ea9e7981860beca6, type: 3}
+  - {fileID: 8300000, guid: 50e007b7a537a4e409aba1b1e07ccc4d, type: 3}
 --- !u!4 &248150080
 Transform:
   m_ObjectHideFlags: 0

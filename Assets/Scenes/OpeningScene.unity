@@ -19740,7 +19740,10 @@ MonoBehaviour:
   bgmClips:
   - {fileID: 8300000, guid: d3e0cb95186fb3b44b0158d767c8ee59, type: 3}
   - {fileID: 8300000, guid: 56a8884d3ca365f4d93d0bf1280b3fad, type: 3}
-  sfxClips: []
+  - {fileID: 8300000, guid: c17920c0693f446418483d96b73dc991, type: 3}
+  sfxClips:
+  - {fileID: 8300000, guid: 1e9ed550b5d588046b06f2cbbfa5097d, type: 3}
+  - {fileID: 8300000, guid: c2c19e4cfdc3c104ea9e7981860beca6, type: 3}
 --- !u!4 &248150080
 Transform:
   m_ObjectHideFlags: 0

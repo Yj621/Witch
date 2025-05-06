@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Audio;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -46,7 +47,7 @@ public class Opening : MonoBehaviour
         SoundManager.Instance.MasterSoundLevel = 2;
         SoundManager.Instance.BgmLevel = 2;
         SoundManager.Instance.SfxLevel = 2;
-
+        
         SoundManager.Instance.PlayBGM("OpeningSceneBGM");
     }
 
@@ -80,8 +81,16 @@ public class Opening : MonoBehaviour
 
     void HandleMenuInput()
     {
-        if (Input.GetKeyDown(KeyCode.DownArrow)) ChangeSelection(1);
-        if (Input.GetKeyDown(KeyCode.UpArrow)) ChangeSelection(-1);
+        if (Input.GetKeyDown(KeyCode.DownArrow))
+        {
+            SoundManager.Instance.PlaySFX("ButtonFlipSfx");
+            ChangeSelection(1);
+        }
+        if (Input.GetKeyDown(KeyCode.UpArrow))
+        {
+            SoundManager.Instance.PlaySFX("ButtonFlipSfx");
+            ChangeSelection(-1);
+        }
     }
 
     void HandleSoundInput()
@@ -100,6 +109,7 @@ public class Opening : MonoBehaviour
                     SoundButtons[selectedSoundIndex].enabled = true;
                 }
                 Debug.Log("Sound = " + selectedSoundIndex);
+            SoundManager.Instance.PlaySFX("ButtonFlipSfx");
         }
         else if (Input.GetKeyDown(KeyCode.UpArrow))
         {
@@ -110,7 +120,8 @@ public class Opening : MonoBehaviour
                     SoundButtons[selectedSoundIndex].enabled = true;
                 }
                 Debug.Log("Sound = " + selectedSoundIndex);
-            }
+            SoundManager.Instance.PlaySFX("ButtonFlipSfx");
+        }
         
     }
 
@@ -130,12 +141,14 @@ public class Opening : MonoBehaviour
             {
                 IncreaseVol(selectedSoundIndex);
                 Debug.Log("A");
-            }
+            SoundManager.Instance.PlaySFX("ButtonFlipSfx");
+        }
             else if (Input.GetKeyDown(KeyCode.LeftArrow))
             {
                 DecreaseVol(selectedSoundIndex);
                 Debug.Log("A");
-            }
+            SoundManager.Instance.PlaySFX("ButtonFlipSfx");
+        }
     }
 
     void IncreaseVol(int index)
@@ -145,7 +158,7 @@ public class Opening : MonoBehaviour
         {
             option.currentVolumeStep++;
             UpdateVolUI(option);
-            SoundManager.Instance.ChangeVol(index, 1);
+            SoundManager.Instance.ChangeVol(index, +1);
             Debug.Log(index + "Sound Lev = " + option.currentVolumeStep);
         }
     }
@@ -174,6 +187,7 @@ public class Opening : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Return))
         {
+            SoundManager.Instance.PlaySFX("ButtonClickSfx");
             switch (selectedIndex)
             {
                 case 0:
@@ -214,6 +228,7 @@ public class Opening : MonoBehaviour
 
     void CloseOptionPanel()
     {
+        SoundManager.Instance.PlaySFX("ButtonClickSfx");
         OptionPanel.SetActive(false);
         HowToPanel.SetActive(false);
         isOptionPanelOpen = false;

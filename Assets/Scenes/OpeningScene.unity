@@ -19741,10 +19741,18 @@ MonoBehaviour:
   - {fileID: 8300000, guid: d3e0cb95186fb3b44b0158d767c8ee59, type: 3}
   - {fileID: 8300000, guid: 56a8884d3ca365f4d93d0bf1280b3fad, type: 3}
   - {fileID: 8300000, guid: c17920c0693f446418483d96b73dc991, type: 3}
+  - {fileID: 8300000, guid: ac1ddf80bc7ccea4ab8f0080ce052a1e, type: 3}
   sfxClips:
   - {fileID: 8300000, guid: 1e9ed550b5d588046b06f2cbbfa5097d, type: 3}
   - {fileID: 8300000, guid: c2c19e4cfdc3c104ea9e7981860beca6, type: 3}
   - {fileID: 8300000, guid: 50e007b7a537a4e409aba1b1e07ccc4d, type: 3}
+  - {fileID: 8300000, guid: 1f5da961245bdfb4e9002d54882100b2, type: 3}
+  - {fileID: 8300000, guid: f7799c058ca290b46a8da7139de12e36, type: 3}
+  - {fileID: 8300000, guid: 35147f18ff5ea6d46b6cf1121c5ae915, type: 3}
+  - {fileID: 8300000, guid: 3f4e864cc0cda7b4285caa7f41f24676, type: 3}
+  - {fileID: 8300000, guid: 022d16189bcbb804c8bacb0b4e6629e7, type: 3}
+  - {fileID: 8300000, guid: 6e321ba57af29aa4ca87c4bddcb22d29, type: 3}
+  - {fileID: 8300000, guid: e0fe80b56e750f64f97a363feb74ee90, type: 3}
 --- !u!4 &248150080
 Transform:
   m_ObjectHideFlags: 0

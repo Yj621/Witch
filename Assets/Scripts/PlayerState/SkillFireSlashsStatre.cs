@@ -9,8 +9,10 @@ public class SkillFireSlashState : IState
     }
     public void Enter()
     {
+        player.StartHurtRoutine();
         player.GetComponent<Animator>().SetTrigger("FireSlashs");
         Debug.Log("FireSlahs");
+        SoundManager.Instance.PlaySFX("FireSlash");
     }
     public void Exit()
     {

@@ -6,7 +6,7 @@ public class UpgradeManager : MonoBehaviour
 {
     public static UpgradeManager Instance;
 
-    private Dictionary<UpgradeType, int> levels = new();
+    public Dictionary<UpgradeType, int> levels = new();
     private Dictionary<UpgradeType, int> maxLevels = new();
     public UpgradeDataBase data;
 

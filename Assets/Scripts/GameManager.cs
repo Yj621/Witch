@@ -39,6 +39,14 @@ public class GameManager : MonoBehaviour
         );
     }
 
+    private void Update()
+    {
+        if(currentClean == 100)
+        {
+            Clear();
+        }
+    }
+
     // 씬 전환 후 PlayerTransform이 리셋될 경우를 대비해
     private void OnEnable()
         => SceneManager.sceneLoaded += OnSceneLoaded;
@@ -69,5 +77,10 @@ public class GameManager : MonoBehaviour
     public void GoTitle()
     {
         SceneManager.LoadScene("OpeningScene");
+    }
+
+    public void Clear()
+    {
+        SceneManager.LoadScene("EndingScene");
     }
 }

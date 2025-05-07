@@ -26,6 +26,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private UpgradeDataBase upgradeDB;
     [SerializeField] private GameObject cardPrefab;
     [SerializeField] private Transform cardParent;
+    [SerializeField] private GameObject HowToPanel;
     public Sprite[] skillIcons;
     SkillManager skillManager;
     Animator ani;
@@ -58,6 +59,7 @@ public class UIManager : MonoBehaviour
         LevelUpPanel.SetActive(false);
         UpdateStatNum();
         upgradeDB.ResetAllLearned();
+        StartCoroutine(HowToPlay());
         SoundManager.Instance.PlayBGM("GameSceneBGM");
     }
 
@@ -344,4 +346,10 @@ public class UIManager : MonoBehaviour
         GameOverPanel.SetActive(true);
     }
 
+    public IEnumerator HowToPlay()
+    {
+        HowToPanel.SetActive(true);
+        yield return new WaitForSeconds(2f);
+        HowToPanel.SetActive(false);
+    }
 }

@@ -46,7 +46,7 @@ public class PlayerController : MonoBehaviour
         }
 
         isHurt = true;
-        StartCoroutine(HurtRoutine());
+        StartCoroutine(HurtRoutine(1f));
     }
 
     private void Die()
@@ -74,19 +74,18 @@ public class PlayerController : MonoBehaviour
         {
             player.GetExperience(10);
             Destroy(other.gameObject);
+            SoundManager.Instance.PlaySFX("ItemSound");
             Debug.Log("경험치 획득!");
         }
     }
 
-    private IEnumerator HurtRoutine()
+    public IEnumerator HurtRoutine(float hurtDuration)
     {
         int playerLayer = LayerMask.NameToLayer("Player");
         int enemyLayer = LayerMask.NameToLayer("Monster");
 
         //플레이어와 적 충돌 무시
         Physics2D.IgnoreLayerCollision(playerLayer, enemyLayer, true);
-
-        float hurtDuration = 1f; // 1초 동안 무적
         //stateMachine.TransitionTo(stateMachine.hurtState);
         yield return new WaitForSeconds(hurtDuration);
 
@@ -94,6 +93,12 @@ public class PlayerController : MonoBehaviour
         Physics2D.IgnoreLayerCollision(playerLayer, enemyLayer, false);
 
         isHurt = false;
+    }
+
+    public void StartHurtRoutine()
+    {
+        Debug.Log("A");
+        StartCoroutine(HurtRoutine(1f));
     }
 
     // 애니메이션이 끝나면 자동으로 Idle 상태로 전환

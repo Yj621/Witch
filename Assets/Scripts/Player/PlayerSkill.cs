@@ -154,5 +154,6 @@ public class PlayerSkill : MonoBehaviour
         {
             skillComponent.velocity = new Vector2(speed * direction, 0);
         }
+        SoundManager.Instance.PlaySFX("FireDafault");
     }
 }

@@ -286,6 +286,18 @@ public class SkillManager : MonoBehaviour
         else
             obj.transform.localScale = Vector3.one * data.radius;
 
+        if(skillName == "IcePillar")
+        {
+            SoundManager.Instance.PlaySFX("IcePillar");
+        }
+        else if (skillName == "Infierno")
+        {
+            SoundManager.Instance.PlaySFX("Inferno");
+        }
+        else if (skillName == "Blackhole")
+        {
+            SoundManager.Instance.PlaySFX("BlackHole");
+        }
         // 오브젝트 활성화
         obj.SetActive(true);
     }

@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class SkillThunderState : IState
@@ -9,7 +10,9 @@ public class SkillThunderState : IState
     }
     public void Enter()
     {
+        player.StartHurtRoutine();
         player.GetComponent<Animator>().SetTrigger("Thunder");
+        SoundManager.Instance.PlaySFX("Thunder");
     }
     public void Exit()
     {

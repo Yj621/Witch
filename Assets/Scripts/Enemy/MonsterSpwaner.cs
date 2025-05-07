@@ -18,6 +18,14 @@ public class MonsterSpwaner : MonoBehaviour
 
     void Start()
     {
+        // GameManager에서 꺼내 쓰기
+        playerTransform = GameManager.Instance.PlayerTransform;
+        if (playerTransform == null)
+        {
+            Debug.LogError("MonsterSpawner: GameManager에 PlayerTransform이 없습니다.");
+            return;
+        }
+
         player = GameManager.Instance.player;
         currentLevel = player.Level;
         ApplyLevelScaling(currentLevel);

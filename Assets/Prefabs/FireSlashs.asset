@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: FireSlashs
   m_EditorClassIdentifier: 
   skillName: FireSlashs
-  damage: 10
+  damage: 8
   radius: 0
   duration: 2
   force: 0

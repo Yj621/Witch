@@ -14,14 +14,14 @@ public class PlayerController : MonoBehaviour
     private void Awake()
     {
         stateMachine = new StateMachine(this);
-        player = GameManager.Instance.player; 
-        Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("Skill"), true);
 
     }
 
     private void Start()
     {
+        player = GameManager.Instance.player;
         playerSkill = PlayerSkill.Instance;
+        Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("Skill"), true);
     }
 
     private void Update()

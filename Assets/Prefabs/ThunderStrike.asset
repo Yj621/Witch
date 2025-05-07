@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: ThunderStrike
   m_EditorClassIdentifier: 
   skillName: ThunderStrike
-  damage: 6
+  damage: 4
   radius: 1
   duration: 3
   force: 0

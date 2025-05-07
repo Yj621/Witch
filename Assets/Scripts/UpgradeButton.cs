@@ -43,35 +43,35 @@ public class UpgradeButton : MonoBehaviour
         // QE 스킬 업그레이드
         { UpgradeType.FSSkillRange,    new ActionInfo("FireSlashs",  false, UpgradeStat.Range,    0.2f) },
         { UpgradeType.FSSkillCooldown, new ActionInfo("FireSlashs",  false, UpgradeStat.Cooltime, -0.5f) },
-        { UpgradeType.FSSkillDamage,   new ActionInfo("FireSlashs",  false, UpgradeStat.Damage,   5f) },
+        { UpgradeType.FSSkillDamage,   new ActionInfo("FireSlashs",  false, UpgradeStat.Damage,   2.5f) },
 
         // Thunder 스킬 업그레이드
         { UpgradeType.TDSkillRange,    new ActionInfo("Thunder",      false, UpgradeStat.Range,    0.2f) },
         { UpgradeType.TDSkillCooldown, new ActionInfo("Thunder",      false, UpgradeStat.Cooltime, -0.5f) },
-        { UpgradeType.TDSkillDamage,   new ActionInfo("Thunder",      false, UpgradeStat.Damage,   5f) },
+        { UpgradeType.TDSkillDamage,   new ActionInfo("Thunder",      false, UpgradeStat.Damage,   2.5f) },
 
         // IcePillar 패시브 업그레이드
         { UpgradeType.IPSkillRange,    new ActionInfo("IcePillar",    false, UpgradeStat.Range,    0.2f) },
         { UpgradeType.IPSkillCooldown, new ActionInfo("IcePillar",    false, UpgradeStat.Cooltime, -0.5f) },
-        { UpgradeType.IPSkillDamage,   new ActionInfo("IcePillar",    false, UpgradeStat.Damage,   5f) },
+        { UpgradeType.IPSkillDamage,   new ActionInfo("IcePillar",    false, UpgradeStat.Damage,   2.5f) },
 
         // Infierno 패시브 업그레이드
         { UpgradeType.IFSkillRange,    new ActionInfo("Infierno",     false, UpgradeStat.Range,    0.2f) },
         { UpgradeType.IFSkillCooldown, new ActionInfo("Infierno",     false, UpgradeStat.Cooltime, -0.5f) },
-        { UpgradeType.IFSkillDamage,   new ActionInfo("Infierno",     false, UpgradeStat.Damage,   5f) },
+        { UpgradeType.IFSkillDamage,   new ActionInfo("Infierno",     false, UpgradeStat.Damage,   2.5f) },
 
         // Blackhole 패시브 업그레이드
         { UpgradeType.BHSkillRange,    new ActionInfo("Blackhole",    false, UpgradeStat.Range,    0.2f) },
         { UpgradeType.BHSkillCooldown, new ActionInfo("Blackhole",    false, UpgradeStat.Cooltime, -0.5f) },
-        { UpgradeType.BHSkillDamage,   new ActionInfo("Blackhole",    false, UpgradeStat.Damage,   5f) },
+        { UpgradeType.BHSkillDamage,   new ActionInfo("Blackhole",    false, UpgradeStat.Damage,   2.5f) },
 
         // ThunderStrike 패시브 업그레이드
         { UpgradeType.TSSkillRange,    new ActionInfo("ThunderStrike",false, UpgradeStat.Range,   0.2f) },
         { UpgradeType.TSSkillCooldown, new ActionInfo("ThunderStrike",false, UpgradeStat.Cooltime, -0.5f) },
-        { UpgradeType.TSSkillDamage,   new ActionInfo("ThunderStrike",false, UpgradeStat.Damage,   5f) },
+        { UpgradeType.TSSkillDamage,   new ActionInfo("ThunderStrike",false, UpgradeStat.Damage,   2.5f) },
 
         // 기본 스킬 업그레이드
-        { UpgradeType.DefaultSkillDamage,   new ActionInfo("DefaultSkill", false, UpgradeStat.Damage,   1f) },
+        { UpgradeType.DefaultSkillDamage,   new ActionInfo("DefaultSkill", false, UpgradeStat.Damage,   2.5f) },
         { UpgradeType.DefaultSkillCooldown, new ActionInfo("DefaultSkill", false, UpgradeStat.Cooltime, -0.2f) },
 
     };

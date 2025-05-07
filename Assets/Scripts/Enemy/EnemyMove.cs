@@ -79,6 +79,7 @@ public class EnemyMove : MonoBehaviour
         GameManager.Instance.currentClean += Clean;
         ani.SetTrigger("Die");
         StartCoroutine(DropExpCandies());
+        SoundManager.Instance.PlaySFX("MonsterHit");
     }
 
     private IEnumerator DropExpCandies()

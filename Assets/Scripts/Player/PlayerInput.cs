@@ -56,6 +56,8 @@ public class PlayerInput : MonoBehaviour
 
     }
 
+    bool isWalk = false;
+
     private void Update()
     {
         stateMachine.Execute();
@@ -63,13 +65,15 @@ public class PlayerInput : MonoBehaviour
         var curr = stateMachine.CurrentState;
         if (curr == stateMachine.idleState || curr == stateMachine.walkState)
         {
-            if (moveInput.sqrMagnitude > 0.01f)
+            if (moveInput.sqrMagnitude > 0.01f && !isWalk)
             {
                 stateMachine.TransitionTo(stateMachine.walkState);
+                isWalk = true;
             }
-            else
+            else if (moveInput.sqrMagnitude <= 0.01f && isWalk)
             {
                 stateMachine.TransitionTo(stateMachine.idleState);
+                isWalk = false;
             }
         }
 
@@ -105,6 +109,7 @@ public class PlayerInput : MonoBehaviour
         {
             gameObject.transform.localScale = new Vector3(1.5f, 1.5f, 1.5f);
         }
+
     }
 
     // 대쉬
@@ -126,7 +131,17 @@ public class PlayerInput : MonoBehaviour
         yield return new WaitForSeconds(dashDuration);
         isDash = false;
         dashCooldownTimer = dashCoolTime;
-        stateMachine.TransitionTo(stateMachine.idleState);
+        // 대쉬가 끝난 뒤, 입력이 남아 있으면 바로 Walk 상태로
+        if (moveInput.sqrMagnitude > 0.01f)
+        {
+            stateMachine.TransitionTo(stateMachine.walkState);
+            isWalk = true;
+        }
+        else
+        {
+            stateMachine.TransitionTo(stateMachine.idleState);
+            isWalk = false;
+        }
     }
 
     // Q 스킬

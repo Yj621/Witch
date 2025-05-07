@@ -946,6 +946,7 @@ MonoBehaviour:
   - "\uC624\uB79C\uB9CC\uC5D0 \uC778\uAC04\uB4E4 \uD55C\uBC88 \uB180\uB798\uD0A4\uB7EC
     \uAC00\uBCFC\uAE4C?"
   - "\uB808\uCBB8\uACE0"
+  FinishDialouge: 0
 --- !u!1 &1515442678
 GameObject:
   m_ObjectHideFlags: 0
@@ -957,7 +958,6 @@ GameObject:
   - component: {fileID: 1515442681}
   - component: {fileID: 1515442680}
   - component: {fileID: 1515442679}
-  - component: {fileID: 1515442682}
   m_Layer: 0
   m_Name: Square
   m_TagString: Untagged
@@ -1057,19 +1057,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1515442682
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1515442678}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8df738de143bb4b868303dffd81b8347, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isHurt: 0
 --- !u!1 &1749803817
 GameObject:
   m_ObjectHideFlags: 0

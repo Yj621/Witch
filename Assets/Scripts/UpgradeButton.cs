@@ -5,6 +5,13 @@ public class UpgradeButton : MonoBehaviour
 {
     [SerializeField] private UpgradeType upgradeType;
 
+    private Player player;
+
+    private void Start()
+    {
+        player = GameManager.Instance.player;
+    }
+
     /// <summary>
     /// 스킬 업그레이드/습득 정보를 담는 구조체
     /// </summary>
@@ -34,32 +41,32 @@ public class UpgradeButton : MonoBehaviour
         { UpgradeType.TSSkillLearn,   new ActionInfo("ThunderStrike",true) },
 
         // QE 스킬 업그레이드
-        { UpgradeType.FSSkillRange,    new ActionInfo("FireSlashs",  false, UpgradeStat.Range,    1f) },
+        { UpgradeType.FSSkillRange,    new ActionInfo("FireSlashs",  false, UpgradeStat.Range,    0.2f) },
         { UpgradeType.FSSkillCooldown, new ActionInfo("FireSlashs",  false, UpgradeStat.Cooltime, -0.5f) },
         { UpgradeType.FSSkillDamage,   new ActionInfo("FireSlashs",  false, UpgradeStat.Damage,   5f) },
 
         // Thunder 스킬 업그레이드
-        { UpgradeType.TDSkillRange,    new ActionInfo("Thunder",      false, UpgradeStat.Range,    1f) },
+        { UpgradeType.TDSkillRange,    new ActionInfo("Thunder",      false, UpgradeStat.Range,    0.2f) },
         { UpgradeType.TDSkillCooldown, new ActionInfo("Thunder",      false, UpgradeStat.Cooltime, -0.5f) },
         { UpgradeType.TDSkillDamage,   new ActionInfo("Thunder",      false, UpgradeStat.Damage,   5f) },
 
         // IcePillar 패시브 업그레이드
-        { UpgradeType.IPSkillRange,    new ActionInfo("IcePillar",    false, UpgradeStat.Range,    1f) },
+        { UpgradeType.IPSkillRange,    new ActionInfo("IcePillar",    false, UpgradeStat.Range,    0.2f) },
         { UpgradeType.IPSkillCooldown, new ActionInfo("IcePillar",    false, UpgradeStat.Cooltime, -0.5f) },
         { UpgradeType.IPSkillDamage,   new ActionInfo("IcePillar",    false, UpgradeStat.Damage,   5f) },
 
         // Infierno 패시브 업그레이드
-        { UpgradeType.IFSkillRange,    new ActionInfo("Infierno",     false, UpgradeStat.Range,    1f) },
+        { UpgradeType.IFSkillRange,    new ActionInfo("Infierno",     false, UpgradeStat.Range,    0.2f) },
         { UpgradeType.IFSkillCooldown, new ActionInfo("Infierno",     false, UpgradeStat.Cooltime, -0.5f) },
         { UpgradeType.IFSkillDamage,   new ActionInfo("Infierno",     false, UpgradeStat.Damage,   5f) },
 
         // Blackhole 패시브 업그레이드
-        { UpgradeType.BHSkillRange,    new ActionInfo("Blackhole",    false, UpgradeStat.Range,    1f) },
+        { UpgradeType.BHSkillRange,    new ActionInfo("Blackhole",    false, UpgradeStat.Range,    0.2f) },
         { UpgradeType.BHSkillCooldown, new ActionInfo("Blackhole",    false, UpgradeStat.Cooltime, -0.5f) },
         { UpgradeType.BHSkillDamage,   new ActionInfo("Blackhole",    false, UpgradeStat.Damage,   5f) },
 
         // ThunderStrike 패시브 업그레이드
-        { UpgradeType.TSSkillRange,    new ActionInfo("ThunderStrike",false, UpgradeStat.Range,   5f) },
+        { UpgradeType.TSSkillRange,    new ActionInfo("ThunderStrike",false, UpgradeStat.Range,   0.2f) },
         { UpgradeType.TSSkillCooldown, new ActionInfo("ThunderStrike",false, UpgradeStat.Cooltime, -0.5f) },
         { UpgradeType.TSSkillDamage,   new ActionInfo("ThunderStrike",false, UpgradeStat.Damage,   5f) },
 
@@ -82,26 +89,52 @@ public class UpgradeButton : MonoBehaviour
     /// </summary>
     public void OnUpgrade()
     {
-        if (actionMap.TryGetValue(upgradeType, out var info))
+        // 캐릭터 스탯 업그레이드 처리
+        switch (upgradeType)
         {
-            if (info.SkillName == "DefaultSkill")
-            {
-                // 기본 스킬 전용 처리
-                SkillManager.Instance.UpgradeDefaultSkillStat(info.Stat, info.Amount);
-            }
-            else if (info.IsLearn)
-            {
-                SkillManager.Instance.LearnNewSkill(info.SkillName, true);
-            }
-            else
-            {
-                // 패시브/QE 스킬
-                SkillManager.Instance.UpgradeSkillStat(info.SkillName, info.Stat, info.Amount);
-            }
-        }
-        else
-        {
-            Debug.LogWarning($"업그레이드 액션이 없습니다: {upgradeType}");
+            case UpgradeType.CharacterMoveSpeed:
+                player.playerSpeed += 0.5f;
+                Debug.Log($"player.playerSpeed : {player.playerSpeed}");
+                break;
+            case UpgradeType.DashSpeed:
+                player.dashSpeed += 0.5f;
+                Debug.Log($"player.dashSpeed : {player.dashSpeed}");
+                break;
+            case UpgradeType.DashCooldown:
+                PlayerInput.Instance.dashCoolTime -= 0.5f;
+                Debug.Log($"PlayerInput.Instance.dashCoolTime : {PlayerInput.Instance.dashCoolTime}");
+                break;
+            case UpgradeType.MaxHPIncrease:
+                player.maxHp += 10;
+                Debug.Log($"player.maxHp  : {player.maxHp}");
+                break;
+            // 경험치 증가도 해야됨
+            default:
+
+                //  스킬 업그레이드/습득 처리
+                if (actionMap.TryGetValue(upgradeType, out var info))
+                {
+                    if (info.SkillName == "DefaultSkill")
+                    {
+                        // 기본 스킬 전용 처리
+                        SkillManager.Instance.UpgradeDefaultSkillStat(info.Stat, info.Amount);
+                    }
+                    else if (info.IsLearn)
+                    {
+                        // 스킬 습득
+                        SkillManager.Instance.LearnNewSkill(info.SkillName, true);
+                    }
+                    else
+                    {
+                        // 패시브/QE 스킬 업그레이드
+                        SkillManager.Instance.UpgradeSkillStat(info.SkillName, info.Stat, info.Amount);
+                    }
+                }
+                else
+                {
+                    Debug.LogWarning($"업그레이드 액션이 없습니다: {upgradeType}");
+                }
+                break;
         }
 
         UpgradeManager.Instance.LevelUp(upgradeType);

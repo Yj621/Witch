@@ -251,6 +251,7 @@ public class UIManager : MonoBehaviour
     //스킬 레벨, 데미지 갱신
     public void LevelUpPanelPop()
     {
+        UpgradePanelController.Instance.ClearCards();
         LevelUpPanel.SetActive(true);
 
         foreach (Transform child in cardParent)

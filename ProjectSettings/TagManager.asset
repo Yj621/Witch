@@ -44,5 +44,11 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Player
+    uniqueID: 510158907
+    locked: 0
+  - name: Lights
+    uniqueID: 3905301891
+    locked: 0
   m_RenderingLayers:
   - Default

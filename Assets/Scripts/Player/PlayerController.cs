@@ -84,6 +84,11 @@ public class PlayerController : MonoBehaviour
             SoundManager.Instance.PlaySFX("ItemSound");
             Debug.Log("경험치 획득!");
         }
+        if (other.CompareTag("Potion"))
+        {
+            player.Heal(20);
+            Destroy(other.gameObject);
+        }
         else if (other.CompareTag("MagnetItem"))  // 아이템 태그 확인
         {
             Destroy(other.gameObject);

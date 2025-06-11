@@ -549,6 +549,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isHurt: 0
+  magnetFieldPrefab: {fileID: 2203894021973503147, guid: d04ba9a87678a204cb09d22e8a8098e6, type: 3}
+  magnetRadius: 3
+  magnetDuration: 5
 --- !u!95 &3817174062407312466
 Animator:
   serializedVersion: 7

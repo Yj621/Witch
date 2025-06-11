@@ -8,6 +8,7 @@ TagManager:
   - Exp
   - Skill
   - Magnet
+  - MagnetItem
   layers:
   - Default
   - TransparentFX
@@ -19,8 +20,8 @@ TagManager:
   - Monster
   - Building
   - Skill
-  - 
-  - 
+  - Magnet
+  - EXP
   - 
   - 
   - 

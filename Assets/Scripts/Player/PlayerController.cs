@@ -67,7 +67,7 @@ public class PlayerController : MonoBehaviour
         if (isDie) return;
         if (other.CompareTag("Enemy"))
         {
-            Hurt(10);
+            Hurt(5);
             Debug.Log("적에게 닿음!");
         }
         if (other.CompareTag("Exp"))

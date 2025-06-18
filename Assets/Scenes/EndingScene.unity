@@ -45914,6 +45914,7 @@ GameObject:
   - component: {fileID: 1066743408}
   - component: {fileID: 1066743407}
   - component: {fileID: 1066743406}
+  - component: {fileID: 1066743412}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -46135,6 +46136,21 @@ Transform:
   - {fileID: 1643500469}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1066743412
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1066743405}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c5d931748cd3444fa0e9242b017f376, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dashCoolTime: 5
+  dashDuration: 0.5
+  actions: {fileID: 0}
 --- !u!1 &1072981982
 GameObject:
   m_ObjectHideFlags: 0
@@ -46474,8 +46490,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1220395903}
   - component: {fileID: 1220395902}
-  - component: {fileID: 1220395901}
   - component: {fileID: 1220395904}
+  - component: {fileID: 1220395905}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -46483,14 +46499,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!81 &1220395901
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1220395900}
-  m_Enabled: 1
 --- !u!20 &1220395902
 Camera:
   m_ObjectHideFlags: 0
@@ -46601,6 +46609,14 @@ MonoBehaviour:
     m_MipBias: 0
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
+--- !u!81 &1220395905
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1220395900}
+  m_Enabled: 1
 --- !u!1001 &1231934072
 PrefabInstance:
   m_ObjectHideFlags: 0

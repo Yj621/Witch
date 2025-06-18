@@ -7,20 +7,32 @@ public class Ending : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        if (PlayerInput.Instance != null)
+        {
+            Destroy(PlayerInput.Instance.gameObject);
+        }
         SoundManager.Instance.PlayBGM("ClearBGM");
         StartCoroutine(EndingCoroutine());
     }
 
     IEnumerator EndingCoroutine()
     {
-        yield return new WaitForSeconds(2f);
+        float timer = 0f;
+        float autoSkipTime = 5f;
 
-        if (Input.GetKeyUp(KeyCode.Space))
+        while (timer < autoSkipTime)
         {
-            SceneManager.LoadScene("OpeningScene");
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                SceneManager.LoadScene("OpeningScene");
+                yield break; // 씬 로딩했으니 코루틴 중단
+            }
+
+            timer += Time.deltaTime;
+            yield return null;
         }
 
-        yield return new WaitForSeconds(3f);
         SceneManager.LoadScene("OpeningScene");
     }
+
 }

@@ -42,7 +42,7 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        if(currentClean >= 30)
+        if(currentClean >= 100)
         {
             if (isClearCalled) return;
 
@@ -75,6 +75,7 @@ public class GameManager : MonoBehaviour
     public void ReStartGame()
     {
         SceneManager.LoadScene("MapScene");
+        SkillManager.Instance.ReStartInit();
         Time.timeScale = 1f;
     }
 

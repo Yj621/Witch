@@ -117,8 +117,31 @@ public class SkillManager : MonoBehaviour
         UIManager.Instance.UpdateSkillIcons();
     }
 
+
     private void Update()
     {
+    }
+    
+    public void ReStartInit()
+    {
+        // 게임 매니저에서 플레이어 정보 가져오기
+        player = GameManager.Instance.player;
+        playerInput = PlayerInput.Instance;
+
+        // 수동 스킬 등록
+        RegisterInternalSkill("FireSlashs", () => playerInput.UseFireSlash());
+        RegisterInternalSkill("Thunder", () => playerInput.UseThunder());
+
+        // 초기 스킬 학습 및 UI 업데이트
+        LearnNewSkill("FireSlashs", false);
+        LearnNewSkill("Thunder", false);
+        UpgradeManager.Instance.data.SetDisabled(UpgradeType.FSSkillLearn, true);
+        UpgradeManager.Instance.data.SetDisabled(UpgradeType.TDSkillLearn, true);
+        UpgradeManager.Instance.data.SetDisabled(UpgradeType.IPSkillLearn, false);
+        UpgradeManager.Instance.data.SetDisabled(UpgradeType.IFSkillLearn, false);
+        UpgradeManager.Instance.data.SetDisabled(UpgradeType.BHSkillLearn, false);
+
+        UIManager.Instance.UpdateSkillIcons();
     }
 
     /// <summary>

@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
     public SkillObjectPool skillObjectPool;
     public AutoSkillPool autoSkillPool;
     public float currentClean;
+    private bool isClearCalled = false;
     // 기존 데이터 클래스 Player 외에
     public Transform PlayerTransform { get; private set; }
 
@@ -41,9 +42,12 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        if(currentClean == 100)
+        if(currentClean >= 100)
         {
-            Clear();
+            if (isClearCalled) return;
+
+            isClearCalled = true;
+            SceneManager.LoadScene("EndingScene");
         }
     }
 
@@ -71,6 +75,7 @@ public class GameManager : MonoBehaviour
     public void ReStartGame()
     {
         SceneManager.LoadScene("MapScene");
+        SkillManager.Instance.ReStartInit();
         Time.timeScale = 1f;
     }
 
@@ -81,6 +86,7 @@ public class GameManager : MonoBehaviour
 
     public void Clear()
     {
+        
         SceneManager.LoadScene("EndingScene");
     }
 }

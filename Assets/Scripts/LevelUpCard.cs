@@ -12,6 +12,8 @@ public class LevelUpCard : MonoBehaviour, ISelectHandler, IDeselectHandler
         player = GameManager.Instance.player;
         ani = GetComponent<Animator>();
         LevelUpPanel.SetActive(false);
+
+        UpgradePanelController.Instance.RegisterCard(gameObject);
     }
 
     public void LevelUpPanelPop()

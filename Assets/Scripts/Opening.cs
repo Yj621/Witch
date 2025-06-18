@@ -81,12 +81,12 @@ public class Opening : MonoBehaviour
 
     void HandleMenuInput()
     {
-        if (Input.GetKeyDown(KeyCode.DownArrow))
+        if (Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.S))
         {
             SoundManager.Instance.PlaySFX("ButtonFlipSfx");
             ChangeSelection(1);
         }
-        if (Input.GetKeyDown(KeyCode.UpArrow))
+        if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W))
         {
             SoundManager.Instance.PlaySFX("ButtonFlipSfx");
             ChangeSelection(-1);
@@ -95,7 +95,7 @@ public class Opening : MonoBehaviour
 
     void HandleSoundInput()
     {
-        if (Input.GetKeyDown(KeyCode.DownArrow))
+        if (Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.S))
         {
                 if (selectedSoundIndex < 0)
                 {
@@ -111,7 +111,7 @@ public class Opening : MonoBehaviour
                 Debug.Log("Sound = " + selectedSoundIndex);
             SoundManager.Instance.PlaySFX("ButtonFlipSfx");
         }
-        else if (Input.GetKeyDown(KeyCode.UpArrow))
+        else if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W))
         {
                 if (selectedSoundIndex > 0)
                 {
@@ -137,13 +137,13 @@ public class Opening : MonoBehaviour
 
     void SoundButtonControll()
     {
-            if (Input.GetKeyDown(KeyCode.RightArrow))
+            if (Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.D))
             {
                 IncreaseVol(selectedSoundIndex);
                 Debug.Log("A");
             SoundManager.Instance.PlaySFX("ButtonFlipSfx");
         }
-            else if (Input.GetKeyDown(KeyCode.LeftArrow))
+            else if (Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.A))
             {
                 DecreaseVol(selectedSoundIndex);
                 Debug.Log("A");

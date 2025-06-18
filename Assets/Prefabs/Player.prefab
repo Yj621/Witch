@@ -122,6 +122,7 @@ GameObject:
   - component: {fileID: 906261011456525337}
   - component: {fileID: 2500223468259388818}
   - component: {fileID: 8452361007685080305}
+  - component: {fileID: 3131840315279018536}
   m_Layer: 9
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -179,7 +180,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 3.5
+  orthographic size: 4.21875
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -247,6 +248,30 @@ MonoBehaviour:
     m_MipBias: 0
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
+--- !u!114 &3131840315279018536
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4556081730554531714}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c88f5cead0c0b2a4eb05b5900433f8d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ComponentVersion: 1
+  m_AssetsPPU: 64
+  m_RefResolutionX: 400
+  m_RefResolutionY: 400
+  m_CropFrame: 0
+  m_GridSnapping: 2
+  m_FilterMode: 0
+  m_UpscaleRT: 0
+  m_PixelSnapping: 0
+  m_CropFrameX: 0
+  m_CropFrameY: 0
+  m_StretchFill: 0
 --- !u!1 &7383027513470924681
 GameObject:
   m_ObjectHideFlags: 0
@@ -414,6 +439,7 @@ GameObject:
   - component: {fileID: 8025666137167863966}
   - component: {fileID: 4280852448372706486}
   - component: {fileID: 1816023797936444141}
+  - component: {fileID: 6852368489783131745}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -481,8 +507,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 510158907
+  m_SortingLayer: 1
   m_SortingOrder: 4
   m_Sprite: {fileID: 21300000, guid: 3ac0173710e87974394365b28f4d58d5, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -523,6 +549,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isHurt: 0
+  magnetFieldPrefab: {fileID: 2203894021973503147, guid: d04ba9a87678a204cb09d22e8a8098e6, type: 3}
+  magnetRadius: 3
+  magnetDuration: 5
 --- !u!95 &3817174062407312466
 Animator:
   serializedVersion: 7
@@ -694,3 +723,56 @@ MonoBehaviour:
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!114 &6852368489783131745
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9116612477959050693}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7db70e0ea77f5ac47a8f4565a9406397, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ShadowGroup: 0
+  m_Priority: 4
+  m_ComponentVersion: 5
+  m_HasRenderer: 1
+  m_UseRendererSilhouette: 1
+  m_CastsShadows: 1
+  m_SelfShadows: 0
+  m_AlphaCutoff: 0.1
+  m_ApplyToSortingLayers: 00000000832dc6e8
+  m_ShapePath:
+  - {x: -0.3199997, y: -0.3199997, z: 0}
+  - {x: -0.3199997, y: 0.3199997, z: 0}
+  - {x: 0.3199997, y: 0.3199997, z: 0}
+  - {x: 0.3199997, y: -0.3199997, z: 0}
+  m_ShapePathHash: 0
+  m_InstanceId: 0
+  m_ShadowShape2DComponent: {fileID: 7230220455592287424}
+  m_ShadowShape2DProvider:
+    rid: 961283390966595655
+  m_ShadowCastingSource: 2
+  m_ShadowMesh:
+    m_Mesh: {fileID: 0}
+    m_LocalBounds:
+      m_Center: {x: -0.010002136, y: -0.0049972534, z: 0}
+      m_Extent: {x: 0.20999908, y: 0.22499847, z: 0}
+    m_EdgeProcessing: 1
+    m_TrimEdge: 0.04
+    m_FlipX: 0
+    m_FlipY: 0
+    m_InitialTrim: 0
+  m_CastingOption: 1
+  m_PreviousTrimEdge: 0.04
+  m_PreviousEdgeProcessing: 1
+  m_PreviousShadowCastingSource: 2
+  m_PreviousShadowShape2DSource: {fileID: 7230220455592287424}
+  references:
+    version: 2
+    RefIds:
+    - rid: 961283390966595655
+      type: {class: ShadowShape2DProvider_SpriteRenderer, ns: UnityEngine.Rendering.Universal, asm: Unity.RenderPipelines.Universal.2D.Runtime}
+      data: 

@@ -11,6 +11,13 @@ public class PlayerController : MonoBehaviour
 
     private bool isDie = false;
 
+    // 자석 관련 필드
+    [SerializeField] private GameObject magnetFieldPrefab; // 인스펙터에 프리팹 할당
+    private GameObject magnetFieldObj;              // 자석 범위 오브젝트
+    [SerializeField] private float magnetRadius = 3f;     // 자석 반경
+    [SerializeField] private float magnetDuration = 5f;   // 자석 효과 지속 시간
+
+
     private void Awake()
     {
         stateMachine = new StateMachine(this);
@@ -76,6 +83,56 @@ public class PlayerController : MonoBehaviour
             Destroy(other.gameObject);
             SoundManager.Instance.PlaySFX("ItemSound");
             Debug.Log("경험치 획득!");
+        }
+        if (other.CompareTag("Potion"))
+        {
+            player.Heal(20);
+            Destroy(other.gameObject);
+        }
+        else if (other.CompareTag("MagnetItem"))  // 아이템 태그 확인
+        {
+            Destroy(other.gameObject);
+            EnableMagnet(magnetRadius, magnetDuration);
+            Debug.Log("자석 아이템 획득: Exp 끌어오기 시작");
+        }
+    }
+    public void EnableMagnet(float radius, float duration)
+    {
+        if (magnetFieldObj != null) return;
+
+        // Instantiate
+        magnetFieldObj = Instantiate(magnetFieldPrefab, transform.position, Quaternion.identity, transform);
+        magnetFieldObj.tag = "Magnet";
+
+        // Collider 반경 설정
+        var circle = magnetFieldObj.GetComponent<CircleCollider2D>();
+        if (circle != null) circle.radius = radius;
+
+        // 스크립트 초기화
+        var mf = magnetFieldObj.GetComponent<Magnet>();
+        if (mf != null) mf.Initialize(transform);
+
+        StartCoroutine(DisableMagnetAfter(duration, radius));
+    }
+
+    private IEnumerator DisableMagnetAfter(float duration, float radius)
+    {
+        yield return new WaitForSeconds(duration);
+        if (magnetFieldObj != null)
+        {
+            Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, radius);
+            foreach (var col in hits)
+            {
+                if (col.CompareTag("Exp"))
+                {
+                    var exp = col.GetComponent<Exp>();
+                    if (exp != null)
+                        exp.ClearMagnet();
+                }
+            }
+            Destroy(magnetFieldObj);
+            magnetFieldObj = null;
+            Debug.Log("자석 효과 종료");
         }
     }
 

@@ -72,13 +72,13 @@ public class Player
         Time.timeScale = 0;
     }
 
-    public void Heal(int amount)
+    public void Heal(int percent)
     {
-        Hp += amount;
-        if(Hp > maxHp)
-        {
-            Hp = maxHp;
-        }
+        if (percent <= 0) return; //0이하일 경우 무시
+
+        //maxHP.의 퍼센트 계산
+        int healAmount = Mathf.RoundToInt(maxHp * percent / 100);
+        Hp += healAmount; // Hp 프로퍼티가 내부에서 maxHp를 넘지 않도록 처리해줌
     }
 
     public void GetExperience(int getExp)

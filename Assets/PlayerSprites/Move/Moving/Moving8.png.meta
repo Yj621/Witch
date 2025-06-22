@@ -134,7 +134,7 @@ TextureImporter:
         width: 44
         height: 56
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -151,13 +151,17 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 60f42da6db345524d89ead6ee74e8c58
     internalID: 0
     vertices: []
     indices: 
     edges: []
     weights: []
-    secondaryTextures: []
+    secondaryTextures:
+    - texture: {fileID: 2800000, guid: 66d5a42d356b66347b950fc5091ead55, type: 3}
+      name: _NormalMap
+    - texture: {fileID: 2800000, guid: 0c43a38cf786fbb44877e6addcdce7c9, type: 3}
+      name: _MaskTex
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:

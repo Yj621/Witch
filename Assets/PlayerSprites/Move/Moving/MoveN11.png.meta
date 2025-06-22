@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 5e08a6a03e65dbf4ba661175c2888aeb
+guid: 72d8ff793bc49c24b835ff9e3888d458
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 6490518426408007600
-    second: Moving4_0
+      213: -7224268147275600681
+    second: MoveN11_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -46,7 +46,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 2
+  spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -96,53 +96,27 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 4
-    buildTarget: Android
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 4
-    buildTarget: WebGL
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Moving4_0
+      name: MoveN11_0
       rect:
         serializedVersion: 2
-        x: 8
-        y: 7
-        width: 44
-        height: 57
+        x: 7
+        y: 6
+        width: 47
+        height: 49
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 0b73d2ede14f21a50800000000000000
-      internalID: 6490518426408007600
+      spriteID: 7dce777556e3ebb90800000000000000
+      internalID: -7224268147275600681
       vertices: []
       indices: 
       edges: []
@@ -151,21 +125,17 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: ba06e4b983db52e4fa8baf55dffd7a6f
+    spriteID: 5e97eb03825dee720800000000000000
     internalID: 0
     vertices: []
     indices: 
     edges: []
     weights: []
-    secondaryTextures:
-    - texture: {fileID: 2800000, guid: 577dc8ed521880647b91c26b28bae871, type: 3}
-      name: _NormalMap
-    - texture: {fileID: 2800000, guid: d25dc448a3f46ca489dcde47125d0bba, type: 3}
-      name: _MaskTex
+    secondaryTextures: []
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Moving4_0: 6490518426408007600
+      MoveN11_0: -7224268147275600681
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

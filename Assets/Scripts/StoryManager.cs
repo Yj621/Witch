@@ -22,7 +22,7 @@ public class StoryManager : MonoBehaviour
 
     private void Start()
     {
-        //TextUI.SetActive(false);
+        FinishDialouge = false;
     }
 
     public void StartDialouge()

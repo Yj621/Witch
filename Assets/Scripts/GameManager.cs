@@ -42,7 +42,7 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        if(currentClean >= 100)
+        if(currentClean >= 200)
         {
             if (isClearCalled) return;
 
@@ -74,13 +74,27 @@ public class GameManager : MonoBehaviour
 
     public void ReStartGame()
     {
-        SceneManager.LoadScene("MapScene");
-        SkillManager.Instance.ReStartInit();
+        Destroy(PlayerInput.Instance.gameObject);
+        Destroy(GameManager.Instance.gameObject);
+        Destroy(SkillManager.Instance.gameObject);
+        Destroy(UpgradeManager.Instance.gameObject);
+        Destroy(DamageManager.Instance.gameObject);
+        Destroy(PlayerSkill.Instance.gameObject);
         Time.timeScale = 1f;
+        SceneManager.LoadScene("MapScene");
+        //SkillManager.Instance.ReStartInit();
     }
 
     public void GoTitle()
     {
+        Destroy(PlayerInput.Instance.gameObject);
+        Destroy(GameManager.Instance.gameObject);
+        Destroy(SkillManager.Instance.gameObject);
+        Destroy(UpgradeManager.Instance.gameObject);
+        Destroy(SoundManager.Instance.gameObject);
+        Destroy(DamageManager.Instance.gameObject);
+        Destroy(PlayerSkill.Instance.gameObject);
+        Time.timeScale = 1f;
         SceneManager.LoadScene("OpeningScene");
     }
 

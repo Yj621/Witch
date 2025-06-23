@@ -19,6 +19,7 @@ public class EnemyMove : MonoBehaviour
     private bool isPattern = false;
     public float patternTimer;
     public float patternCooldown = 3f; // 패턴 행동 주기
+    public float GhostPatternRange = 3f;
 
     public void Init(Transform player, MonsterType type)
     {
@@ -55,9 +56,13 @@ public class EnemyMove : MonoBehaviour
             {
                 patternTimer = 0f;
 
+                float distanceToPlayer = Vector2.Distance(transform.position, target.position);
+
+
                 switch (type)
                 {
                     case MonsterType.Ghost:
+                        if(distanceToPlayer <= GhostPatternRange) 
                         StartCoroutine(GhostPattern());
                         break;
                     case MonsterType.Spider:

@@ -7,6 +7,12 @@ public class Ending : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        Destroy(GameManager.Instance.gameObject);
+        Destroy(SkillManager.Instance.gameObject);
+        Destroy(UpgradeManager.Instance.gameObject);
+        Destroy(DamageManager.Instance.gameObject);
+        Destroy(PlayerSkill.Instance.gameObject);
+
         if (PlayerInput.Instance != null)
         {
             Destroy(PlayerInput.Instance.gameObject);

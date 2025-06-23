@@ -6,35 +6,34 @@ public class Exp : MonoBehaviour
     public float magnetStrength = 5f;
     // 거리 보정 계수
     public float distanceStrength = 10f;
-    // 인력 방향: 1이면 끌어당김, -1이면 밀어냄
-    public int magnetDirection = 1;
     // 자석 필드에서 벗어났을 때도 힘을 유지할지 여부
     public bool looseMagnet = true;
 
-    private Transform trans;
     private Rigidbody2D thisRb;
     private Transform magnetTrans;
     private bool magnetInZone;
 
     private void Awake()
     {
-        trans = transform;
         thisRb = GetComponent<Rigidbody2D>();
     }
 
     private void FixedUpdate()
     {
-        if (magnetInZone && magnetTrans != null)
-        {
-            Vector2 dir = (Vector2)magnetTrans.position - (Vector2)trans.position;
-            float distance = dir.magnitude;
-            if (distance > 0.01f)
-            {
-                float forceMagnitude = (distanceStrength / distance) * magnetStrength;
-                Vector2 force = dir.normalized * (forceMagnitude * magnetDirection);
-                thisRb.AddForce(force, ForceMode2D.Force);
-            }
-        }
+        if (!magnetInZone || magnetTrans == null)
+            return;
+
+        // Rigidbody2D.position 사용
+        Vector2 from = thisRb.position;
+        Vector2 to = magnetTrans.position;
+        Vector2 dir = to - from;
+        float dist = dir.magnitude;
+
+        if (dist <= 0.01f)
+            return;
+
+        float forceMag = (distanceStrength / dist) * magnetStrength;
+        thisRb.AddForce(dir.normalized * forceMag, ForceMode2D.Force);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -49,13 +48,11 @@ public class Exp : MonoBehaviour
     private void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.CompareTag("Magnet") && looseMagnet)
-        {
             ClearMagnet();
-        }
     }
 
     /// <summary>
-    /// PlayerController에서 이미 범위 내 Exp에 대해 수동 호출
+    /// PlayerController 등에서 수동 호출할 경우
     /// </summary>
     public void SetMagnet(Transform magnet)
     {
@@ -70,5 +67,6 @@ public class Exp : MonoBehaviour
     {
         magnetInZone = false;
         magnetTrans = null;
+        thisRb.linearVelocity = Vector2.zero;
     }
 }

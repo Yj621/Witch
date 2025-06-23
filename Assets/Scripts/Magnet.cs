@@ -5,6 +5,7 @@ public class Magnet : MonoBehaviour
 {
     private Transform playerTrans;
     private CircleCollider2D circle;
+    private Rigidbody2D rb;
 
     public void Initialize(Transform player)
     {
@@ -15,16 +16,18 @@ public class Magnet : MonoBehaviour
     private void Awake()
     {
         circle = GetComponent<CircleCollider2D>();
-        // Awake 시점에 radius나 isTrigger 세팅이 필요하다면 여기서도 처리 가능
+        rb = GetComponent<Rigidbody2D>();
     }
 
-    private void Update()
+
+    private void FixedUpdate()
     {
-        if (playerTrans != null)
-        {
-            transform.position = playerTrans.position;
-        }
+        if (playerTrans == null) return;
+
+        // FixedUpdate 타이밍에 정확히 플레이어 위치로 이동
+        rb.MovePosition(playerTrans.position);
     }
+
 
     private void OnDrawGizmos()
     {

@@ -53,5 +53,8 @@ TagManager:
   - name: Lights
     uniqueID: 3905301891
     locked: 0
+  - name: Objects
+    uniqueID: 1573651539
+    locked: 0
   m_RenderingLayers:
   - Default

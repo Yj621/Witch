@@ -243,26 +243,6 @@ MonoBehaviour:
     requireUnlockTD: 0
     requireUnlockIF: 0
     requireUnlockBH: 0
-  - type: 25
-    title: "\uD30C\uC774\uC5B4\uC2AC\uB798\uC2DC \uC2B5\uB4DD"
-    description: "\uD30C\uC774\uC5B4 \uC2AC\uB798\uC2DC\uB97C \uC2B5\uB4DD\uD55C"
-    icon: {fileID: -3398877403596534436, guid: 3973b2f38070bc349b38925effa520ee, type: 3}
-    hasLearned: 0
-    requireUnlockFS: 0
-    requireUnlockIP: 0
-    requireUnlockTD: 0
-    requireUnlockIF: 0
-    requireUnlockBH: 0
-  - type: 27
-    title: "\uBC88\uAC1C \uC2B5\uB4DD"
-    description: "\uBC88\uAC1C\uB97C \uC2B5\uB4DD\uD55C\uB2E4"
-    icon: {fileID: 9095043128700965093, guid: 1131aa6a3fa99a4408ab2ec0995ce1a2, type: 3}
-    hasLearned: 0
-    requireUnlockFS: 0
-    requireUnlockIP: 0
-    requireUnlockTD: 0
-    requireUnlockIF: 0
-    requireUnlockBH: 0
   - type: 29
     title: "\uBE14\uB799\uD640 \uC2B5\uB4DD"
     description: "\uBE14\uB799\uD640\uC744 \uC2B5\uB4DD\uD55C\uB2E4"

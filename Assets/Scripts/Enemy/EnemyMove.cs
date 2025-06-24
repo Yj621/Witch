@@ -119,7 +119,6 @@ public class EnemyMove : MonoBehaviour
     {
         isDie = true;
         GameManager.Instance.currentClean += Clean;
-        Debug.Log(GameManager.Instance.currentClean);
         ani.SetTrigger("Die");
         StartCoroutine(DropExpCandies());
         SoundManager.Instance.PlaySFX("MonsterHit");

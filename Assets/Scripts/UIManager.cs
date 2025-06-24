@@ -284,12 +284,21 @@ public class UIManager : MonoBehaviour
             selectedOptions.Add(option);
         }
 
+        // 생성된 카드들을 임시 리스트에 저장
+        List<UpgradeCard> cardList = new List<UpgradeCard>();
+
         foreach (var option in selectedOptions)
         {
             var cardGO = Instantiate(cardPrefab, cardParent);
             var card = cardGO.GetComponent<UpgradeCard>();
             card.Init(option, FindFirstObjectByType<UpgradeButton>());
+            cardList.Add(card);
         }
+
+        // UpgradeCardPanel에 동적으로 생성된 카드 할당
+        var panel = FindFirstObjectByType<UpgradeCardPanel>();
+        if (panel != null)
+            panel.upgradeCards = cardList.ToArray();
     }
 
 

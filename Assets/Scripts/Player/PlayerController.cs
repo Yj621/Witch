@@ -79,7 +79,8 @@ public class PlayerController : MonoBehaviour
         }
         if (other.CompareTag("Exp"))
         {
-            player.GetExperience(10);
+            player.GetExperience(player.expAmount);
+            Debug.Log($"player.expAmount : {player.expAmount}");
             Destroy(other.gameObject);
             SoundManager.Instance.PlaySFX("ItemSound");
             Debug.Log("경험치 획득!");

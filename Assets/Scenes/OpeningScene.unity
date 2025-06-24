@@ -21111,9 +21111,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b0fe13021da83341a58b72439eb2144, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MasterSoundLevel: 2
-  BgmLevel: 2
-  SfxLevel: 2
+  MasterSoundLevel: 3
+  BgmLevel: 3
+  SfxLevel: 3
   audioMixer: {fileID: 24100000, guid: bea7c9d4c3207e54c97b7eb7f5f547e6, type: 2}
   bgmSource: {fileID: 818931151}
   sfxSource: {fileID: 212480831}

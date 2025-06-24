@@ -56,8 +56,6 @@ public class GameOverPanelController : MonoBehaviour
             case 1:
                 // 타이틀로 돌아가기
                 GameManager.Instance.GoTitle();
-                //만약 '게임 종료'로 바꾸려면 위 줄을 아래로 바꿔주세요.
-                // GameManager.Instance.Exit();
                 break;
         }
     }

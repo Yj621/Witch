@@ -19,6 +19,7 @@ public class Opening : MonoBehaviour
 
     public GameObject OptionPanel;
     public GameObject HowToPanel;
+    public GameObject ShopPanel;
     public Image[] buttonpickimages;
 
     private int selectedIndex = 0;
@@ -202,6 +203,9 @@ public class Opening : MonoBehaviour
                 case 3:
                     GameEnd();
                     break;
+                case 4:
+                    OpenShopPanel();
+                    break;
             }
         }
     }
@@ -226,11 +230,18 @@ public class Opening : MonoBehaviour
         HowToPanel.SetActive(true);
     }
 
+    void OpenShopPanel()
+    {
+        isOptionPanelOpen = true;
+        ShopPanel.SetActive(true);
+    }
+
     void CloseOptionPanel()
     {
         SoundManager.Instance.PlaySFX("ButtonClickSfx");
         OptionPanel.SetActive(false);
         HowToPanel.SetActive(false);
+        ShopPanel.SetActive(false);
         isOptionPanelOpen = false;
     }
 
@@ -238,4 +249,5 @@ public class Opening : MonoBehaviour
     {
         Application.Quit();
     }
+
 }

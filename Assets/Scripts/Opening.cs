@@ -24,31 +24,31 @@ public class Opening : MonoBehaviour
 
     private int selectedIndex = 0;
     private bool isOptionPanelOpen = false;
-
     void Start()
     {
+        // 메뉴 화살표 초기화
         for (int i = 0; i < buttonpickimages.Length; i++)
-        {
             buttonpickimages[i].enabled = (i == 0);
-        }
 
+        // 옵션 버튼(볼륨 조절용) 숨기기
         for (int i = 0; i < SoundButtons.Length; i++)
             SoundButtons[i].enabled = false;
 
+        // 사운드 매니저 초기값 설정 → UI와 매니저 동기화 순서 보장
+        SoundManager.Instance.MasterSoundLevel = 2;
+        SoundManager.Instance.BgmLevel = 2;
+        SoundManager.Instance.SfxLevel = 2;
+
+        // UI의 currentVolumeStep 을 매니저 값으로 초기화
         SoundOptions[0].currentVolumeStep = SoundManager.Instance.MasterSoundLevel;
         SoundOptions[1].currentVolumeStep = SoundManager.Instance.BgmLevel;
         SoundOptions[2].currentVolumeStep = SoundManager.Instance.SfxLevel;
 
+        // UI 그리기
         foreach (var option in SoundOptions)
-        {
             UpdateVolUI(option);
-        }
 
-
-        SoundManager.Instance.MasterSoundLevel = 2;
-        SoundManager.Instance.BgmLevel = 2;
-        SoundManager.Instance.SfxLevel = 2;
-        
+        // 오프닝 BGM 재생
         SoundManager.Instance.PlayBGM("OpeningSceneBGM");
     }
 
@@ -64,12 +64,9 @@ public class Opening : MonoBehaviour
             HandleSoundInput();
             SoundButtonControll();
             if (Input.GetKeyDown(KeyCode.Escape))
-            {
                 CloseOptionPanel();
-            }
         }
     }
-
     void ChangeSelection(int direction)
     {
         buttonpickimages[selectedIndex].enabled = false;
@@ -98,32 +95,32 @@ public class Opening : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.S))
         {
-                if (selectedSoundIndex < 0)
-                {
-                    selectedSoundIndex = 0;
-                    SoundButtons[selectedSoundIndex].enabled = true;
-                }
-                else if (selectedSoundIndex < SoundButtons.Length - 1)
-                {
-                    SoundButtons[selectedSoundIndex].enabled = false;
-                    selectedSoundIndex++;
-                    SoundButtons[selectedSoundIndex].enabled = true;
-                }
-                Debug.Log("Sound = " + selectedSoundIndex);
+            if (selectedSoundIndex < 0)
+            {
+                selectedSoundIndex = 0;
+                SoundButtons[selectedSoundIndex].enabled = true;
+            }
+            else if (selectedSoundIndex < SoundButtons.Length - 1)
+            {
+                SoundButtons[selectedSoundIndex].enabled = false;
+                selectedSoundIndex++;
+                SoundButtons[selectedSoundIndex].enabled = true;
+            }
+            Debug.Log("Sound = " + selectedSoundIndex);
             SoundManager.Instance.PlaySFX("ButtonFlipSfx");
         }
         else if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W))
         {
-                if (selectedSoundIndex > 0)
-                {
-                    SoundButtons[selectedSoundIndex].enabled = false;
-                    selectedSoundIndex--;
-                    SoundButtons[selectedSoundIndex].enabled = true;
-                }
-                Debug.Log("Sound = " + selectedSoundIndex);
+            if (selectedSoundIndex > 0)
+            {
+                SoundButtons[selectedSoundIndex].enabled = false;
+                selectedSoundIndex--;
+                SoundButtons[selectedSoundIndex].enabled = true;
+            }
+            Debug.Log("Sound = " + selectedSoundIndex);
             SoundManager.Instance.PlaySFX("ButtonFlipSfx");
         }
-        
+
     }
 
     void ChangeSoundSelection(int direction)
@@ -138,49 +135,44 @@ public class Opening : MonoBehaviour
 
     void SoundButtonControll()
     {
-            if (Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.D))
-            {
-                IncreaseVol(selectedSoundIndex);
-                Debug.Log("A");
+        if (Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.D))
+        {
+            IncreaseVol(selectedSoundIndex);
+            Debug.Log("A");
             SoundManager.Instance.PlaySFX("ButtonFlipSfx");
         }
-            else if (Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.A))
-            {
-                DecreaseVol(selectedSoundIndex);
-                Debug.Log("A");
+        else if (Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.A))
+        {
+            DecreaseVol(selectedSoundIndex);
+            Debug.Log("A");
             SoundManager.Instance.PlaySFX("ButtonFlipSfx");
         }
+    }
+    void UpdateVolUI(SoundOption option)
+    {
+        for (int i = 0; i < option.volumeSteps.Length; i++)
+            option.volumeSteps[i].enabled = (i <= option.currentVolumeStep);
     }
 
     void IncreaseVol(int index)
     {
-        var option = SoundOptions[index];
-        if (option.currentVolumeStep < option.volumeSteps.Length - 1)
+        var opt = SoundOptions[index];
+        if (opt.currentVolumeStep < opt.volumeSteps.Length - 1)
         {
-            option.currentVolumeStep++;
-            UpdateVolUI(option);
+            opt.currentVolumeStep++;
+            UpdateVolUI(opt);
             SoundManager.Instance.ChangeVol(index, +1);
-            Debug.Log(index + "Sound Lev = " + option.currentVolumeStep);
         }
     }
 
     void DecreaseVol(int index)
     {
-        var option = SoundOptions[index];
-        if (option.currentVolumeStep > 0)
+        var opt = SoundOptions[index];
+        if (opt.currentVolumeStep > 0)
         {
-            option.currentVolumeStep--;
-            UpdateVolUI(option);
+            opt.currentVolumeStep--;
+            UpdateVolUI(opt);
             SoundManager.Instance.ChangeVol(index, -1);
-            Debug.Log(index + "Sound Lev = " + option.currentVolumeStep);
-        }
-    }
-
-    void UpdateVolUI(SoundOption option)
-    {
-        for (int i = 0; i < option.volumeSteps.Length; i++)
-        {
-            option.volumeSteps[i].enabled = (i <= option.currentVolumeStep);
         }
     }
 

@@ -36,6 +36,11 @@ public class UIManager : MonoBehaviour
     [SerializeField] public TextMeshProUGUI EPText;
     [SerializeField] public TextMeshProUGUI HPText;
     [SerializeField] public TextMeshProUGUI LvText;
+
+    [SerializeField] public TextMeshProUGUI CoinText;
+
+    private float escBlockTime = 2f;
+    private float startTime;
     public static UIManager Instance { get; private set; }
 
     void Awake()
@@ -50,6 +55,9 @@ public class UIManager : MonoBehaviour
 
     void Start()
     {
+        startTime = Time.time;
+
+
         player = GameManager.Instance.player;
         skillManager = SkillManager.Instance;
         HpSlider.maxValue = player.maxHp;
@@ -70,10 +78,15 @@ public class UIManager : MonoBehaviour
         ExpSlider.value = player.Exp;
         CleanSlider.value = GameManager.Instance.currentClean;
         LvText.text = "Lv " + player.level;
-        if (Keyboard.current.escapeKey.wasPressedThisFrame)
+        if (Time.time - startTime >= escBlockTime)
         {
-            ToggleEscapePanel();
+            if (Keyboard.current.escapeKey.wasPressedThisFrame)
+            {
+                ToggleEscapePanel();
+            }
         }
+
+        CoinText.text = Coin.coin.ToString();
     }
 
     //스킬 아이콘 업데이트

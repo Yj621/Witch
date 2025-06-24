@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Rendering;
 using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
@@ -38,6 +39,11 @@ public class GameManager : MonoBehaviour
             dashSpeed: 8f,
             maxHp : 100
         );
+    }
+
+    public void Start()
+    {
+        
     }
 
     private void Update()

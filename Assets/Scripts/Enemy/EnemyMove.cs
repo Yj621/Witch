@@ -16,6 +16,12 @@ public class EnemyMove : MonoBehaviour
     public int Exp = 50;
     public float Clean = 10f;
     public GameObject ExpCandyPrefab;
+
+
+    [Header("Warning")]
+    public LineRenderer warningLine;      // 경고선 라인렌더러
+    public float warningDuration = 0.5f;  // 경고선 지속 시간
+
     private bool isPattern = false;
     public float patternTimer;
     public float patternCooldown = 3f; // 패턴 행동 주기
@@ -45,7 +51,7 @@ public class EnemyMove : MonoBehaviour
         else if (direction.x < 0)
             spriteRenderer.flipX = true;
 
-    
+
         transform.position += (Vector3)(direction * moveSpeed * Time.deltaTime);
 
         if (!isPattern)
@@ -62,8 +68,8 @@ public class EnemyMove : MonoBehaviour
                 switch (type)
                 {
                     case MonsterType.Ghost:
-                        if(distanceToPlayer <= GhostPatternRange) 
-                        StartCoroutine(GhostPattern());
+                        if (distanceToPlayer <= GhostPatternRange)
+                            StartCoroutine(GhostPattern());
                         break;
                     case MonsterType.Spider:
                         StartCoroutine(SpiderPattern());
@@ -82,7 +88,7 @@ public class EnemyMove : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Skill"))
-        { 
+        {
             QESkill qESKill = other.GetComponent<QESkill>();
 
             QESkill.Instance.Attack(gameObject.GetComponent<Collider2D>());
@@ -161,31 +167,69 @@ public class EnemyMove : MonoBehaviour
         moveSpeed = originalSpeed; // 원상복구
         isPattern = false;
     }
-
     IEnumerator SpiderPattern()
     {
         isPattern = true;
 
-        Vector2 randDir = new Vector2(
-            Random.Range(-1f, 1f),
-            Random.Range(-1f, 1f)
-        ).normalized;
-
+        // 방향/거리 계산
+        Vector2 randDir = Random.insideUnitCircle.normalized;
         float jumpPower = 2f;
-        Vector2 jumpTarget = (Vector2)transform.position + randDir * jumpPower;
+        Vector3 startPos = transform.position;
+        Vector3 jumpTarget = startPos + (Vector3)randDir * jumpPower;
 
+        // 경고선 초기 세팅 (끝부분만 반투명)
+        warningLine.positionCount = 2;
+        warningLine.SetPosition(0, startPos);
+        warningLine.SetPosition(1, jumpTarget);
+        // 시작은 완전 투명, 끝은 50% 투명
+        warningLine.colorGradient = MakeRedAlphaGradient(0f, 0.5f);
+
+        // 경고시간 동안 점진적으로 끝 알파 올리기
         float elapsed = 0f;
-        float duration = 0.2f;
-        Vector2 start = transform.position;
-
-        while (elapsed < duration)
+        while (elapsed < warningDuration)
         {
-            transform.position = Vector2.Lerp(start, jumpTarget, elapsed / duration);
+            // t=0 → 1 동안 끝 알파를 0.5 → 1.0으로 보간
+            float t = elapsed / warningDuration;
+            float endAlpha = Mathf.Lerp(0.5f, 1f, t);
+            warningLine.colorGradient = MakeRedAlphaGradient(0f, endAlpha);
+
             elapsed += Time.deltaTime;
             yield return null;
         }
+        // 공격 직전엔 끝 알파가 1(완전 불투명)
+        warningLine.colorGradient = MakeRedAlphaGradient(0f, 1f);
 
+        // 실제 점프
+        float dur = 0.2f;
+        elapsed = 0f;
+        while (elapsed < dur)
+        {
+            transform.position = Vector3.Lerp(startPos, jumpTarget, elapsed / dur);
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
         transform.position = jumpTarget;
+
+        warningLine.positionCount = 0;
         isPattern = false;
     }
+    Gradient MakeRedAlphaGradient(float startAlpha, float endAlpha)
+    {
+        var grad = new Gradient();
+        // 전체 구간에서 색상은 빨강 그대로
+        grad.colorKeys = new[]
+        {
+        new GradientColorKey(Color.red, 0f),
+        new GradientColorKey(Color.red, 1f)
+    };
+        // 알파는 startAlpha→endAlpha
+        grad.alphaKeys = new[]
+        {
+        new GradientAlphaKey(startAlpha, 0f),
+        new GradientAlphaKey(endAlpha,   1f)
+    };
+        return grad;
+    }
+
+
 }

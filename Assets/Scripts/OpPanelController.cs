@@ -303,8 +303,8 @@ public class OpPanelController : MonoBehaviour
 
     void HandleMenuSelection()
     {
-        if (Input.GetKeyDown(KeyCode.Return))
-        {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {   
             SoundManager.Instance.PlaySFX("ButtonClickSfx");
             switch (selectedOpIndex)
             {

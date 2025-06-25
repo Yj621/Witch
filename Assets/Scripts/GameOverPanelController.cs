@@ -30,7 +30,7 @@ public class GameOverPanelController : MonoBehaviour
         }
 
         // Enter 키로 실행
-        if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space))
         {
             SoundManager.Instance.PlaySFX("ButtonClickSfx");
             ExecuteSelected();

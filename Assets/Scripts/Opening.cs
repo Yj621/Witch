@@ -146,13 +146,11 @@ public class Opening : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.D))
         {
             IncreaseVol(selectedSoundIndex);
-            Debug.Log("A");
             SoundManager.Instance.PlaySFX("ButtonFlipSfx");
         }
         else if (Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.A))
         {
             DecreaseVol(selectedSoundIndex);
-            Debug.Log("A");
             SoundManager.Instance.PlaySFX("ButtonFlipSfx");
         }
     }
@@ -186,7 +184,7 @@ public class Opening : MonoBehaviour
 
     void HandleMenuSelection()
     {
-        if (Input.GetKeyDown(KeyCode.Return))
+        if (Input.GetKeyDown(KeyCode.Space))
         {
             SoundManager.Instance.PlaySFX("ButtonClickSfx");
             switch (selectedIndex)

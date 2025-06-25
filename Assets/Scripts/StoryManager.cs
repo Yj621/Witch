@@ -67,7 +67,7 @@ public class StoryManager : MonoBehaviour
 
     private void Update()
     {
-        if(TextUI.activeSelf && Input.GetKeyDown(KeyCode.Return))
+        if(TextUI.activeSelf && Input.GetKeyDown(KeyCode.Space))
         {
             if (isTyping)
             {

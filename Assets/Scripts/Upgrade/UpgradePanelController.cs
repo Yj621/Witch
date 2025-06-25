@@ -40,7 +40,7 @@ public class UpgradePanelController : MonoBehaviour
             selectedIndex = (selectedIndex + 1) % cardObjects.Count;
             HighlightCard(selectedIndex);
         }
-        else if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter))
+        else if (Input.GetKeyDown(KeyCode.Space))
         {
             cardObjects[selectedIndex].GetComponent<Button>().onClick.Invoke();
         }

@@ -26,6 +26,8 @@ public class Opening : MonoBehaviour
 
     private int selectedIndex = 0;
     private bool isOptionPanelOpen = false;
+
+    public GameObject[] Lights;
     public GameObject ResultPanel;
     public TextMeshProUGUI ResultText;
     public TextMeshProUGUI CoinText;
@@ -58,6 +60,10 @@ public class Opening : MonoBehaviour
         SoundManager.Instance.PlayBGM("OpeningSceneBGM");
 
         UpdateUpgradeText();
+        for(int i = 0; i < Lights.Length; i++)
+        {
+            Lights[i].SetActive(false);
+        }
     }
 
     void Update()
@@ -285,6 +291,7 @@ public class Opening : MonoBehaviour
                         CoinText.text = Coin.coin.ToString();
                         PlayerPrefs.SetInt("IceLrn", 1);
                         StartCoroutine(ResultPanelPopup("아이스필러 습득 완료!", true));
+                        Lights[0].SetActive(true);
                     }
                     break;
                 }
@@ -304,6 +311,7 @@ public class Opening : MonoBehaviour
                         CoinText.text = Coin.coin.ToString();
                         PlayerPrefs.SetInt("InfLrn", 1);
                         StartCoroutine(ResultPanelPopup("인페르노 습득 완료!", true));
+                        Lights[1].SetActive(true);
                     }
                     break;
                 }
@@ -323,6 +331,7 @@ public class Opening : MonoBehaviour
                         CoinText.text = Coin.coin.ToString();
                         PlayerPrefs.SetInt("BlackLrn", 1);
                         StartCoroutine(ResultPanelPopup("블랙홀 습득 완료!", true));
+                        Lights[2].SetActive(true);
                     }
                     break;
                 }

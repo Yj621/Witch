@@ -77,7 +77,6 @@ public abstract class SkillEffect : MonoBehaviour, ISkill
         if (mover != null)
         {
             mover.EnemyHurt(skillData.damage);
-            Debug.Log($"[{SkillName}] {other.name}에게 {skillData.damage} 데미지");
         }
     }
 

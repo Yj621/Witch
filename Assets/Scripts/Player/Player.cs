@@ -8,6 +8,7 @@ public class Player
     public int exp;
     public int maxHp;
     public int maxExp;
+    public int expAmount = 10;
 
     public float playerSpeed; 
     public float dashSpeed;
@@ -105,6 +106,6 @@ public class Player
     //다음 레벨의 경험치 계산
     private int NextLevelExp(int level)
     {
-        return 100 + (level - 1) * 50;
+        return 100 + (level - 1) * 100;
     }
 }

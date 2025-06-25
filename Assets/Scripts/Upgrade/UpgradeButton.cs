@@ -4,7 +4,7 @@ using UnityEngine;
 public class UpgradeButton : MonoBehaviour
 {
     [SerializeField] private UpgradeType upgradeType;
-
+    [SerializeField] private Exp exp; 
     private Player player;
 
     private void Start()
@@ -94,21 +94,20 @@ public class UpgradeButton : MonoBehaviour
         {
             case UpgradeType.CharacterMoveSpeed:
                 player.playerSpeed += 0.5f;
-                Debug.Log($"player.playerSpeed : {player.playerSpeed}");
                 break;
             case UpgradeType.DashSpeed:
                 player.dashSpeed += 0.5f;
-                Debug.Log($"player.dashSpeed : {player.dashSpeed}");
                 break;
             case UpgradeType.DashCooldown:
                 PlayerInput.Instance.dashCoolTime -= 0.5f;
-                Debug.Log($"PlayerInput.Instance.dashCoolTime : {PlayerInput.Instance.dashCoolTime}");
                 break;
             case UpgradeType.MaxHPIncrease:
                 player.maxHp += 10;
-                Debug.Log($"player.maxHp  : {player.maxHp}");
                 break;
-            // 경험치 증가도 해야됨
+            case UpgradeType.ExpIncrease:
+                player.expAmount += 5;
+                Debug.Log($"player.expAmount  : {player.expAmount}");
+                break;
             default:
 
                 //  스킬 업그레이드/습득 처리

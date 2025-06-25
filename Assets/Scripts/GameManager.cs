@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
     public SkillObjectPool skillObjectPool;
     public AutoSkillPool autoSkillPool;
     public float currentClean;
+    public float maxClean = 500;
     private bool isClearCalled = false;
     // 기존 데이터 클래스 Player 외에
     public Transform PlayerTransform { get; private set; }
@@ -48,7 +49,7 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        if(currentClean >= 200)
+        if(currentClean >= maxClean)
         {
             if (isClearCalled) return;
 

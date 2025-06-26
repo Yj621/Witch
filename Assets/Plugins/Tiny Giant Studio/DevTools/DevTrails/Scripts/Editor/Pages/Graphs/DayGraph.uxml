@@ -1,0 +1,28 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="True">
+    <Style src="project://database/Assets/Plugins/Tiny%20Giant%20Studio/DevTools/DevTrails/Scripts/Editor/Style%20Sheet/DevTrailsIcons.uss?fileID=7433441132597879392&amp;guid=b982efd273f426b4ca61d206c6f7ac92&amp;type=3#DevTrailsIcons" />
+    <Style src="project://database/Assets/Plugins/Tiny%20Giant%20Studio/DevTools/Common/Scripts/Editor/StyleSheets/Icons.uss?fileID=7433441132597879392&amp;guid=cefdc37815b00e444bbbe128a5ae03c8&amp;type=3#Icons" />
+    <Style src="project://database/Assets/Plugins/Tiny%20Giant%20Studio/DevTools/Common/Scripts/Editor/StyleSheets/Container.uss?fileID=7433441132597879392&amp;guid=72c9b8794d1e61342be9bd2e10508d45&amp;type=3#Container" />
+    <ui:GroupBox name="GroupBox" style="flex-grow: 1; max-width: 150px; margin-top: 5px; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; align-items: center;">
+        <ui:GroupBox name="GroupBox" style="flex-direction: row; justify-content: space-around; align-items: flex-end; flex-grow: 1; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 2px; padding-bottom: 0; padding-left: 2px; border-bottom-color: rgba(0, 0, 0, 0.59); border-bottom-width: 1px;">
+            <ui:VisualElement name="ActiveTime" style="flex-grow: 1;">
+                <Style src="project://database/Assets/Plugins/Tiny%20Giant%20Studio/DevTools/DevTrails/Scripts/Editor/Style%20Sheet/DevTrailsIcons.uss?fileID=7433441132597879392&amp;guid=b982efd273f426b4ca61d206c6f7ac92&amp;type=3#DevTrailsIcons" />
+                <Style src="project://database/Assets/Plugins/Tiny%20Giant%20Studio/DevTools/Common/Scripts/Editor/StyleSheets/Icons.uss?fileID=7433441132597879392&amp;guid=cefdc37815b00e444bbbe128a5ae03c8&amp;type=3#Icons" />
+                <Style src="project://database/Assets/Plugins/Tiny%20Giant%20Studio/DevTools/Common/Scripts/Editor/StyleSheets/Container.uss?fileID=7433441132597879392&amp;guid=72c9b8794d1e61342be9bd2e10508d45&amp;type=3#Container" />
+                <ui:VisualElement style="flex-grow: 1; background-color: rgb(144, 190, 109); background-image: none; margin-right: 0; margin-left: 0; margin-top: 0; margin-bottom: 0;" />
+            </ui:VisualElement>
+            <ui:VisualElement name="FocusedTime" style="flex-grow: 1;">
+                <Style src="project://database/Assets/Plugins/Tiny%20Giant%20Studio/DevTools/DevTrails/Scripts/Editor/Style%20Sheet/DevTrailsIcons.uss?fileID=7433441132597879392&amp;guid=b982efd273f426b4ca61d206c6f7ac92&amp;type=3#DevTrailsIcons" />
+                <Style src="project://database/Assets/Plugins/Tiny%20Giant%20Studio/DevTools/Common/Scripts/Editor/StyleSheets/Icons.uss?fileID=7433441132597879392&amp;guid=cefdc37815b00e444bbbe128a5ae03c8&amp;type=3#Icons" />
+                <Style src="project://database/Assets/Plugins/Tiny%20Giant%20Studio/DevTools/Common/Scripts/Editor/StyleSheets/Container.uss?fileID=7433441132597879392&amp;guid=72c9b8794d1e61342be9bd2e10508d45&amp;type=3#Container" />
+                <ui:VisualElement style="flex-grow: 1; background-color: rgb(77, 144, 142); background-image: none; margin-right: 0; margin-left: 0; margin-top: 0; margin-bottom: 0;" />
+            </ui:VisualElement>
+            <ui:VisualElement name="TotalTime" style="flex-grow: 1;">
+                <Style src="project://database/Assets/Plugins/Tiny%20Giant%20Studio/DevTools/DevTrails/Scripts/Editor/Style%20Sheet/DevTrailsIcons.uss?fileID=7433441132597879392&amp;guid=b982efd273f426b4ca61d206c6f7ac92&amp;type=3#DevTrailsIcons" />
+                <Style src="project://database/Assets/Plugins/Tiny%20Giant%20Studio/DevTools/Common/Scripts/Editor/StyleSheets/Icons.uss?fileID=7433441132597879392&amp;guid=cefdc37815b00e444bbbe128a5ae03c8&amp;type=3#Icons" />
+                <Style src="project://database/Assets/Plugins/Tiny%20Giant%20Studio/DevTools/Common/Scripts/Editor/StyleSheets/Container.uss?fileID=7433441132597879392&amp;guid=72c9b8794d1e61342be9bd2e10508d45&amp;type=3#Container" />
+                <ui:VisualElement style="flex-grow: 1; background-color: rgb(39, 125, 161); background-image: none; margin-right: 0; margin-left: 0; margin-top: 0; margin-bottom: 0;" />
+            </ui:VisualElement>
+        </ui:GroupBox>
+        <ui:Label tabindex="-1" text="Label" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Label" style="-unity-text-align: upper-center; padding-top: 5px; padding-right: 0; padding-bottom: 5px; padding-left: 0; white-space: nowrap; height: 50px; flex-shrink: 1; overflow: hidden;" />
+    </ui:GroupBox>
+</ui:UXML>

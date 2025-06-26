@@ -1,0 +1,7 @@
+.rightAlignedField .unity-text-element {
+    -unity-text-align: upper-right;
+}
+
+.centerAlignedField .unity-text-element {
+    -unity-text-align: upper-center;
+}

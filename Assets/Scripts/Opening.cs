@@ -28,6 +28,20 @@ public class Opening : MonoBehaviour
     private bool isOptionPanelOpen = false;
 
     public GameObject[] Lights;
+    public TextMeshProUGUI ReviveCount;
+    public TextMeshProUGUI Skill1Up;
+    public TextMeshProUGUI Skill2Up;
+    public TextMeshProUGUI Skill3Up;
+    public TextMeshProUGUI DSSkill1CT;
+    public TextMeshProUGUI DSSkill2CT;
+    public TextMeshProUGUI DSSkill1DG;
+    public TextMeshProUGUI DSSkill2DG;
+    public TextMeshProUGUI DashCoolUp;
+    public TextMeshProUGUI DashSpeedUp;
+    public TextMeshProUGUI ExpUp;
+    public TextMeshProUGUI HpUp;
+    public TextMeshProUGUI MoveSpeedUp;
+
     public GameObject ResultPanel;
     public TextMeshProUGUI ResultText;
     public TextMeshProUGUI CoinText;
@@ -56,14 +70,13 @@ public class Opening : MonoBehaviour
         foreach (var option in SoundOptions)
             UpdateVolUI(option);
 
-        // 오프닝 BGM 재생
-        SoundManager.Instance.PlayBGM("OpeningSceneBGM");
-
-        UpdateUpgradeText();
-        for(int i = 0; i < Lights.Length; i++)
-        {
+        for (int i = 0; i < Lights.Length; i++)
             Lights[i].SetActive(false);
-        }
+
+        InitializeUpgradeDefaults();
+
+        SoundManager.Instance.PlayBGM("OpeningSceneBGM");
+        UpdateCoinText();
     }
 
     void Update()
@@ -238,6 +251,7 @@ public class Opening : MonoBehaviour
     {
         isOptionPanelOpen = true;
         ShopPanel.SetActive(true);
+        UpdateShopPanel();
     }
 
     void CloseOptionPanel()
@@ -257,16 +271,10 @@ public class Opening : MonoBehaviour
 
     public void Revive()
     {
-        if (PlayerPrefs.GetInt("Revive") == 1)
-        {
-            Debug.Log("Already Revived");
-            return;
-        }
-        else
-        {
-            Coin.coin -= 5;
-            PlayerPrefs.SetInt("Revive", 1);
-        }
+        Coin.coin -= 5;
+        int current = PlayerPrefs.GetInt("Revive", 0);
+        PlayerPrefs.SetInt("Revive", current + 1);
+        StartCoroutine(ResultPanelPopup("구매 완료!", true));
     }
 
     public void ActiveSkillUpgrade(string Case)
@@ -348,7 +356,7 @@ public class Opening : MonoBehaviour
                     {
                         Coin.coin -= 3;
                         CoinText.text = Coin.coin.ToString();
-                        int current = PlayerPrefs.GetInt("IceUp", 0);
+                        int current = PlayerPrefs.GetInt("IceUp", 1);
                         PlayerPrefs.SetInt("IceUp", current + 1);
 
                         StartCoroutine(ResultPanelPopup("아이스필러 레벨업!", true));
@@ -369,7 +377,7 @@ public class Opening : MonoBehaviour
                     {
                         Coin.coin -= 3;
                         CoinText.text = Coin.coin.ToString();
-                        int current = PlayerPrefs.GetInt("InfUp", 0);
+                        int current = PlayerPrefs.GetInt("InfUp", 1);
                         PlayerPrefs.SetInt("InfUp", current + 1);
 
                         StartCoroutine(ResultPanelPopup("인페르노 레벨업!", true));
@@ -390,7 +398,7 @@ public class Opening : MonoBehaviour
                     {
                         Coin.coin -= 3;
                         CoinText.text = Coin.coin.ToString();
-                        int current = PlayerPrefs.GetInt("BlackUp", 0);
+                        int current = PlayerPrefs.GetInt("BlackUp", 1);
                         PlayerPrefs.SetInt("BlackUp", current + 1);
 
                         StartCoroutine(ResultPanelPopup("블랙홀 레벨업!", true));
@@ -398,6 +406,7 @@ public class Opening : MonoBehaviour
                     break;
                 }
         }
+        UpdateShopPanel();
     }
 
     public void DefaultSkillUpgrade(string Case)
@@ -418,7 +427,7 @@ public class Opening : MonoBehaviour
                     {
                         Coin.coin -= 3;
                         CoinText.text = Coin.coin.ToString();
-                        int current = PlayerPrefs.GetInt("FSCool", 0);
+                        int current = PlayerPrefs.GetInt("FSCool", 1);
                         PlayerPrefs.SetInt("FSCool", current + 1);
                         StartCoroutine(ResultPanelPopup("파이어슬래시 쿨타임 감소!", true));
                     }
@@ -438,7 +447,7 @@ public class Opening : MonoBehaviour
                     {
                         Coin.coin -= 3;
                         CoinText.text = Coin.coin.ToString();
-                        int current = PlayerPrefs.GetInt("FSDmg", 0);
+                        int current = PlayerPrefs.GetInt("FSDmg", 1);
                         PlayerPrefs.SetInt("FSDmg", current + 1);
                         StartCoroutine(ResultPanelPopup("파이어슬래시 데미지 증가!", true));
                     }
@@ -459,7 +468,7 @@ public class Opening : MonoBehaviour
                     {
                         Coin.coin -= 3;
                         CoinText.text = Coin.coin.ToString();
-                        int current = PlayerPrefs.GetInt("TDCool", 0);
+                        int current = PlayerPrefs.GetInt("TDCool", 1);
                         PlayerPrefs.SetInt("TDCool", current + 1);
                         StartCoroutine(ResultPanelPopup("번개 쿨타임 감소!", true));
                     }
@@ -479,13 +488,14 @@ public class Opening : MonoBehaviour
                     {
                         Coin.coin -= 3;
                         CoinText.text = Coin.coin.ToString();
-                        int current = PlayerPrefs.GetInt("TDDmg", 0);
+                        int current = PlayerPrefs.GetInt("TDDmg", 1);
                         PlayerPrefs.SetInt("TDDmg", current + 1);
                         StartCoroutine(ResultPanelPopup("번개 데미지 증가!", true));
                     }
                     break;
                 }
         }
+        UpdateShopPanel();
     }
 
     public void PassiveSkillUpgrade(string Case)
@@ -506,7 +516,7 @@ public class Opening : MonoBehaviour
                     {
                         Coin.coin -= 3;
                         CoinText.text = Coin.coin.ToString();
-                        int current = PlayerPrefs.GetInt("DashCool", 0);
+                        int current = PlayerPrefs.GetInt("DashCool", 1);
                         PlayerPrefs.SetInt("DashCool", current + 1);
                         StartCoroutine(ResultPanelPopup("대쉬 쿨타임 레벨 증가!", true));
                     }
@@ -526,7 +536,7 @@ public class Opening : MonoBehaviour
                     {
                         Coin.coin -= 3;
                         CoinText.text = Coin.coin.ToString();
-                        int current = PlayerPrefs.GetInt("DashSpeed", 0);
+                        int current = PlayerPrefs.GetInt("DashSpeed", 1);
                         PlayerPrefs.SetInt("DashSpeed", current + 1);
                         StartCoroutine(ResultPanelPopup("대쉬 속도 레벨 증가!", true));
                     }
@@ -546,7 +556,7 @@ public class Opening : MonoBehaviour
                     {
                         Coin.coin -= 3;
                         CoinText.text = Coin.coin.ToString();
-                        int current = PlayerPrefs.GetInt("ExpUp", 0);
+                        int current = PlayerPrefs.GetInt("ExpUp", 1);
                         PlayerPrefs.SetInt("ExpUp", current + 1);
                         StartCoroutine(ResultPanelPopup("경험치 증가 레벨 증가!", true));
                     }
@@ -566,7 +576,7 @@ public class Opening : MonoBehaviour
                     {
                         Coin.coin -= 3;
                         CoinText.text = Coin.coin.ToString();
-                        int current = PlayerPrefs.GetInt("HpUp", 0);
+                        int current = PlayerPrefs.GetInt("HpUp", 1);
                         PlayerPrefs.SetInt("HpUp", current + 1);
                         StartCoroutine(ResultPanelPopup("최대 체력 증가!", true));
                     }
@@ -586,13 +596,14 @@ public class Opening : MonoBehaviour
                     {
                         Coin.coin -= 3;
                         CoinText.text = Coin.coin.ToString();
-                        int current = PlayerPrefs.GetInt("MoveSpeedUp", 0);
+                        int current = PlayerPrefs.GetInt("MoveSpeedUp", 1);
                         PlayerPrefs.SetInt("MoveSpeedUp", current + 1);
                         StartCoroutine(ResultPanelPopup("이동속도 레벨 증가!", true));
                     }
                     break;
                 }
         }
+        UpdateShopPanel();
     }
 
     private IEnumerator ResultPanelPopup(string message, bool status)
@@ -604,8 +615,70 @@ public class Opening : MonoBehaviour
         ResultPanel.SetActive(false);
     }
 
-    private void UpdateUpgradeText()
+    private void UpdateCoinText()
     {
         CoinText.text = Coin.coin.ToString();
+    }
+
+    private void UpdateShopPanel()
+    {
+        ReviveCount.text = "x " + PlayerPrefs.GetInt("Revive");
+
+        if (PlayerPrefs.GetInt("IceLrn") == 1) Lights[0].SetActive(true);
+        if (PlayerPrefs.GetInt("InfLrn") == 1) Lights[0].SetActive(true);
+        if (PlayerPrefs.GetInt("BlackLrn") == 1) Lights[0].SetActive(true);
+
+        Skill1Up.text = "Lv " + PlayerPrefs.GetInt("IceUp");
+        Skill2Up.text = "Lv " + PlayerPrefs.GetInt("InfUp");
+        Skill3Up.text = "Lv " + PlayerPrefs.GetInt("BlackUp");
+        DSSkill1CT.text = "Lv " + PlayerPrefs.GetInt("FSCool");
+        DSSkill2CT.text = "Lv " + PlayerPrefs.GetInt("TDCool");
+        DSSkill1DG.text = "Lv " + PlayerPrefs.GetInt("FSDmg");
+        DSSkill2DG.text = "Lv " + PlayerPrefs.GetInt("TDDmg");
+        DashCoolUp.text = "Lv " + PlayerPrefs.GetInt("DashCool");
+        DashSpeedUp.text = "Lv " + PlayerPrefs.GetInt("DashSpeed");
+        ExpUp.text = "Lv " + PlayerPrefs.GetInt("ExpUp");
+        HpUp.text = "Lv " + PlayerPrefs.GetInt("HpUp");
+        MoveSpeedUp.text = "Lv " + PlayerPrefs.GetInt("MoveSpeedUp");
+        UpdateCoinText();
+    }
+
+    void InitializeUpgradeDefaults()
+    {
+        if (!PlayerPrefs.HasKey("IceUp"))
+            PlayerPrefs.SetInt("IceUp", 1);
+
+        if (!PlayerPrefs.HasKey("InfUp"))
+            PlayerPrefs.SetInt("InfUp", 1);
+
+        if (!PlayerPrefs.HasKey("BlackUp"))
+            PlayerPrefs.SetInt("BlackUp", 1);
+
+        if (!PlayerPrefs.HasKey("FSCool"))
+            PlayerPrefs.SetInt("FSCool", 1);
+
+        if (!PlayerPrefs.HasKey("FSDmg"))
+            PlayerPrefs.SetInt("FSDmg", 1);
+
+        if (!PlayerPrefs.HasKey("TDCool"))
+            PlayerPrefs.SetInt("TDCool", 1);
+
+        if (!PlayerPrefs.HasKey("TDDmg"))
+            PlayerPrefs.SetInt("TDDmg", 1);
+
+        if (!PlayerPrefs.HasKey("DashCool"))
+            PlayerPrefs.SetInt("DashCool", 1);
+
+        if (!PlayerPrefs.HasKey("DashSpeed"))
+            PlayerPrefs.SetInt("DashSpeed", 1);
+
+        if (!PlayerPrefs.HasKey("ExpUp"))
+            PlayerPrefs.SetInt("ExpUp", 1);
+
+        if (!PlayerPrefs.HasKey("HpUp"))
+            PlayerPrefs.SetInt("HpUp", 1);
+
+        if (!PlayerPrefs.HasKey("MoveSpeedUp"))
+            PlayerPrefs.SetInt("MoveSpeedUp", 1);
     }
 }

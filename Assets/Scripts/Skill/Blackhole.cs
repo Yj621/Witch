@@ -11,14 +11,23 @@ public class BlackholeSkill : SkillEffect
         float timer = 0f;
         while (timer < skillData.duration)
         {
-            // 매 프레임마다 주변 적 끌어당기기
             var cols = Physics2D.OverlapCircleAll(transform.position, skillData.radius, LayerMask.GetMask(TargetLayer));
             foreach (var col in cols)
-                col.GetComponent<Rigidbody2D>()?.AddForce(
-                    (transform.position - col.transform.position).normalized
-                    * skillData.force * Time.deltaTime,
-                    ForceMode2D.Impulse);
-
+            {
+                var rb = col.GetComponent<Rigidbody2D>();
+                if (rb != null)
+                {
+                    Vector2 dir = (transform.position - col.transform.position);
+                    float distance = dir.magnitude;
+                    if (distance > 0.1f)
+                    {
+                        // 거리 반비례 힘 (최대 힘 제한)
+                        float force = skillData.force / Mathf.Max(distance, 0.5f);
+                        force = Mathf.Min(force, skillData.force * 2f); // 최대 힘 제한
+                        rb.AddForce(dir.normalized * force * Time.deltaTime, ForceMode2D.Impulse);
+                    }
+                }
+            }
             timer += Time.deltaTime;
             yield return null;
         }

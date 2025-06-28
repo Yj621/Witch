@@ -17,15 +17,19 @@ public class EnemyMove : MonoBehaviour
     public float Clean = 10f;
     public GameObject ExpCandyPrefab;
 
-
-    [Header("Warning")]
-    public LineRenderer warningLine;      // 경고선 라인렌더러
-    public float warningDuration = 0.5f;  // 경고선 지속 시간
-
     private bool isPattern = false;
     public float patternTimer;
     public float patternCooldown = 3f; // 패턴 행동 주기
     public float GhostPatternRange = 3f;
+
+    private bool isFrozen = false;            // 얼음 상태 플래그
+    private Coroutine freezeRoutine = null;   // 중복 호출 방지용
+    private Coroutine currentPattern;
+
+
+    [Header("Warning")]
+    public LineRenderer warningLine;      // 경고선 라인렌더러
+    public float warningDuration = 0.5f;  // 경고선 지속 시간
 
     public void Init(Transform player, MonsterType type)
     {
@@ -43,47 +47,74 @@ public class EnemyMove : MonoBehaviour
     void Update()
     {
         if (isDie) return;
+        if (isFrozen) return;
 
+        EnemyMovement();
+        EnemyPattern();
+    }
+
+    private void EnemyMovement()
+    {
+        // 플레이어 방향 및 이동
         Vector2 direction = (target.position - transform.position).normalized;
-
-        if (direction.x > 0)
-            spriteRenderer.flipX = false;
-        else if (direction.x < 0)
-            spriteRenderer.flipX = true;
-
-
+        spriteRenderer.flipX = direction.x < 0;
         transform.position += (Vector3)(direction * moveSpeed * Time.deltaTime);
+    }
 
-        if (!isPattern)
+    private void EnemyPattern()
+    {
+        // 타이머 누적
+        patternTimer += Time.deltaTime;
+
+        // 패턴 준비 조건
+        if (!isPattern && patternTimer >= patternCooldown)
         {
-            patternTimer += Time.deltaTime;
+            patternTimer = 0f;
+            float distanceToPlayer = Vector2.Distance(transform.position, target.position);
 
-            if (patternTimer >= patternCooldown)
+            switch (type)
             {
-                patternTimer = 0f;
-
-                float distanceToPlayer = Vector2.Distance(transform.position, target.position);
-
-
-                switch (type)
-                {
-                    case MonsterType.Ghost:
-                        if (distanceToPlayer <= GhostPatternRange)
-                            StartCoroutine(GhostPattern());
-                        break;
-                    case MonsterType.Spider:
-                        StartCoroutine(SpiderPattern());
-                        break;
-                    case MonsterType.Skull:
-                        StartCoroutine(SkullPattern());
-                        break;
-                    default:
-                        break;
-                }
+                case MonsterType.Ghost:
+                    if (distanceToPlayer <= GhostPatternRange)
+                        currentPattern = StartCoroutine(GhostPattern());
+                    break;
+                case MonsterType.Spider:
+                    currentPattern = StartCoroutine(SpiderPattern());
+                    break;
+                case MonsterType.Skull:
+                    currentPattern = StartCoroutine(SkullPattern());
+                    break;
             }
         }
     }
 
+
+    public void Freeze(float duration)
+    {
+        if (freezeRoutine != null) StopCoroutine(freezeRoutine);
+        freezeRoutine = StartCoroutine(FreezeCoroutine(duration));
+
+        // 진행 중 패턴이 있으면 중단
+        if (currentPattern != null)
+        {
+            StopCoroutine(currentPattern);
+            currentPattern = null;
+            isPattern = false;
+        }
+    }
+
+    // 실제 얼음 상태를 관리하는 코루틴
+    private IEnumerator FreezeCoroutine(float duration)
+    {
+        isFrozen = true;
+        //ani.SetBool("IsFrozen", true);       // Animator에 얼음 애니메이션이 있는 경우
+        
+        yield return new WaitForSeconds(duration);
+
+        isFrozen = false;
+        //ani.SetBool("IsFrozen", false);      // 얼음 풀리는 애니메이션
+        freezeRoutine = null;
+    }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
@@ -150,6 +181,7 @@ public class EnemyMove : MonoBehaviour
         // 불투명화
         spriteRenderer.color = new Color(1f, 1f, 1f, 1f);
         isPattern = false;
+        currentPattern = null;
     }
 
     IEnumerator SkullPattern()
@@ -165,6 +197,7 @@ public class EnemyMove : MonoBehaviour
 
         moveSpeed = originalSpeed; // 원상복구
         isPattern = false;
+        currentPattern = null;
     }
     IEnumerator SpiderPattern()
     {
@@ -194,6 +227,7 @@ public class EnemyMove : MonoBehaviour
 
             elapsed += Time.deltaTime;
             yield return null;
+            currentPattern = null;
         }
         // 공격 직전엔 끝 알파가 1(완전 불투명)
         warningLine.colorGradient = MakeRedAlphaGradient(0f, 1f);

@@ -12,11 +12,13 @@ public class IcePillar : SkillEffect
         foreach (var hit in hits)
         {
             var enemy = hit.GetComponent<EnemyMove>();
-            if (enemy != null)
+            if (enemy == null)
+                Debug.LogWarning($"IcePillar: EnemyMove 컴포넌트를 못 찾음 on {hit.name}");
+            else
             {
-                // 적에게 피해를 주고, 일정 시간 동안 얼음 기둥에 묶음
+                Debug.Log($"IcePillar: Freeze 호출 on {enemy.gameObject.name}");
                 enemy.EnemyHurt(skillData.damage);
-                enemy.Freeze(5f); // 1.5초 동안 동결
+                enemy.Freeze(5f);
             }
         }
         yield return new WaitForSeconds(skillData.lifetime);

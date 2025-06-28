@@ -62,25 +62,8 @@ public class PlayerInput : MonoBehaviour
     {
         stateMachine.Execute();
 
-        var curr = stateMachine.CurrentState;
-        if (curr == stateMachine.idleState || curr == stateMachine.walkState)
-        {
-            if (moveInput.sqrMagnitude > 0.01f && !isWalk)
-            {
-                stateMachine.TransitionTo(stateMachine.walkState);
-                isWalk = true;
-            }
-            else if (moveInput.sqrMagnitude <= 0.01f && isWalk)
-            {
-                stateMachine.TransitionTo(stateMachine.idleState);
-                isWalk = false;
-            }
-        }
-
-        if (dashCooldownTimer > 0)
-        {
-            dashCooldownTimer -= Time.deltaTime;
-        }
+        MovementState();    // 이동 상태 전환 처리
+        DashCooldown();     // 대쉬 쿨타임 감소 처리
     }
 
     private void FixedUpdate()
@@ -207,5 +190,35 @@ public class PlayerInput : MonoBehaviour
         }
 
         return string.Empty;
+    }
+
+    /// <summary>
+    /// idle/walk 상태에서 입력에 따라 상태 전환 처리
+    /// </summary>
+    private void MovementState()
+    {
+        var curr = stateMachine.CurrentState;
+        if (curr == stateMachine.idleState || curr == stateMachine.walkState)
+        {
+            if (moveInput.sqrMagnitude > 0.01f && !isWalk)
+            {
+                stateMachine.TransitionTo(stateMachine.walkState);
+                isWalk = true;
+            }
+            else if (moveInput.sqrMagnitude <= 0.01f && isWalk)
+            {
+                stateMachine.TransitionTo(stateMachine.idleState);
+                isWalk = false;
+            }
+        }
+    }
+
+    /// <summary>
+    /// dashCooldownTimer 감소 처리
+    /// </summary>
+    private void DashCooldown()
+    {
+        if (dashCooldownTimer > 0)
+            dashCooldownTimer -= Time.deltaTime;
     }
 }

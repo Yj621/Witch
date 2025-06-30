@@ -39,5 +39,16 @@ public class UpgradeManager : MonoBehaviour
             levels[type]++;
         }
     }
+
+    public void LevelUpByShop(UpgradeType type, int Lv)
+    {
+        if (!IsMaxLevel(type))
+        {
+            for(int i = 0;  i < Lv; i++)
+            {
+                levels[type]++;
+            }
+        }
+    }
 }
 

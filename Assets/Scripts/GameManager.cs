@@ -44,7 +44,18 @@ public class GameManager : MonoBehaviour
 
     public void Start()
     {
-        
+        UpgradeManager.Instance.LevelUpByShop(UpgradeType.IPSkillDamage, PlayerPrefs.GetInt("IceUp"));
+        UpgradeManager.Instance.LevelUpByShop(UpgradeType.IFSkillDamage, PlayerPrefs.GetInt("InfUp"));
+        UpgradeManager.Instance.LevelUpByShop(UpgradeType.BHSkillDamage, PlayerPrefs.GetInt("BlackUp"));
+        UpgradeManager.Instance.LevelUpByShop(UpgradeType.FSSkillDamage, PlayerPrefs.GetInt("FSDmg"));
+        UpgradeManager.Instance.LevelUpByShop(UpgradeType.TDSkillDamage, PlayerPrefs.GetInt("TDDmg"));
+        UpgradeManager.Instance.LevelUpByShop(UpgradeType.FSSkillCooldown, PlayerPrefs.GetInt("FSCool"));
+        UpgradeManager.Instance.LevelUpByShop(UpgradeType.TDSkillCooldown, PlayerPrefs.GetInt("TDCool"));
+        UpgradeManager.Instance.LevelUpByShop(UpgradeType.DashSpeed, PlayerPrefs.GetInt("DashSpeed"));
+        UpgradeManager.Instance.LevelUpByShop(UpgradeType.DashCooldown, PlayerPrefs.GetInt("DashCool"));
+        UpgradeManager.Instance.LevelUpByShop(UpgradeType.ExpIncrease, PlayerPrefs.GetInt("ExpUp"));
+        UpgradeManager.Instance.LevelUpByShop(UpgradeType.MaxHPIncrease, PlayerPrefs.GetInt("HpUp"));
+        UpgradeManager.Instance.LevelUpByShop(UpgradeType.CharacterMoveSpeed, PlayerPrefs.GetInt("MoveSpeedUp"));
     }
 
     private void Update()

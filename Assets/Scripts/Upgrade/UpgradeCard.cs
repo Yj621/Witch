@@ -25,6 +25,11 @@ public class UpgradeCard : MonoBehaviour
         {
             UpgradeComStars[i].SetActive(false);
         }
+
+        for (int i = 0; i < UpgradeManager.Instance.GetLevel(type) - 1; i++)
+        {
+            UpgradeComStars[i].SetActive(true);
+        }
     }
 
     public void Update()

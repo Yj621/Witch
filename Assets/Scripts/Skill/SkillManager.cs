@@ -110,9 +110,21 @@ public class SkillManager : MonoBehaviour
         LearnNewSkill("Thunder", false);
         UpgradeManager.Instance.data.SetDisabled(UpgradeType.FSSkillLearn, true);
         UpgradeManager.Instance.data.SetDisabled(UpgradeType.TDSkillLearn, true);
-        UpgradeManager.Instance.data.SetDisabled(UpgradeType.IPSkillLearn, false);
-        UpgradeManager.Instance.data.SetDisabled(UpgradeType.IFSkillLearn, false);
-        UpgradeManager.Instance.data.SetDisabled(UpgradeType.BHSkillLearn, false);
+
+        if (PlayerPrefs.GetInt("IceLrn") == 1)
+            UpgradeManager.Instance.data.SetDisabled(UpgradeType.IPSkillLearn, true);
+        else
+            UpgradeManager.Instance.data.SetDisabled(UpgradeType.IPSkillLearn, false);
+
+        if (PlayerPrefs.GetInt("InfLrn") == 1)
+            UpgradeManager.Instance.data.SetDisabled(UpgradeType.IFSkillLearn, true);
+        else 
+            UpgradeManager.Instance.data.SetDisabled(UpgradeType.IFSkillLearn, false);
+
+        if (PlayerPrefs.GetInt("BlackLrn") == 1)
+            UpgradeManager.Instance.data.SetDisabled(UpgradeType.BHSkillLearn, true);
+        else
+            UpgradeManager.Instance.data.SetDisabled(UpgradeType.BHSkillLearn, false);
 
         UIManager.Instance.UpdateSkillIcons();
     }
@@ -137,9 +149,22 @@ public class SkillManager : MonoBehaviour
         LearnNewSkill("Thunder", false);
         UpgradeManager.Instance.data.SetDisabled(UpgradeType.FSSkillLearn, true);
         UpgradeManager.Instance.data.SetDisabled(UpgradeType.TDSkillLearn, true);
-        UpgradeManager.Instance.data.SetDisabled(UpgradeType.IPSkillLearn, false);
-        UpgradeManager.Instance.data.SetDisabled(UpgradeType.IFSkillLearn, false);
-        UpgradeManager.Instance.data.SetDisabled(UpgradeType.BHSkillLearn, false);
+
+
+        if (PlayerPrefs.GetInt("IceLrn") == 1)
+            UpgradeManager.Instance.data.SetDisabled(UpgradeType.IPSkillLearn, true);
+        else
+            UpgradeManager.Instance.data.SetDisabled(UpgradeType.IPSkillLearn, false);
+
+        if (PlayerPrefs.GetInt("InfLrn") == 1)
+            UpgradeManager.Instance.data.SetDisabled(UpgradeType.IFSkillLearn, true);
+        else
+            UpgradeManager.Instance.data.SetDisabled(UpgradeType.IFSkillLearn, false);
+
+        if (PlayerPrefs.GetInt("BlackLrn") == 1)
+            UpgradeManager.Instance.data.SetDisabled(UpgradeType.BHSkillLearn, true);
+        else
+            UpgradeManager.Instance.data.SetDisabled(UpgradeType.BHSkillLearn, false);
 
         UIManager.Instance.UpdateSkillIcons();
     }

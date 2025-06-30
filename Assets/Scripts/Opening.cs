@@ -271,10 +271,18 @@ public class Opening : MonoBehaviour
 
     public void Revive()
     {
-        Coin.coin -= 5;
-        int current = PlayerPrefs.GetInt("Revive", 0);
-        PlayerPrefs.SetInt("Revive", current + 1);
-        StartCoroutine(ResultPanelPopup("구매 완료!", true));
+        if (Coin.coin <= 0)
+        {
+            StartCoroutine(ResultPanelPopup("코인이 부족합니다", false));
+            return;
+        }
+        else
+        {
+            Coin.coin -= 5;
+            int current = PlayerPrefs.GetInt("Revive", 0);
+            PlayerPrefs.SetInt("Revive", current + 1);
+            StartCoroutine(ResultPanelPopup("구매 완료!", true));
+        }
     }
 
     public void ActiveSkillUpgrade(string Case)

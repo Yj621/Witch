@@ -10,6 +10,8 @@ public class PlayerController : MonoBehaviour
     private PlayerSkill playerSkill;
 
     private bool isDie = false;
+    private bool isReviving = false;
+
 
     // 자석 관련 필드
     [SerializeField] private GameObject magnetFieldPrefab; // 인스펙터에 프리팹 할당
@@ -81,6 +83,8 @@ public class PlayerController : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (isDie) return;
+        if (isReviving) return;
+
         if (other.CompareTag("Enemy"))
         {
             Hurt(5);
@@ -176,8 +180,13 @@ public class PlayerController : MonoBehaviour
 
     IEnumerator Revive()
     {
+        isReviving = true; // 부활 중 상태 시작
         ReviveEffect.SetActive(true);
+
         yield return new WaitForSeconds(0.25f);
+
         ReviveEffect.SetActive(false);
+        isReviving = false; // 부활 중 상태 종료
     }
+
 }

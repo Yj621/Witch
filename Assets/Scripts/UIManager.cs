@@ -16,7 +16,9 @@ public class UIManager : MonoBehaviour
     public GameObject LevelUpPanel;
     public GameObject EscPanel;
     public GameObject GameOverPanel;
+    public GameObject LevelPanel;
     private bool isEscOpen = false;
+    private bool isLevelOpen = false;
     Player player;
     [SerializeField] private Image Qskill;
     [SerializeField] private Image Eskill;
@@ -27,6 +29,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject cardPrefab;
     [SerializeField] private Transform cardParent;
     [SerializeField] private GameObject HowToPanel;
+  
     public Sprite[] skillIcons;
     SkillManager skillManager;
     Animator ani;
@@ -83,6 +86,11 @@ public class UIManager : MonoBehaviour
             if (Keyboard.current.escapeKey.wasPressedThisFrame)
             {
                 ToggleEscapePanel();
+            }
+
+            if (Keyboard.current.digit1Key.wasPressedThisFrame)
+            {
+                ToggleLevelPanel();
             }
         }
 
@@ -353,6 +361,24 @@ public class UIManager : MonoBehaviour
         EscPanel.SetActive(isEscOpen);
 
         if (isEscOpen)
+        {
+            // 일시정지 하고 싶으면
+            Time.timeScale = 0f;
+        }
+        else
+        {
+            // 다시 게임 재개
+            Time.timeScale = 1f;
+        }
+    }
+
+    private void ToggleLevelPanel()
+    {
+        SoundManager.Instance.PlaySFX("ButtonClickSfx");
+        isLevelOpen = !isLevelOpen;
+        LevelPanel.SetActive(isLevelOpen);
+
+        if (isLevelOpen)
         {
             // 일시정지 하고 싶으면
             Time.timeScale = 0f;

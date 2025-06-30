@@ -16,7 +16,7 @@ public class PlayerController : MonoBehaviour
     private GameObject magnetFieldObj;              // 자석 범위 오브젝트
     [SerializeField] private float magnetRadius = 3f;     // 자석 반경
     [SerializeField] private float magnetDuration = 5f;   // 자석 효과 지속 시간
-
+    [SerializeField] public GameObject ReviveEffect;
 
     private void Awake()
     {
@@ -29,6 +29,7 @@ public class PlayerController : MonoBehaviour
         player = GameManager.Instance.player;
         playerSkill = PlayerSkill.Instance;
         Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("Skill"), true);
+        ReviveEffect.SetActive(false);
     }
 
     private void Update()
@@ -58,15 +59,23 @@ public class PlayerController : MonoBehaviour
 
     private void Die()
     {
-        isDie = true;
-
-        var col = GetComponent<Collider2D>();
-        if (col != null)
+        if (PlayerPrefs.GetInt("Revive") >= 0)
         {
-            col.enabled = false;
+            player.Revive();
+            StartCoroutine(Revive());
         }
-        enabled = false;
-        player.Die();
+        else
+        {
+            isDie = true;
+
+            var col = GetComponent<Collider2D>();
+            if (col != null)
+            {
+                col.enabled = false;
+            }
+            enabled = false;
+            player.Die();
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -163,5 +172,12 @@ public class PlayerController : MonoBehaviour
     public void GoIdle()
     {
         stateMachine.TransitionTo(stateMachine.idleState);
+    }
+
+    IEnumerator Revive()
+    {
+        ReviveEffect.SetActive(true);
+        yield return new WaitForSeconds(0.25f);
+        ReviveEffect.SetActive(false);
     }
 }

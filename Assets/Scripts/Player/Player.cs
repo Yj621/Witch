@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.SocialPlatforms;
 
@@ -12,6 +13,7 @@ public class Player
 
     public float playerSpeed; 
     public float dashSpeed;
+
     public int Level
     {
         get { return level; }
@@ -71,6 +73,11 @@ public class Player
     {
         UIManager.Instance.GameOverPanelOpen();
         Time.timeScale = 0;
+    }
+
+    public void Revive()
+    {
+        hp = maxHp;
     }
 
     public void Heal(int percent)

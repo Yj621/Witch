@@ -17,8 +17,8 @@ public class IcePillar : SkillEffect
             else
             {
                 Debug.Log($"IcePillar: Freeze 호출 on {enemy.gameObject.name}");
-                enemy.EnemyHurt(skillData.damage);
                 enemy.Freeze(5f);
+                enemy.EnemyHurt(skillData.damage);
             }
         }
         yield return new WaitForSeconds(skillData.lifetime);

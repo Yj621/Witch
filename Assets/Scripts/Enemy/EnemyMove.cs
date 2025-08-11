@@ -107,11 +107,19 @@ public class EnemyMove : MonoBehaviour
     private IEnumerator FreezeCoroutine(float duration)
     {
         isFrozen = true;
+        if (ani != null)
+        {
+            ani.speed = 0f; // 애니메이터 정지
+        }
         //ani.SetBool("IsFrozen", true);       // Animator에 얼음 애니메이션이 있는 경우
-        
+
         yield return new WaitForSeconds(duration);
 
         isFrozen = false;
+        if (ani != null)
+        {
+            ani.speed = 1f; // 애니메이터 재생
+        }
         //ani.SetBool("IsFrozen", false);      // 얼음 풀리는 애니메이션
         freezeRoutine = null;
     }
@@ -227,7 +235,6 @@ public class EnemyMove : MonoBehaviour
 
             elapsed += Time.deltaTime;
             yield return null;
-            currentPattern = null;
         }
         // 공격 직전엔 끝 알파가 1(완전 불투명)
         warningLine.colorGradient = MakeRedAlphaGradient(0f, 1f);
@@ -245,6 +252,7 @@ public class EnemyMove : MonoBehaviour
 
         warningLine.positionCount = 0;
         isPattern = false;
+        currentPattern = null;
     }
     Gradient MakeRedAlphaGradient(float startAlpha, float endAlpha)
     {

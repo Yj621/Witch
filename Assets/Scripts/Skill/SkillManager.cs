@@ -187,30 +187,51 @@ public class SkillManager : MonoBehaviour
             Debug.LogWarning($"스킬 '{skillName}'이(가) 존재하지 않습니다.");
             return;
         }
+
         Action invokeAction = () => InvokeSkill(skillName);
 
-        //자동 스킬은 다른 슬롯에 배치
         if (isAuto)
         {
-            autoskillSlots.Add((skillName, invokeAction));
+            // 중복 방지
+            if (autoskillSlots.Any(s => s.skillName == skillName))
+            {
+                Debug.Log($"이미 등록된 자동 스킬: {skillName}");
+            }
+            else
+            {
+                if (autoskillSlots.Count >= 3)
+                {
+                    Debug.LogWarning("자동 스킬 슬롯이 가득 찼습니다 (최대 3개).");
+                }
+                else
+                {
+                    autoskillSlots.Add((skillName, invokeAction));
+                }
+            }
+
+            // 아이콘 즉시 갱신
+            UIManager.Instance.UpdateSkillIcons();
+
+            // 자동 발사 코루틴 시작
+            PlayerSkill.Instance.StartAutoSkill(skillName);
         }
         else
         {
-            // 빈 슬롯(Q -> E) 찾기
             foreach (var key in new[] { KeyCode.Q, KeyCode.E })
             {
                 if (skillSlots[key] == null)
                 {
                     skillSlots[key] = invokeAction;
                     skillSlotNames[key] = skillName;
-
+                    UIManager.Instance.UpdateSkillIcons();
                     return;
                 }
             }
             Debug.LogWarning("빈 스킬 슬롯이 없습니다.");
         }
 
-        if (skillName == "FireSlashs") 
+        // 업그레이드 비활성 플래그들 유지
+        if (skillName == "FireSlashs")
             UpgradeManager.Instance.data.SetDisabled(UpgradeType.FSSkillLearn, true);
         else if (skillName == "Thunder")
             UpgradeManager.Instance.data.SetDisabled(UpgradeType.TDSkillLearn, true);

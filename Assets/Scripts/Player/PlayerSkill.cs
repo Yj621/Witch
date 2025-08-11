@@ -35,16 +35,32 @@ public class PlayerSkill : MonoBehaviour
         skillManager = SkillManager.Instance;
         playerInput = PlayerInput.Instance;
 
-        // 기본 스킬 자동 발사
         StartCoroutine(AutoFireDefaultSkill());
-        // 자동 스킬 타이머 초기화
-        foreach (var auto in skillManager.GetAutoSkills())
-            skillCooldownTimers[auto.skillName] = 0f;
-
-        // 자동 스킬 발사 코루틴
-        StartCoroutine(AutoAddSkills());
     }
+    public void StartAutoSkill(string skillName)
+    {
+        StartCoroutine(RunSingleAutoSkill(skillName));
+    }
+    private IEnumerator RunSingleAutoSkill(string skillName)
+    {
+        while (true)
+        {
+            // 가장 최신 스킬 데이터를 가져옵니다.
+            var data = skillManager.GetRuntimeSkillData(skillName);
+            if (data == null)
+            {
+                Debug.LogError($"자동 스킬 데이터를 찾을 수 없습니다: {skillName}");
+                yield break; // 코루틴 종료
+            }
 
+            // 스킬 사용
+            AddSkill(skillName);
+            UIManager.Instance.StartCooldownUI(skillName, data.cooltime);
+
+            // 최신 데이터에 있는 쿨타임만큼 대기
+            yield return new WaitForSeconds(data.cooltime);
+        }
+    }
 
     // 기본 스킬 자동 발사
     private IEnumerator AutoFireDefaultSkill()
@@ -90,7 +106,7 @@ public class PlayerSkill : MonoBehaviour
     }
 
 
-    private IEnumerator AutoAddSkills()
+  /*  private IEnumerator AutoAddSkills()
     {
         while (true)
         {
@@ -112,7 +128,7 @@ public class PlayerSkill : MonoBehaviour
             }
             yield return new WaitForSeconds(0.1f);
         }
-    }
+    }*/
 
     // 추가 스킬 발사
     public void AddSkill(string skillName)

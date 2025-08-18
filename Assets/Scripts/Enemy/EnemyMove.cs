@@ -6,7 +6,8 @@ using static MonsterPool;
 public class EnemyMove : MonoBehaviour
 {
     public Transform target;
-    public float moveSpeed = 2f;
+    public float moveSpeed = 0.4f;
+    private float originalSpeed; // Inspector 값 저장
     SpriteRenderer spriteRenderer;
     public float MaxHp = 20f;
     private float CurrentHp = 20f;
@@ -43,11 +44,12 @@ public class EnemyMove : MonoBehaviour
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
         ani = GetComponent<Animator>();
+        originalSpeed = moveSpeed;
     }
     void Update()
     {
-        if (isDie) return;
-        if (isFrozen) return;
+        if (isDie) return; 
+        if (isFrozen)return;
 
         EnemyMovement();
         EnemyPattern();
@@ -91,37 +93,58 @@ public class EnemyMove : MonoBehaviour
 
     public void Freeze(float duration)
     {
+        isFrozen = true;
+
+        var rb = GetComponent<Rigidbody2D>();
+        if (rb != null)
+        {
+            rb.linearVelocity = Vector2.zero;
+            rb.angularVelocity = 0f;
+            rb.simulated = false;
+        }
+
+        spriteRenderer.color = Color.cyan;
+        moveSpeed = 0f;
+
         if (freezeRoutine != null) StopCoroutine(freezeRoutine);
         freezeRoutine = StartCoroutine(FreezeCoroutine(duration));
-
-        // 진행 중 패턴이 있으면 중단
-        if (currentPattern != null)
-        {
-            StopCoroutine(currentPattern);
-            currentPattern = null;
-            isPattern = false;
-        }
     }
 
-    // 실제 얼음 상태를 관리하는 코루틴
     private IEnumerator FreezeCoroutine(float duration)
     {
-        isFrozen = true;
-        if (ani != null)
-        {
-            ani.speed = 0f; // 애니메이터 정지
-        }
-        //ani.SetBool("IsFrozen", true);       // Animator에 얼음 애니메이션이 있는 경우
-
         yield return new WaitForSeconds(duration);
 
+        var rb = GetComponent<Rigidbody2D>();
+        if (rb != null) rb.simulated = true;
+
         isFrozen = false;
-        if (ani != null)
-        {
-            ani.speed = 1f; // 애니메이터 재생
-        }
-        //ani.SetBool("IsFrozen", false);      // 얼음 풀리는 애니메이션
+        if (ani != null) ani.speed = 1f;
+
+        // Inspector에서 세팅해둔 원래 속도로 복구
+        moveSpeed = originalSpeed;
+
         freezeRoutine = null;
+    }
+    // Frozen 중에는 Hurt 애니메이션 트리거 금지
+    public void EnemyHurt(float Damage)
+    {
+        CurrentHp -= Damage;
+
+        DamageManager.Instance.Show(Damage, transform.position + Vector3.up * 0.5f);
+
+        if (CurrentHp <= 0)
+        {
+            Die();
+        }
+        else
+        {
+            // 얼어있는 동안엔 Hurt 애니메이션을 실행하지 않음
+            if (!isFrozen && ani != null)
+            {
+                ani.SetTrigger("Hurt");
+            }
+        }
+    
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -133,25 +156,7 @@ public class EnemyMove : MonoBehaviour
             QESkill.Instance.Attack(gameObject.GetComponent<Collider2D>());
         }
     }
-    public void EnemyHurt(float Damage)
-    {
-        CurrentHp -= Damage;
 
-        // 데미지 텍스트 띄우기
-        DamageManager.Instance.Show(
-            Damage,
-            transform.position + Vector3.up * 0.5f  // 살짝 위쪽으로 띄우기
-        );
-
-        if (CurrentHp <= 0)
-        {
-            Die();
-        }
-        else
-        {
-            ani.SetTrigger("Hurt");
-        }
-    }
 
 
     void Die()
@@ -196,7 +201,7 @@ public class EnemyMove : MonoBehaviour
     {
         isPattern = true;
 
-        float originalSpeed = moveSpeed;
+        originalSpeed = moveSpeed;
         moveSpeed = 0f; // 정지
         yield return new WaitForSeconds(1f);
 

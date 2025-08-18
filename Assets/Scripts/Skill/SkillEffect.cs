@@ -11,7 +11,7 @@ public abstract class SkillEffect : MonoBehaviour, ISkill
     // 디폴트 타겟 태그
     protected virtual string TargetTag => "Enemy";
     // 디폴트 레이어 마스크
-    protected virtual string TargetLayer => "Monster";
+    public string TargetLayer = "Monster";
     // 기즈모 색상
     protected abstract Color GizmoColor { get; }
     // 원본 데이터

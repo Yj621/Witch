@@ -2,42 +2,61 @@ using UnityEngine;
 
 public class Exp : MonoBehaviour
 {
-    // 자석의 세기
+    [Header("자석 이동 속도")]
     public float magnetStrength = 5f;
-    // 거리 보정 계수
     public float distanceStrength = 10f;
-    // 자석 필드에서 벗어났을 때도 힘을 유지할지 여부
+
+    [Header("자석 유지 여부")]
     public bool looseMagnet = true;
 
-    private Rigidbody2D thisRb;
+    [Header("획득 거리 (현재 사용 안 함)")]
+    [SerializeField] private float collectDistance = 0.2f;
+
     private Transform magnetTrans;
     private bool magnetInZone;
 
+    private bool canBeCollected = false;
+    private Collider2D col;
+
     private void Awake()
     {
-        thisRb = GetComponent<Rigidbody2D>();
+        col = GetComponent<Collider2D>();
     }
 
-    private void FixedUpdate()
+    private void Start()
+    {
+        // 생성 직후 바로 획득 방지
+        Invoke(nameof(EnableCollect), 0.2f);
+    }
+
+    private void EnableCollect()
+    {
+        canBeCollected = true;
+    }
+
+    private void Update()
     {
         if (!magnetInZone || magnetTrans == null)
             return;
 
-        // Rigidbody2D.position 사용
-        Vector2 from = thisRb.position;
+        // 자석 흡수 중에는 Collider 끔 (물리 비용 제거)
+        if (col.enabled)
+            col.enabled = false;
+
+        Vector2 from = transform.position;
         Vector2 to = magnetTrans.position;
         Vector2 dir = to - from;
         float dist = dir.magnitude;
 
-        if (dist <= 0.01f)
-            return;
-
-        float forceMag = (distanceStrength / dist) * magnetStrength;
-        thisRb.AddForce(dir.normalized * forceMag, ForceMode2D.Force);
+        float speed = (distanceStrength / dist) * magnetStrength;
+        transform.position = Vector2.MoveTowards(from, to, speed * Time.deltaTime);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        if (!canBeCollected)
+            return;
+
         if (collision.CompareTag("Magnet"))
         {
             magnetTrans = collision.transform;
@@ -51,22 +70,13 @@ public class Exp : MonoBehaviour
             ClearMagnet();
     }
 
-    /// <summary>
-    /// PlayerController 등에서 수동 호출할 경우
-    /// </summary>
-    public void SetMagnet(Transform magnet)
-    {
-        magnetTrans = magnet;
-        magnetInZone = true;
-    }
-
-    /// <summary>
-    /// 자석 효과 해제
-    /// </summary>
     public void ClearMagnet()
     {
         magnetInZone = false;
         magnetTrans = null;
-        thisRb.linearVelocity = Vector2.zero;
+
+        // 다시 Collider 켜주기
+        if (col != null)
+            col.enabled = true;
     }
 }

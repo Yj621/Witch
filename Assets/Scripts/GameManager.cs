@@ -44,19 +44,20 @@ public class GameManager : MonoBehaviour
 
     public void Start()
     {
-        UpgradeManager.Instance.LevelUpByShop(UpgradeType.IPSkillDamage, PlayerPrefs.GetInt("IceUp"));
-        UpgradeManager.Instance.LevelUpByShop(UpgradeType.IFSkillDamage, PlayerPrefs.GetInt("InfUp"));
-        UpgradeManager.Instance.LevelUpByShop(UpgradeType.BHSkillDamage, PlayerPrefs.GetInt("BlackUp"));
-        UpgradeManager.Instance.LevelUpByShop(UpgradeType.FSSkillDamage, PlayerPrefs.GetInt("FSDmg"));
-        UpgradeManager.Instance.LevelUpByShop(UpgradeType.TDSkillDamage, PlayerPrefs.GetInt("TDDmg"));
-        UpgradeManager.Instance.LevelUpByShop(UpgradeType.FSSkillCooldown, PlayerPrefs.GetInt("FSCool"));
-        UpgradeManager.Instance.LevelUpByShop(UpgradeType.TDSkillCooldown, PlayerPrefs.GetInt("TDCool"));
-        UpgradeManager.Instance.LevelUpByShop(UpgradeType.DashSpeed, PlayerPrefs.GetInt("DashSpeed"));
-        UpgradeManager.Instance.LevelUpByShop(UpgradeType.DashCooldown, PlayerPrefs.GetInt("DashCool"));
-        UpgradeManager.Instance.LevelUpByShop(UpgradeType.ExpIncrease, PlayerPrefs.GetInt("ExpUp"));
-        UpgradeManager.Instance.LevelUpByShop(UpgradeType.MaxHPIncrease, PlayerPrefs.GetInt("HpUp"));
-        UpgradeManager.Instance.LevelUpByShop(UpgradeType.CharacterMoveSpeed, PlayerPrefs.GetInt("MoveSpeedUp"));
+        UpgradeManager.Instance.SetLevel(UpgradeType.IPSkillDamage, PlayerPrefs.GetInt("IceUp", 1));
+        UpgradeManager.Instance.SetLevel(UpgradeType.IFSkillDamage, PlayerPrefs.GetInt("InfUp", 1));
+        UpgradeManager.Instance.SetLevel(UpgradeType.BHSkillDamage, PlayerPrefs.GetInt("BlackUp", 1));
+        UpgradeManager.Instance.SetLevel(UpgradeType.FSSkillDamage, PlayerPrefs.GetInt("FSDmg", 1));
+        UpgradeManager.Instance.SetLevel(UpgradeType.TDSkillDamage, PlayerPrefs.GetInt("TDDmg", 1));
+        UpgradeManager.Instance.SetLevel(UpgradeType.FSSkillCooldown, PlayerPrefs.GetInt("FSCool", 1));
+        UpgradeManager.Instance.SetLevel(UpgradeType.TDSkillCooldown, PlayerPrefs.GetInt("TDCool", 1));
+        UpgradeManager.Instance.SetLevel(UpgradeType.DashSpeed, PlayerPrefs.GetInt("DashSpeed", 1));
+        UpgradeManager.Instance.SetLevel(UpgradeType.DashCooldown, PlayerPrefs.GetInt("DashCool", 1));
+        UpgradeManager.Instance.SetLevel(UpgradeType.ExpIncrease, PlayerPrefs.GetInt("ExpUp", 1));
+        UpgradeManager.Instance.SetLevel(UpgradeType.MaxHPIncrease, PlayerPrefs.GetInt("HpUp", 1));
+        UpgradeManager.Instance.SetLevel(UpgradeType.CharacterMoveSpeed, PlayerPrefs.GetInt("MoveSpeedUp", 1));
     }
+
 
     private void Update()
     {

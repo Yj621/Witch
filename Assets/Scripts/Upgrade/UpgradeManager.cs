@@ -50,5 +50,10 @@ public class UpgradeManager : MonoBehaviour
             }
         }
     }
+
+    public void SetLevel(UpgradeType type, int level)
+    {
+        levels[type] = Mathf.Clamp(level, 1, maxLevels[type]);
+    }
 }
 

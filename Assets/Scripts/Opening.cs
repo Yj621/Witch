@@ -229,7 +229,19 @@ public class Opening : MonoBehaviour
 
     void StartGame()
     {
-        SceneManager.LoadScene("StoryScene");
+        // 튜토리얼을 완료했는지 확인합니다. (완료했다면 값은 1, 아니면 0)
+        int storyDone = PlayerPrefs.GetInt("StoryDone", 0);
+
+        if (storyDone == 1)
+        {
+            // 튜토리얼을 완료했다면 바로 "MapScene"으로 이동합니다.
+            SceneManager.LoadScene("MapScene");
+        }
+        else
+        {
+            // 튜토리얼을 아직 안 했다면 "StoryScene"으로 이동합니다.
+            SceneManager.LoadScene("StoryScene");
+        }
     }
 
     void OpenOptionPanel()

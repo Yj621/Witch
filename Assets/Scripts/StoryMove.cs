@@ -46,7 +46,14 @@ public class StoryMove : MonoBehaviour
         }
 
         player.transform.position = targetPos;
-        
+
+
+        // "StoryDone" 키의 값을 1로 설정하여 스토리 완료를 기록
+        Debug.Log("스토리가 종료되어 StoryDone 값을 1로 저장합니다.");
+        PlayerPrefs.SetInt("StoryDone", 1);
+        PlayerPrefs.Save(); // 변경사항을 즉시 저장
+
+        // 다음 씬(실제 플레이 씬)으로 이동
         SceneManager.LoadScene("MapScene");
     }
 }

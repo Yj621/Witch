@@ -28,12 +28,12 @@ public abstract class SkillEffect : MonoBehaviour, ISkill
 
     private void OnEnable()
     {
-        // 런타임 데이터 갱신
+        // SkillManager가 Dictionary에 캐싱해둔 복제본 데이터를 이름으로 찾아옴
         skillData = SkillManager.Instance.GetRuntimeSkillData(SkillName);
-        // 반경 기반 시각/충돌 크기 설정
+        // 가져온 데이터를 바탕으로 현재 스킬 오브젝트의 범위를 결정
         originalRadius = skillData.radius;
         UpdateRangeVisual();
-        // 메인 코루틴 실행
+        // 스킬 로직 시작
         StartCoroutine(SkillRoutineWrapper());
     }
 

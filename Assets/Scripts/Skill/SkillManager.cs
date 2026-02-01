@@ -81,6 +81,7 @@ public class SkillManager : MonoBehaviour
         // 데이터베이스에서 클론 떠서 각종 맵에 채우기
         foreach (var d in skillDatabase.allSkills)
         {
+            // ScriptableObject 원본 훼손 방지를 위해 Instantiate로 독립 인스턴스 생성
             var clone = Instantiate(d);
             clone.name = d.skillName;
 
@@ -272,6 +273,7 @@ public class SkillManager : MonoBehaviour
     /// </summary>
     public SkillData GetRuntimeSkillData(string skillName)
     {
+        // 이름으로 즉시 찾기
         if (runtimeSkillData.TryGetValue(skillName, out var data))
             return data;
 
@@ -379,9 +381,12 @@ public class SkillManager : MonoBehaviour
             Debug.LogWarning($"쿨타임 설정 대상 스킬이 없습니다: {skillName}");
     }
 
-    // 패시브/QE 스킬의 특정 스탯(데미지, 쿨타임, 범위) 강화 함수
+    /// <summary>
+    ///  패시브/QE 스킬의 특정 스탯(데미지, 쿨타임, 범위) 강화 함수
+    /// </summary>
     public void UpgradeSkillStat(string skillName, UpgradeStat stat, float amount)
     {
+        // 원본이 아닌 runtimeSkillData(복제본)에서 데이터를 가져옴
         if(!runtimeSkillData.TryGetValue(skillName, out var data))
         {
             Debug.LogWarning($"업그레이드 대상 스킬이 없음 : {skillName}");
@@ -391,6 +396,7 @@ public class SkillManager : MonoBehaviour
         // 업그레이드 전 값 저장
         float oldValue = stat switch
         {
+            //복제본의 수치만 실시간으로 수정
             UpgradeStat.Damage => data.damage,
             UpgradeStat.Cooltime => data.cooltime,
             UpgradeStat.Range => data.radius,
